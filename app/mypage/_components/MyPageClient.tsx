@@ -62,6 +62,7 @@ type AccountKind = "personal" | "company";
 type ApplicationStatus = "지원완료" | "열람됨" | "마감";
 type MyJobStatus = "게시중" | "심사중" | "반려" | "마감";
 type ProductStatus = "검수중" | "판매중" | "반려" | "비공개";
+type StoreProductRecord = (typeof products)[number] & { status?: ProductStatus };
 
 interface ApplicationRecord {
   id: string;
@@ -173,15 +174,15 @@ interface BannerState {
 }
 
 const MYPAGE_KEYS = {
-  profile: "shootmon:mypage:profile",
-  portfolio: "shootmon:mypage:portfolio",
+  profile: storageKeys.mypageProfile,
+  portfolio: storageKeys.mypagePortfolio,
   account: "shootmon:mypage:account",
   company: "shootmon:mypage:company",
-  jobs: "shootmon:mypage:jobs",
+  jobs: storageKeys.mypageJobs,
   jumpHistory: "shootmon:mypage:jump-history",
   contactLogs: "shootmon:mypage:contact-logs",
   banner: "shootmon:mypage:banner",
-  productStatuses: "shootmon:mypage:product-statuses",
+  productStatuses: storageKeys.mypageProductStatuses,
 };
 
 const currentPersonal = personalMembers[0];
@@ -195,6 +196,8 @@ const emptyProposals: ProposalRecord[] = [];
 const emptyJumpHistory: JumpHistory[] = [];
 const emptyContactLogs: ContactLog[] = [];
 const emptyProductStatuses: Record<string, ProductStatus> = {};
+const emptyStoreProducts: StoreProductRecord[] = [];
+const storePlaceholder = "/images/presets/placeholders/shootmon-placeholder-store-01.svg";
 
 const linkPrimaryClass =
   "inline-flex h-10 items-center justify-center rounded-md border border-primary bg-primary px-4 text-sm font-semibold text-white transition hover:bg-primary-dark";
@@ -416,6 +419,7 @@ export function MyPageClient({ page, searchJobId = null }: { page: MyPageKey; se
   const [contactLogs, setContactLogs] = useStoredState<ContactLog[]>(MYPAGE_KEYS.contactLogs, emptyContactLogs);
   const [bannerState, setBannerState] = useStoredState(MYPAGE_KEYS.banner, bannerFallback);
   const [productStatuses, setProductStatuses] = useStoredState<Record<string, ProductStatus>>(MYPAGE_KEYS.productStatuses, emptyProductStatuses);
+  const [storeProducts] = useStoredState<StoreProductRecord[]>(storageKeys.storeProducts, emptyStoreProducts);
   const [applications, setApplications] = useStoredState<ApplicationRecord[]>(storageKeys.applications, emptyApplications);
   const [payments] = useStoredState<PaymentRecord[]>(storageKeys.payments, emptyPayments);
   const [jobScraps, setJobScraps] = useStoredState<number[]>(storageKeys.jobScraps, emptyJobScraps);
@@ -447,7 +451,7 @@ export function MyPageClient({ page, searchJobId = null }: { page: MyPageKey; se
     applications: applications.length,
     scraps: jobScraps.length,
     proposals: proposals.filter((item) => item.profileId === currentProfile.id).length,
-    products: products.filter((product) => product.sellerName === currentProfile.maskedName).length,
+    products: [...products, ...storeProducts].filter((product) => product.sellerName === currentProfile.maskedName).length,
   };
   const newApplicants = applications.filter((item) => myJobs.some((job) => job.id === item.jobId) && item.status !== "열람됨").length;
   const companyStats = {
@@ -533,6 +537,7 @@ export function MyPageClient({ page, searchJobId = null }: { page: MyPageKey; se
           setContactLogs={setContactLogs}
           bannerState={bannerState}
           setBannerState={setBannerState}
+          storeProducts={storeProducts}
           productStatuses={productStatuses}
           setProductStatuses={setProductStatuses}
           applications={applications}
@@ -571,6 +576,7 @@ function PageBody(props: {
   setContactLogs: (next: ContactLog[] | ((current: ContactLog[]) => ContactLog[])) => void;
   bannerState: BannerState;
   setBannerState: (next: BannerState | ((current: BannerState) => BannerState)) => void;
+  storeProducts: StoreProductRecord[];
   productStatuses: Record<string, ProductStatus>;
   setProductStatuses: (next: Record<string, ProductStatus> | ((current: Record<string, ProductStatus>) => Record<string, ProductStatus>)) => void;
   applications: ApplicationRecord[];
@@ -592,7 +598,7 @@ function PageBody(props: {
   if (props.page === "portfolio") return <PortfolioPage {...props} />;
   if (props.page === "applications") return <ApplicationsPage applications={props.applications} />;
   if (props.page === "scraps") return props.kind === "personal" ? <JobScrapsPage jobScraps={props.jobScraps} setJobScraps={props.setJobScraps} /> : <ProfileScrapsPage profileScraps={props.profileScraps} setProfileScraps={props.setProfileScraps} />;
-  if (props.page === "products") return <ProductsPage kind={props.kind} productStatuses={props.productStatuses} setProductStatuses={props.setProductStatuses} />;
+  if (props.page === "products") return <ProductsPage kind={props.kind} storeProducts={props.storeProducts} productStatuses={props.productStatuses} setProductStatuses={props.setProductStatuses} />;
   if (props.page === "promotion") return <PromotionPage />;
   if (props.page === "payments") return <PaymentsPage payments={props.payments} kind={props.kind} />;
   if (props.page === "account") return <AccountPage accountState={props.accountState} setAccountState={props.setAccountState} kind={props.kind} />;
@@ -1133,9 +1139,23 @@ function ProfileScrapsPage({ profileScraps, setProfileScraps }: { profileScraps:
   );
 }
 
-function ProductsPage({ kind, productStatuses, setProductStatuses }: { kind: AccountKind; productStatuses: Record<string, ProductStatus>; setProductStatuses: (next: Record<string, ProductStatus> | ((current: Record<string, ProductStatus>) => Record<string, ProductStatus>)) => void }) {
+function safeStoreImage(image: string) {
+  return image.startsWith("/images/presets/store/") ? storePlaceholder : image || storePlaceholder;
+}
+
+function ProductsPage({
+  kind,
+  storeProducts,
+  productStatuses,
+  setProductStatuses,
+}: {
+  kind: AccountKind;
+  storeProducts: StoreProductRecord[];
+  productStatuses: Record<string, ProductStatus>;
+  setProductStatuses: (next: Record<string, ProductStatus> | ((current: Record<string, ProductStatus>) => Record<string, ProductStatus>)) => void;
+}) {
   const sellerName = kind === "personal" ? currentProfile.maskedName : currentCompany.companyName;
-  const ownProducts = products.filter((product) => product.sellerName === sellerName);
+  const ownProducts: StoreProductRecord[] = [...(products as unknown as StoreProductRecord[]), ...storeProducts].filter((product) => product.sellerName === sellerName);
 
   if (ownProducts.length === 0) {
     return (
@@ -1160,12 +1180,12 @@ function ProductsPage({ kind, productStatuses, setProductStatuses }: { kind: Acc
       </div>
       <div className="grid gap-3">
         {ownProducts.map((product) => {
-          const status = productStatusFor(product.id, productStatuses);
+          const status = productStatuses[String(product.id)] ?? product.status ?? productStatusFor(product.id, productStatuses);
           return (
             <SectionCard key={product.id}>
               <div className="grid gap-4 md:grid-cols-[140px_minmax(0,1fr)_auto] md:items-center">
                 <div className="relative aspect-video overflow-hidden rounded-md bg-page">
-                  <Image src={product.image} alt={product.name} fill sizes="140px" className="object-cover" />
+                  <Image src={safeStoreImage(product.image)} alt={product.name} fill sizes="140px" className="object-cover" />
                 </div>
                 <div className="min-w-0">
                   <div className="flex flex-wrap items-center gap-2">

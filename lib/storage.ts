@@ -7,6 +7,16 @@ export const storageKeys = {
   payments: "shootmon:payments",
   proposals: "shootmon:proposals",
   viewMode: "shootmon:view-mode",
+  mypageProfile: "shootmon:mypage:profile",
+  mypagePortfolio: "shootmon:mypage:portfolio",
+  mypageJobs: "shootmon:mypage:jobs",
+  mypageProductStatuses: "shootmon:mypage:product-statuses",
+  submittedJobs: "shootmon:submitted:jobs",
+  submittedProfiles: "shootmon:submitted:profiles",
+  storeProducts: "shootmon:store:products",
+  storeLikes: "shootmon:store:likes",
+  communityPosts: "shootmon:community:posts",
+  communityComments: "shootmon:community:comments",
 } as const;
 
 function canUseStorage() {
