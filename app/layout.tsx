@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import { AppShell } from "@/components/layout";
+import { ToastProvider } from "@/components/ui";
 import { AuthProvider } from "@/lib/auth-context";
 import "./globals.css";
 
 export const metadata: Metadata = {
   title: "촬영몬",
-  description: "촬영몬 Phase 0 foundation",
+  description: "촬영 의뢰자와 촬영자를 연결하는 촬영몬",
 };
 
 export default function RootLayout({
@@ -22,7 +24,11 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <AuthProvider>{children}</AuthProvider>
+        <AuthProvider>
+          <ToastProvider>
+            <AppShell>{children}</AppShell>
+          </ToastProvider>
+        </AuthProvider>
       </body>
     </html>
   );
