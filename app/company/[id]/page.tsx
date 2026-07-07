@@ -64,7 +64,7 @@ export default function CompanyPage({ params }: CompanyPageProps) {
         {company.activeJobs.length > 0 ? (
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {company.activeJobs.map((job) => (
-              <JobCard key={job.id} job={{ ...job, image: resolveImagePath(job.image) }} />
+              <JobCard key={job.id} job={job} />
             ))}
           </div>
         ) : (

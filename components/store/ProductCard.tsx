@@ -1,7 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
 import { Star } from "lucide-react";
-import { Badge } from "@/components/ui";
+import { Badge, SmartImage } from "@/components/ui";
 import { formatKrw } from "@/lib/format";
 import { StoreFavoriteButton } from "./StoreFavoriteButton";
 
@@ -17,19 +16,14 @@ export interface StoreProductCardData {
   image: string;
 }
 
-const storePlaceholder = "/images/presets/placeholders/shootmon-placeholder-store-01.svg";
-
-function safeStoreImage(image: string) {
-  return image.startsWith("/images/presets/store/") ? storePlaceholder : image || storePlaceholder;
-}
-
 export function ProductCard({ product }: { product: StoreProductCardData }) {
   return (
     <article className="group relative overflow-hidden rounded-md border border-line bg-surface shadow-card transition duration-150 hover:shadow-hover">
       <Link href={`/store/${product.id}`} className="block">
         <div className="relative aspect-[4/3] overflow-hidden bg-page">
-          <Image
-            src={safeStoreImage(product.image)}
+          <SmartImage
+            src={product.image}
+            fallback="store"
             alt={product.name}
             fill
             sizes="(max-width: 768px) 50vw, 25vw"

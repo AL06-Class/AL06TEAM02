@@ -1,25 +1,19 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { ArrowLeft, Flag, ShieldCheck } from "lucide-react";
 import { ReportModal } from "@/components/shared/ReportModal";
 import { StoreFavoriteButton } from "@/components/store";
-import { Badge, Button, EmptyState } from "@/components/ui";
+import { Badge, Button, EmptyState, SmartImage } from "@/components/ui";
 import { products } from "@/data/products";
 import { formatDate, formatKrw } from "@/lib/format";
 import { readStorageJSON, storageKeys } from "@/lib/storage";
 
 type Product = (typeof products)[number] & { status?: string };
 
-const storePlaceholder = "/images/presets/placeholders/shootmon-placeholder-store-01.svg";
 const commonRefund = "공통 환불 기준: 플랫폼 수수료와 이미 제공된 산출물 범위를 제외하고 판매자 규정에 따라 처리됩니다.";
 const staticProducts = products as unknown as Product[];
-
-function safeStoreImage(image: string) {
-  return image.startsWith("/images/presets/store/") ? storePlaceholder : image || storePlaceholder;
-}
 
 export function StoreDetailClient({ id }: { id: string }) {
   const [storedProducts, setStoredProducts] = useState<Product[]>([]);
@@ -49,7 +43,7 @@ export function StoreDetailClient({ id }: { id: string }) {
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_360px]">
         <div className="min-w-0 space-y-6">
           <div className="relative aspect-[4/3] overflow-hidden rounded-md border border-line bg-page">
-            <Image src={safeStoreImage(product.image)} alt={product.name} fill priority sizes="(max-width: 1024px) 100vw, 760px" className="object-cover" />
+            <SmartImage src={product.image} fallback="store" alt={product.name} fill priority sizes="(max-width: 1024px) 100vw, 760px" className="object-cover" />
           </div>
 
           <Section title="서비스 내용">

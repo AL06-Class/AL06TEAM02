@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { FormEvent, ReactNode, useCallback, useEffect, useMemo, useState } from "react";
@@ -30,7 +29,7 @@ import {
 import { JobRow } from "@/components/jobs/JobRow";
 import { ProfileCard } from "@/components/profiles/ProfileCard";
 import { ProposeModal } from "@/components/shared/ProposeModal";
-import { Badge, Button, EmptyState, FileUpload, Input, Modal, Select, Stepper, Table, Tabs, Textarea, Toggle, useToast } from "@/components/ui";
+import { Badge, Button, EmptyState, FileUpload, Input, Modal, Select, SmartImage, Stepper, Table, Tabs, Textarea, Toggle, useToast } from "@/components/ui";
 import { cn } from "@/components/ui/utils";
 import { companyMembers, personalMembers } from "@/data/members";
 import { jobs } from "@/data/jobs";
@@ -197,8 +196,6 @@ const emptyJumpHistory: JumpHistory[] = [];
 const emptyContactLogs: ContactLog[] = [];
 const emptyProductStatuses: Record<string, ProductStatus> = {};
 const emptyStoreProducts: StoreProductRecord[] = [];
-const storePlaceholder = "/images/presets/placeholders/shootmon-placeholder-store-01.svg";
-
 const linkPrimaryClass =
   "inline-flex h-10 items-center justify-center rounded-md border border-primary bg-primary px-4 text-sm font-semibold text-white transition hover:bg-primary-dark";
 const linkSecondaryClass =
@@ -468,7 +465,7 @@ export function MyPageClient({ page, searchJobId = null }: { page: MyPageKey; se
           <div className="text-center">
             <div className="relative mx-auto h-16 w-16 overflow-hidden rounded-full border border-line bg-page">
               {kind === "personal" ? (
-                <Image src={currentProfile.avatar} alt={currentProfile.maskedName} fill sizes="64px" className="object-cover" />
+                <SmartImage src={currentProfile.avatar} fallback="profile" alt={currentProfile.maskedName} fill sizes="64px" className="object-cover" />
               ) : (
                 <Building2 aria-hidden className="m-4 h-8 w-8 text-muted" />
               )}
@@ -629,7 +626,7 @@ function PersonalDashboard({ profileState, personalStats, applications, payments
         <SectionCard>
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
             <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-full border border-line bg-page">
-              <Image src={currentProfile.avatar} alt={currentProfile.maskedName} fill sizes="80px" className="object-cover" />
+              <SmartImage src={currentProfile.avatar} fallback="profile" alt={currentProfile.maskedName} fill sizes="80px" className="object-cover" />
             </div>
             <div className="min-w-0 flex-1">
               <div className="flex flex-wrap items-center gap-2">
@@ -823,7 +820,7 @@ function ProfilePage({ profileState, setProfileState }: { profileState: ProfileS
       <SectionCard>
         <div className="flex flex-col gap-5 lg:flex-row">
           <div className="relative aspect-video w-full overflow-hidden rounded-md bg-page lg:w-[280px]">
-            <Image src={currentProfile.cover} alt={currentProfile.title} fill sizes="280px" className="object-cover" />
+            <SmartImage src={currentProfile.cover} fallback="profile" alt={currentProfile.title} fill sizes="280px" className="object-cover" />
           </div>
           <div className="min-w-0 flex-1">
             <div className="flex flex-wrap items-center gap-2">
@@ -928,7 +925,7 @@ function PortfolioPage({ portfolioState, setPortfolioState }: { portfolioState: 
             {portfolioState.images.map((item, index) => (
               <div key={item.id} className="rounded-md border border-line bg-page p-2">
                 <div className="relative aspect-video overflow-hidden rounded-sm bg-surface">
-                  <Image src={item.src} alt="포트폴리오 이미지" fill sizes="260px" className="object-cover" />
+                  <SmartImage src={item.src} fallback="profile" alt="포트폴리오 이미지" fill sizes="260px" className="object-cover" />
                 </div>
                 <div className="mt-2 flex flex-wrap items-center justify-between gap-2">
                   <label className="flex items-center gap-2 text-sm font-semibold text-ink">
@@ -1139,10 +1136,6 @@ function ProfileScrapsPage({ profileScraps, setProfileScraps }: { profileScraps:
   );
 }
 
-function safeStoreImage(image: string) {
-  return image.startsWith("/images/presets/store/") ? storePlaceholder : image || storePlaceholder;
-}
-
 function ProductsPage({
   kind,
   storeProducts,
@@ -1185,7 +1178,7 @@ function ProductsPage({
             <SectionCard key={product.id}>
               <div className="grid gap-4 md:grid-cols-[140px_minmax(0,1fr)_auto] md:items-center">
                 <div className="relative aspect-video overflow-hidden rounded-md bg-page">
-                  <Image src={safeStoreImage(product.image)} alt={product.name} fill sizes="140px" className="object-cover" />
+                  <SmartImage src={product.image} fallback="store" alt={product.name} fill sizes="140px" className="object-cover" />
                 </div>
                 <div className="min-w-0">
                   <div className="flex flex-wrap items-center gap-2">

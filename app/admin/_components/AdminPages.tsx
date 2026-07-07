@@ -1,10 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { ReactNode, useEffect, useState } from "react";
 import { ArrowRight, CheckCircle2, ClipboardCheck, ExternalLink, FileText, ShieldAlert } from "lucide-react";
-import { Badge, Button, Checkbox, EmptyState, Input, Select, Table, Textarea, useToast } from "@/components/ui";
+import { Badge, Button, Checkbox, EmptyState, Input, Select, SmartImage, Table, Textarea, useToast } from "@/components/ui";
 import { cn } from "@/components/ui/utils";
 import { companyMembers, personalMembers } from "@/data/members";
 import { jobs as jobSamples } from "@/data/jobs";
@@ -613,7 +612,7 @@ export function AdminProfilesPage() {
               <div className="mt-3 grid grid-cols-3 gap-2">
                 {selected.portfolioImages.slice(0, 6).map((src, index) => (
                   <div key={`${src}-${index}`} className="relative aspect-[4/3] overflow-hidden rounded-sm bg-page">
-                    <Image src={src || profilePlaceholder} alt="포트폴리오 썸네일" fill sizes="140px" className="object-cover" />
+                    <SmartImage src={src || profilePlaceholder} fallback="profile" alt="포트폴리오 썸네일" fill sizes="140px" className="object-cover" />
                   </div>
                 ))}
               </div>

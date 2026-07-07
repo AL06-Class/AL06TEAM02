@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Play } from "lucide-react";
 import { ContactLockBox, ProfileReportButton, ProfileScrapButton } from "@/components/profiles";
-import { Badge, BadgeList } from "@/components/ui";
+import { Badge, BadgeList, SmartImage } from "@/components/ui";
 import { profiles } from "@/data/profiles";
 import { resolveImagePath } from "@/lib/images";
 
@@ -55,8 +54,8 @@ export default function ProfileDetailPage({ params }: ProfileDetailProps) {
 
   return (
     <article className="space-y-6">
-      <div className="relative aspect-[4/3] overflow-hidden rounded-md border border-line bg-page lg:aspect-video">
-        <Image src={resolveImagePath(profile.cover, "profile")} alt={profile.title} fill priority sizes="100vw" className="object-cover" />
+      <div className="relative aspect-[4/3] max-h-[340px] overflow-hidden rounded-md border border-line bg-page lg:aspect-video">
+        <SmartImage src={profile.cover} fallback="profile" alt={profile.title} fill priority sizes="100vw" className="object-cover" fallbackClassName="p-8 md:p-10" />
       </div>
 
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px]">
@@ -64,7 +63,7 @@ export default function ProfileDetailPage({ params }: ProfileDetailProps) {
           <section className="space-y-4">
             <div className="flex flex-wrap items-start gap-4">
               <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-full border-4 border-surface bg-page shadow-card">
-                <Image src={resolveImagePath(profile.avatar, "profile")} alt={profile.maskedName} fill sizes="80px" className="object-cover" />
+                <SmartImage src={profile.avatar} fallback="profile" alt={profile.maskedName} fill sizes="80px" className="object-cover" />
               </div>
               <div className="min-w-0 flex-1">
                 <div className="mb-2 flex flex-wrap gap-1.5">
@@ -126,7 +125,7 @@ export default function ProfileDetailPage({ params }: ProfileDetailProps) {
             <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
               {profile.portfolioImages.map((image, index) => (
                 <div key={image} className="relative aspect-[4/3] overflow-hidden rounded-md border border-line bg-page">
-                  <Image src={resolveImagePath(image, "profile")} alt={`${profile.title} 포트폴리오 ${index + 1}`} fill sizes="33vw" className="object-cover" />
+                  <SmartImage src={image} fallback="profile" alt={`${profile.title} 포트폴리오 ${index + 1}`} fill sizes="33vw" className="object-cover" />
                 </div>
               ))}
             </div>

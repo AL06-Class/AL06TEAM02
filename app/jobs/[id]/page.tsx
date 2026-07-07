@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Building2, MapPin } from "lucide-react";
 import { JobApplyButton, JobPrintButton, JobReportButton, JobScrapButton, formatJobDeadline } from "@/components/jobs";
 import { StickyActionBar } from "@/components/layout";
-import { Badge, BadgeList } from "@/components/ui";
+import { Badge, BadgeList, SmartImage } from "@/components/ui";
 import { jobs } from "@/data/jobs";
 import { companyIdForJob } from "@/lib/companies";
 import { resolveImagePath } from "@/lib/images";
@@ -77,7 +76,7 @@ export default function JobDetailPage({ params }: JobDetailProps) {
           </div>
 
           <div className="relative aspect-video overflow-hidden rounded-md border border-line bg-page">
-            <Image src={resolveImagePath(job.image)} alt={job.title} fill priority sizes="(max-width: 1024px) 100vw, 820px" className="object-cover" />
+            <SmartImage src={job.image} fallback="default" alt={job.title} fill priority sizes="(max-width: 1024px) 100vw, 820px" className="object-cover" />
           </div>
 
           <section className="space-y-3">

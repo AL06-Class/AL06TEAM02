@@ -1,14 +1,12 @@
-import Image from "next/image";
 import Link from "next/link";
 import { JobCard, JobRow } from "@/components/jobs";
 import { ProfileCard } from "@/components/profiles";
-import { Badge, Chip, EmptyState, Tabs } from "@/components/ui";
+import { Badge, Chip, EmptyState, SmartImage, Tabs } from "@/components/ui";
 import { jobs } from "@/data/jobs";
 import { posts } from "@/data/posts";
 import { products } from "@/data/products";
 import { profiles } from "@/data/profiles";
 import { filterJobPostings, filterShooterProfiles } from "@/lib/filters";
-import { resolveImagePath } from "@/lib/images";
 
 interface SearchPageProps {
   searchParams?: Record<string, string | string[] | undefined>;
@@ -55,7 +53,7 @@ function StoreResults({ items }: { items: typeof products }) {
       {items.map((product) => (
         <Link key={product.id} href={`/store/${product.id}`} className="overflow-hidden rounded-md border border-line bg-surface shadow-card transition hover:shadow-hover">
           <div className="relative aspect-[4/3] bg-page">
-            <Image src={resolveImagePath(product.image, "store")} alt={product.name} fill sizes="33vw" className="object-cover" />
+            <SmartImage src={product.image} fallback="store" alt={product.name} fill sizes="33vw" className="object-cover" />
           </div>
           <div className="space-y-1 p-3">
             <p className="line-clamp-2 text-sm font-bold text-ink">{product.name}</p>

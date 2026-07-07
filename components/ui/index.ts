@@ -12,10 +12,10 @@ export * from "./Pagination";
 export * from "./Radio";
 export * from "./Select";
 export * from "./Skeleton";
+export * from "./SmartImage";
 export * from "./Stepper";
 export * from "./Table";
 export * from "./Tabs";
 export * from "./Textarea";
 export * from "./Toast";
 export * from "./Toggle";
-

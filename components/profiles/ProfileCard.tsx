@@ -1,6 +1,5 @@
-import Image from "next/image";
 import Link from "next/link";
-import { Badge, BadgeList } from "@/components/ui";
+import { Badge, BadgeList, SmartImage } from "@/components/ui";
 import { cn } from "@/components/ui/utils";
 
 export interface ProfileCardData {
@@ -27,8 +26,6 @@ interface ProfileCardProps {
 
 export function ProfileCard({ profile, compact = false }: ProfileCardProps) {
   const age = profile.birthYear ? `${new Date().getFullYear() - profile.birthYear}세` : "팀";
-  const cover = profile.cover || "/images/presets/placeholders/shootmon-placeholder-profile-01.svg";
-  const avatar = profile.avatar || "/images/presets/placeholders/shootmon-placeholder-profile-01.svg";
 
   return (
     <Link
@@ -36,8 +33,9 @@ export function ProfileCard({ profile, compact = false }: ProfileCardProps) {
       className="group block overflow-hidden rounded-md border border-line bg-surface shadow-card transition duration-150 hover:shadow-hover"
     >
       <div className="relative aspect-[4/3] overflow-hidden bg-page">
-        <Image
-          src={cover}
+        <SmartImage
+          src={profile.cover}
+          fallback="profile"
           alt={`${profile.maskedName} ${profile.title}`}
           fill
           sizes="(max-width: 768px) 50vw, 33vw"
@@ -48,7 +46,7 @@ export function ProfileCard({ profile, compact = false }: ProfileCardProps) {
       <div className={cn("p-3", compact ? "space-y-1.5" : "space-y-2")}>
         <div className="flex items-center gap-2">
           <div className="relative h-9 w-9 shrink-0 overflow-hidden rounded-full border-2 border-surface bg-page shadow-card">
-            <Image src={avatar} alt={profile.maskedName} fill sizes="36px" className="object-cover" />
+            <SmartImage src={profile.avatar} fallback="profile" alt={profile.maskedName} fill sizes="36px" className="object-cover" />
           </div>
           <div className="min-w-0">
             <p className="truncate text-sm font-bold text-ink">{profile.maskedName}</p>
