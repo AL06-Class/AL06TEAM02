@@ -19,14 +19,14 @@ interface TabsProps {
 }
 
 export function Tabs({ items, value, onChange, variant = "line", ariaLabel = "íƒ­", className }: TabsProps) {
-  return (
+  const tabs = (
     <div
       role="tablist"
       aria-label={ariaLabel}
       className={cn(
         "flex border-b border-line",
         variant === "scroll" && "no-scrollbar -mx-4 overflow-x-auto px-4",
-        className,
+        variant === "line" && className,
       )}
     >
       {items.map((item) => {
@@ -63,5 +63,16 @@ export function Tabs({ items, value, onChange, variant = "line", ariaLabel = "íƒ
       })}
     </div>
   );
-}
 
+  if (variant === "scroll") {
+    return (
+      <div className={cn("relative", className)}>
+        {tabs}
+        <span aria-hidden className="pointer-events-none absolute bottom-px left-0 top-0 w-6 bg-gradient-to-r from-surface to-transparent" />
+        <span aria-hidden className="pointer-events-none absolute bottom-px right-0 top-0 w-6 bg-gradient-to-l from-surface to-transparent" />
+      </div>
+    );
+  }
+
+  return tabs;
+}

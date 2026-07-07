@@ -24,6 +24,11 @@ export function ReportModal({ open, onClose }: ReportModalProps) {
   const [detail, setDetail] = useState("");
   const [error, setError] = useState("");
 
+  function selectReason(nextReason: string) {
+    setReason(nextReason);
+    setError("");
+  }
+
   function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (reason === "기타" && !detail.trim()) {
@@ -46,20 +51,22 @@ export function ReportModal({ open, onClose }: ReportModalProps) {
               value={item}
               label={item}
               checked={reason === item}
-              onChange={() => setReason(item)}
+              onChange={() => selectReason(item)}
             />
           ))}
         </div>
-        <div className="mt-4">
-          <Textarea
-            label="상세 내용"
-            requiredMark={reason === "기타"}
-            value={detail}
-            onChange={(event) => setDetail(event.target.value)}
-            error={error}
-            placeholder="신고 내용을 입력해 주세요."
-          />
-        </div>
+        {reason === "기타" ? (
+          <div className="mt-4">
+            <Textarea
+              label="상세 내용"
+              requiredMark
+              value={detail}
+              onChange={(event) => setDetail(event.target.value)}
+              error={error}
+              placeholder="신고 내용을 입력해 주세요."
+            />
+          </div>
+        ) : null}
         <div className="mt-5 flex justify-end gap-2">
           <Button variant="secondary" onClick={onClose}>
             취소
@@ -72,4 +79,3 @@ export function ReportModal({ open, onClose }: ReportModalProps) {
     </Modal>
   );
 }
-

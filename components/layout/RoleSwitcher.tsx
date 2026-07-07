@@ -18,6 +18,7 @@ export function RoleSwitcher() {
   const { role, mockState, setRole, setMockState } = useAuth();
   const [collapsed, setCollapsed] = useState(false);
 
+  // 데모 전용 위젯: 실서비스 전 제거 대상.
   return (
     <section className="fixed bottom-5 left-5 z-toast max-w-[300px] rounded-md border border-line bg-white/95 p-3 shadow-modal backdrop-blur">
       <button
@@ -67,4 +68,3 @@ export function RoleSwitcher() {
     </section>
   );
 }
-

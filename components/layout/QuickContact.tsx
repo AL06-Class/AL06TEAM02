@@ -1,14 +1,28 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { MessageCircle, X } from "lucide-react";
 import { Button } from "@/components/ui";
+import { cn } from "@/components/ui/utils";
 
 export function QuickContact() {
   const [open, setOpen] = useState(false);
+  const [footerVisible, setFooterVisible] = useState(false);
+
+  useEffect(() => {
+    const footer = document.querySelector("footer");
+    if (!footer) return;
+
+    const observer = new IntersectionObserver(([entry]) => {
+      setFooterVisible(entry.isIntersecting);
+    });
+
+    observer.observe(footer);
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <div className="fixed bottom-6 right-6 z-sticky hidden lg:block">
+    <div className={cn("fixed right-6 z-sticky hidden transition-[bottom] lg:block", footerVisible ? "bottom-28" : "bottom-6")}>
       {open ? (
         <div className="mb-3 w-64 rounded-md border border-line bg-surface p-4 shadow-modal">
           <div className="flex items-center justify-between">
@@ -44,4 +58,3 @@ export function QuickContact() {
     </div>
   );
 }
-

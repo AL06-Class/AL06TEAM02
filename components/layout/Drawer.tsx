@@ -55,21 +55,53 @@ const drawerMenu: DrawerMenuItem[] = [
   { label: "고객센터", href: "/support" },
 ];
 
+const focusableSelector = [
+  "a[href]",
+  "button:not([disabled])",
+  "textarea:not([disabled])",
+  "input:not([disabled])",
+  "select:not([disabled])",
+  "[tabindex]:not([tabindex='-1'])",
+].join(",");
+
 export function Drawer({ open, onClose }: DrawerProps) {
   const { role } = useAuth();
+  const panelRef = useRef<HTMLElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     if (!open) return;
+    const previousFocus = document.activeElement as HTMLElement | null;
     closeButtonRef.current?.focus();
     function onKeyDown(event: KeyboardEvent) {
-      if (event.key === "Escape") onClose();
+      if (event.key === "Escape") {
+        onClose();
+        return;
+      }
+
+      if (event.key !== "Tab") return;
+
+      const panel = panelRef.current;
+      const focusable = panel ? Array.from(panel.querySelectorAll<HTMLElement>(focusableSelector)) : [];
+      if (focusable.length === 0) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
     }
     document.addEventListener("keydown", onKeyDown);
     document.body.style.overflow = "hidden";
     return () => {
       document.removeEventListener("keydown", onKeyDown);
       document.body.style.overflow = "";
+      previousFocus?.focus();
     };
   }, [open, onClose]);
 
@@ -82,6 +114,7 @@ export function Drawer({ open, onClose }: DrawerProps) {
         className={cn("absolute inset-0 bg-black/50 transition", open ? "opacity-100" : "opacity-0")}
       />
       <aside
+        ref={panelRef}
         role="dialog"
         aria-modal="true"
         aria-label="모바일 메뉴"
