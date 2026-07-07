@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
+import { readStorageJSON, readStorageString, storageKeys, writeStorageJSON, writeStorageString } from "@/lib/storage";
 
 export type UserRole = "guest" | "personal" | "company-unverified" | "company-verified" | "admin";
 
@@ -11,6 +12,8 @@ export interface MockAuthState {
   contactPassExpiry: string | null;
   jumpCredits: number;
   hasPromotion: boolean;
+  hasBanner: boolean;
+  bannerStatus: "검수중" | "집행중" | null;
   verifyStatus: VerifyStatus;
 }
 
@@ -23,9 +26,6 @@ interface AuthContextValue {
   resetAuth: () => void;
 }
 
-const ROLE_STORAGE_KEY = "shootmon.role";
-const MOCK_STATE_STORAGE_KEY = "shootmon.mock-state";
-
 export const ROLES: UserRole[] = ["guest", "personal", "company-unverified", "company-verified", "admin"];
 
 export const DEFAULT_MOCK_STATE: MockAuthState = {
@@ -33,6 +33,8 @@ export const DEFAULT_MOCK_STATE: MockAuthState = {
   contactPassExpiry: null,
   jumpCredits: 0,
   hasPromotion: false,
+  hasBanner: false,
+  bannerStatus: null,
   verifyStatus: "미인증",
 };
 
@@ -44,13 +46,15 @@ const ROLE_DEFAULTS: Record<UserRole, MockAuthState> = {
   },
   "company-unverified": {
     ...DEFAULT_MOCK_STATE,
-    verifyStatus: "검수중",
+    verifyStatus: "미인증",
   },
   "company-verified": {
     hasContactPass: true,
     contactPassExpiry: "2026-07-07T00:00:00.000Z",
     jumpCredits: 30,
     hasPromotion: false,
+    hasBanner: false,
+    bannerStatus: null,
     verifyStatus: "인증완료",
   },
   admin: {
@@ -58,6 +62,8 @@ const ROLE_DEFAULTS: Record<UserRole, MockAuthState> = {
     contactPassExpiry: null,
     jumpCredits: 100,
     hasPromotion: true,
+    hasBanner: true,
+    bannerStatus: "집행중",
     verifyStatus: "인증완료",
   },
 };
@@ -69,12 +75,7 @@ function isRole(value: string | null): value is UserRole {
 }
 
 function readMockState() {
-  try {
-    const value = window.localStorage.getItem(MOCK_STATE_STORAGE_KEY);
-    return value ? { ...DEFAULT_MOCK_STATE, ...JSON.parse(value) } as MockAuthState : DEFAULT_MOCK_STATE;
-  } catch {
-    return DEFAULT_MOCK_STATE;
-  }
+  return readStorageJSON<MockAuthState>(storageKeys.mockState, DEFAULT_MOCK_STATE);
 }
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
@@ -83,7 +84,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
-    const storedRole = window.localStorage.getItem(ROLE_STORAGE_KEY);
+    const storedRole = readStorageString(storageKeys.role);
     const nextRole = isRole(storedRole) ? storedRole : "guest";
     setRoleState(nextRole);
     setMockStateValue({ ...ROLE_DEFAULTS[nextRole], ...readMockState() });
@@ -93,14 +94,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const setRole = useCallback((nextRole: UserRole) => {
     setRoleState(nextRole);
     setMockStateValue(ROLE_DEFAULTS[nextRole]);
-    window.localStorage.setItem(ROLE_STORAGE_KEY, nextRole);
-    window.localStorage.setItem(MOCK_STATE_STORAGE_KEY, JSON.stringify(ROLE_DEFAULTS[nextRole]));
+    writeStorageString(storageKeys.role, nextRole);
+    writeStorageJSON(storageKeys.mockState, ROLE_DEFAULTS[nextRole]);
   }, []);
 
   const setMockState = useCallback((state: Partial<MockAuthState>) => {
     setMockStateValue((current) => {
       const next = { ...current, ...state };
-      window.localStorage.setItem(MOCK_STATE_STORAGE_KEY, JSON.stringify(next));
+      writeStorageJSON(storageKeys.mockState, next);
       return next;
     });
   }, []);

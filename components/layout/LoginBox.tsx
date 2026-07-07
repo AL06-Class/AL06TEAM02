@@ -2,24 +2,41 @@
 
 import { FormEvent, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { MessageCircle } from "lucide-react";
 import { Button, Input, Radio, useToast } from "@/components/ui";
-import { useAuth } from "@/lib/auth-context";
+import { type UserRole, useAuth } from "@/lib/auth-context";
 
-export function LoginBox() {
+interface LoginBoxProps {
+  companyRole?: Extract<UserRole, "company-unverified" | "company-verified">;
+  redirectTo?: string;
+}
+
+function safeRedirect(value?: string) {
+  if (!value || !value.startsWith("/") || value.startsWith("//")) return null;
+  return value;
+}
+
+export function LoginBox({ companyRole = "company-unverified", redirectTo }: LoginBoxProps = {}) {
+  const router = useRouter();
   const { setRole } = useAuth();
   const { showToast } = useToast();
   const [memberType, setMemberType] = useState<"personal" | "company">("personal");
 
+  function completeLogin(message: string) {
+    setRole(memberType === "personal" ? "personal" : companyRole);
+    showToast(message);
+    const nextPath = safeRedirect(redirectTo);
+    if (nextPath) router.push(nextPath);
+  }
+
   function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setRole(memberType === "personal" ? "personal" : "company-unverified");
-    showToast("데모 로그인 상태로 전환되었습니다.");
+    completeLogin("데모 로그인 상태로 전환되었습니다.");
   }
 
   function kakaoLogin() {
-    setRole(memberType === "personal" ? "personal" : "company-unverified");
-    showToast("카카오 데모 로그인 상태로 전환되었습니다.");
+    completeLogin("카카오 데모 로그인 상태로 전환되었습니다.");
   }
 
   return (
@@ -64,4 +81,3 @@ export function LoginBox() {
     </form>
   );
 }
-

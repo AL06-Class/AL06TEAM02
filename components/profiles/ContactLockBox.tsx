@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { Copy, Send } from "lucide-react";
 import { Badge, Button, Modal, useToast } from "@/components/ui";
 import { GateModal } from "@/components/shared/GateModal";
+import { ProposeModal } from "@/components/shared/ProposeModal";
 import { useAuth } from "@/lib/auth-context";
 import { cn } from "@/components/ui/utils";
 
@@ -15,6 +16,8 @@ export interface ContactItem {
 
 interface ContactLockBoxProps {
   contacts: ContactItem[];
+  profileId: number;
+  receiverName: string;
 }
 
 function formatExpiry(value: string | null) {
@@ -28,14 +31,16 @@ function isExpiringSoon(value: string | null) {
   return diff <= 1000 * 60 * 60 * 24 * 3;
 }
 
-export function ContactLockBox({ contacts }: ContactLockBoxProps) {
+export function ContactLockBox({ contacts, profileId, receiverName }: ContactLockBoxProps) {
   const { role, mockState } = useAuth();
   const { showToast } = useToast();
   const [loginGateOpen, setLoginGateOpen] = useState(false);
   const [passGateOpen, setPassGateOpen] = useState(false);
   const [verificationGateOpen, setVerificationGateOpen] = useState(false);
   const [personalModalOpen, setPersonalModalOpen] = useState(false);
+  const [proposeOpen, setProposeOpen] = useState(false);
   const canView = role === "admin" || (role === "company-verified" && mockState.hasContactPass);
+  const canPropose = role === "company-verified" && mockState.hasContactPass;
   const expiringSoon = canView && isExpiringSoon(mockState.contactPassExpiry);
   const expiryText = useMemo(() => formatExpiry(mockState.contactPassExpiry), [mockState.contactPassExpiry]);
 
@@ -88,16 +93,17 @@ export function ContactLockBox({ contacts }: ContactLockBoxProps) {
         ))}
       </div>
 
-      {canView ? (
+      {canPropose ? (
         <Button
           className="mt-4 w-full"
           leftIcon={<Send aria-hidden className="h-4 w-4" />}
-          onClick={() => showToast("제안 보내기 모달은 Phase 3에서 구현됩니다.")}
+          onClick={() => setProposeOpen(true)}
         >
           제안 보내기
         </Button>
       ) : null}
 
+      <ProposeModal open={proposeOpen} onClose={() => setProposeOpen(false)} profileId={profileId} receiverName={receiverName} />
       <GateModal type="login" open={loginGateOpen} onClose={() => setLoginGateOpen(false)} />
       <GateModal type="contact-pass" open={passGateOpen} onClose={() => setPassGateOpen(false)} />
       <GateModal type="verification" open={verificationGateOpen} onClose={() => setVerificationGateOpen(false)} />

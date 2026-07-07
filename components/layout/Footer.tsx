@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect } from "react";
 import { Button, useToast } from "@/components/ui";
+import { readStorageString, storageKeys, writeStorageString } from "@/lib/storage";
 
 const footerLinks = [
   { label: "회사소개", href: "/about" },
@@ -16,14 +17,14 @@ export function Footer() {
   const { showToast } = useToast();
 
   useEffect(() => {
-    const mode = window.localStorage.getItem("shootmon.view-mode");
+    const mode = readStorageString(storageKeys.viewMode);
     if (mode === "desktop") {
       document.documentElement.dataset.viewMode = "desktop";
     }
   }, []);
 
   function showPcVersion() {
-    window.localStorage.setItem("shootmon.view-mode", "desktop");
+    writeStorageString(storageKeys.viewMode, "desktop");
     document.documentElement.dataset.viewMode = "desktop";
     showToast("PC버전 보기 모드가 적용되었습니다.");
   }
@@ -51,4 +52,3 @@ export function Footer() {
     </footer>
   );
 }
-

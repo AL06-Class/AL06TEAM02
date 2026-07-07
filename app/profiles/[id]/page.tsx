@@ -85,7 +85,7 @@ export default function ProfileDetailPage({ params }: ProfileDetailProps) {
             </div>
           </section>
 
-          <ContactLockBox contacts={contactItems(profile)} />
+          <ContactLockBox contacts={contactItems(profile)} profileId={profile.id} receiverName={profile.maskedName} />
 
           <section className="grid gap-4 rounded-md border border-line bg-surface p-4 shadow-card">
             <div>

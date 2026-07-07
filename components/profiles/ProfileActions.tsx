@@ -6,15 +6,10 @@ import { Button, useToast } from "@/components/ui";
 import { GateModal } from "@/components/shared/GateModal";
 import { ReportModal } from "@/components/shared/ReportModal";
 import { useAuth } from "@/lib/auth-context";
-
-const SCRAP_KEY = "shootmon.scrap.profiles";
+import { readStorageJSON, storageKeys, writeStorageJSON } from "@/lib/storage";
 
 function readScraps() {
-  try {
-    return JSON.parse(window.localStorage.getItem(SCRAP_KEY) ?? "[]") as number[];
-  } catch {
-    return [];
-  }
+  return readStorageJSON<number[]>(storageKeys.profileScraps, []);
 }
 
 export function ProfileScrapButton({ profileId }: { profileId: number }) {
@@ -34,7 +29,7 @@ export function ProfileScrapButton({ profileId }: { profileId: number }) {
     }
     const current = readScraps();
     const next = current.includes(profileId) ? current.filter((id) => id !== profileId) : [...current, profileId];
-    window.localStorage.setItem(SCRAP_KEY, JSON.stringify(next));
+    writeStorageJSON(storageKeys.profileScraps, next);
     setScrapped(next.includes(profileId));
     showToast(next.includes(profileId) ? "프로필을 스크랩했습니다." : "스크랩을 해제했습니다.");
   }

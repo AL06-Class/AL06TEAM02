@@ -7,18 +7,14 @@ import { Button, Modal, useToast } from "@/components/ui";
 import { GateModal } from "@/components/shared/GateModal";
 import { ReportModal } from "@/components/shared/ReportModal";
 import { useAuth } from "@/lib/auth-context";
+import { readStorageJSON, storageKeys, writeStorageJSON } from "@/lib/storage";
 import { cn } from "@/components/ui/utils";
 
-const SCRAP_KEY = "shootmon.scrap.jobs";
 const linkButtonClass =
   "inline-flex h-10 w-full items-center justify-center rounded-md border border-primary bg-primary px-4 text-sm font-semibold text-white transition hover:bg-primary-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2";
 
 function readScraps() {
-  try {
-    return JSON.parse(window.localStorage.getItem(SCRAP_KEY) ?? "[]") as number[];
-  } catch {
-    return [];
-  }
+  return readStorageJSON<number[]>(storageKeys.jobScraps, []);
 }
 
 export function JobScrapButton({ jobId, iconOnly = false }: { jobId: number; iconOnly?: boolean }) {
@@ -38,7 +34,7 @@ export function JobScrapButton({ jobId, iconOnly = false }: { jobId: number; ico
     }
     const current = readScraps();
     const next = current.includes(jobId) ? current.filter((id) => id !== jobId) : [...current, jobId];
-    window.localStorage.setItem(SCRAP_KEY, JSON.stringify(next));
+    writeStorageJSON(storageKeys.jobScraps, next);
     setScrapped(next.includes(jobId));
     showToast(next.includes(jobId) ? "공고를 스크랩했습니다." : "스크랩을 해제했습니다.");
   }
