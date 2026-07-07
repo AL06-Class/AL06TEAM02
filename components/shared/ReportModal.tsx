@@ -2,6 +2,9 @@
 
 import { FormEvent, useState } from "react";
 import { Button, Modal, Radio, Textarea, useToast } from "@/components/ui";
+import { useAuth } from "@/lib/auth-context";
+import { appendStorageItem, storageKeys } from "@/lib/storage";
+import type { AdminReportRecord, ReportTargetType } from "@/lib/admin-storage";
 
 interface ReportModalProps {
   open: boolean;
@@ -20,6 +23,7 @@ const reasons = [
 
 export function ReportModal({ open, onClose }: ReportModalProps) {
   const { showToast } = useToast();
+  const { role } = useAuth();
   const [reason, setReason] = useState(reasons[0]);
   const [detail, setDetail] = useState("");
   const [error, setError] = useState("");
@@ -36,6 +40,17 @@ export function ReportModal({ open, onClose }: ReportModalProps) {
       return;
     }
     setError("");
+    appendStorageItem<AdminReportRecord>(storageKeys.reports, {
+      id: `report-${Date.now()}`,
+      status: "접수",
+      targetType: inferTargetType(),
+      targetUrl: typeof window === "undefined" ? "/" : window.location.pathname,
+      targetTitle: typeof document === "undefined" ? "신고 대상" : document.title.replace(" | 촬영몬", "") || "신고 대상",
+      reason,
+      detail: detail.trim(),
+      reporter: reporterName(role),
+      receivedAt: new Date().toISOString(),
+    });
     showToast("신고가 접수되었습니다. 처리 결과는 알림으로 안내됩니다.");
     onClose();
   }
@@ -78,4 +93,21 @@ export function ReportModal({ open, onClose }: ReportModalProps) {
       </form>
     </Modal>
   );
+}
+
+function inferTargetType(): ReportTargetType {
+  if (typeof window === "undefined") return "게시글";
+  const pathname = window.location.pathname;
+  if (pathname.startsWith("/jobs")) return "공고";
+  if (pathname.startsWith("/profiles")) return "프로필";
+  if (pathname.startsWith("/store")) return "상품";
+  if (pathname.startsWith("/community")) return "게시글";
+  return "게시글";
+}
+
+function reporterName(role: string) {
+  if (role === "personal") return "홍O민";
+  if (role.startsWith("company")) return "촬영몬스튜디오";
+  if (role === "admin") return "관리자";
+  return "비회원";
 }

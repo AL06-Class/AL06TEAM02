@@ -92,10 +92,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const setRole = useCallback((nextRole: UserRole) => {
+    const persisted = readMockState();
+    const nextState = { ...ROLE_DEFAULTS[nextRole], verifyStatus: persisted.verifyStatus };
     setRoleState(nextRole);
-    setMockStateValue(ROLE_DEFAULTS[nextRole]);
+    setMockStateValue(nextState);
     writeStorageString(storageKeys.role, nextRole);
-    writeStorageJSON(storageKeys.mockState, ROLE_DEFAULTS[nextRole]);
+    writeStorageJSON(storageKeys.mockState, nextState);
   }, []);
 
   const setMockState = useCallback((state: Partial<MockAuthState>) => {

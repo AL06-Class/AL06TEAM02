@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { Badge, BadgeList } from "@/components/ui";
 import { cn } from "@/components/ui/utils";
-import { resolveImagePath } from "@/lib/images";
 
 export interface JobCardData {
   id: number;
@@ -34,6 +33,7 @@ export function formatJobDeadline(job: Pick<JobCardData, "deadlineType" | "deadl
 
 export function JobCard({ job, compact = false }: JobCardProps) {
   const closed = job.status === "마감";
+  const image = job.image || "/images/presets/placeholders/shootmon-placeholder-camera-01.svg";
 
   return (
     <Link
@@ -45,7 +45,7 @@ export function JobCard({ job, compact = false }: JobCardProps) {
     >
       <div className="relative aspect-video overflow-hidden bg-page">
         <Image
-          src={resolveImagePath(job.image)}
+          src={image}
           alt={`${job.companyName} ${job.title}`}
           fill
           sizes="(max-width: 768px) 50vw, 25vw"

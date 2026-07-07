@@ -43,6 +43,11 @@ export function Header() {
                 {item.label}
               </Link>
             ))}
+            {role === "admin" ? (
+              <Link href="/admin" className="font-bold text-primary hover:text-primary-dark">
+                관리자 화면
+              </Link>
+            ) : null}
             <span className="text-line">|</span>
             {role === "guest" ? (
               <Link href="/login" className="font-semibold text-ink hover:text-primary">
@@ -96,4 +101,3 @@ export function Header() {
     </header>
   );
 }
-

@@ -1,4 +1,7 @@
+"use client";
+
 import type { ReactNode } from "react";
+import { usePathname } from "next/navigation";
 import { Footer } from "./Footer";
 import { Header } from "./Header";
 import { MobileHeader } from "./MobileHeader";
@@ -6,6 +9,16 @@ import { QuickContact } from "./QuickContact";
 import { RoleSwitcher } from "./RoleSwitcher";
 
 export function AppShell({ children }: { children: ReactNode }) {
+  const pathname = usePathname();
+  if (pathname.startsWith("/admin")) {
+    return (
+      <>
+        {children}
+        <RoleSwitcher />
+      </>
+    );
+  }
+
   return (
     <>
       <div className="pc-layout-shell">
@@ -23,4 +36,3 @@ export function AppShell({ children }: { children: ReactNode }) {
     </>
   );
 }
-
