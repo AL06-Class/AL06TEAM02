@@ -6,8 +6,17 @@ import { AuthProvider } from "@/lib/auth-context";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "촬영몬",
+  metadataBase: new URL("https://shootmon.example.kr"),
+  title: {
+    default: "촬영몬",
+    template: "%s | 촬영몬",
+  },
   description: "촬영 의뢰자와 촬영자를 연결하는 촬영몬",
+  openGraph: {
+    title: "촬영몬",
+    description: "촬영 의뢰자와 촬영자를 연결하는 촬영몬",
+    images: ["/images/presets/placeholders/shootmon-placeholder-camera-01.svg"],
+  },
 };
 
 export default function RootLayout({

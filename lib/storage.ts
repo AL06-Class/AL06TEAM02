@@ -22,6 +22,7 @@ export const storageKeys = {
   storeLikes: "shootmon:store:likes",
   communityPosts: "shootmon:community:posts",
   communityComments: "shootmon:community:comments",
+  alertsRead: "shootmon:alerts:read",
 } as const;
 
 function canUseStorage() {

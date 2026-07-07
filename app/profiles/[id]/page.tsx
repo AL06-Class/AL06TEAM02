@@ -29,12 +29,12 @@ function contactItems(profile: NonNullable<ReturnType<typeof findProfile>>) {
 
 export function generateMetadata({ params }: ProfileDetailProps): Metadata {
   const profile = findProfile(params.id);
-  if (!profile) return { title: "프로필 없음 | 촬영몬" };
+  if (!profile) return { title: "프로필 없음" };
   return {
-    title: `${profile.title} | 촬영몬`,
+    title: profile.title,
     description: `${profile.maskedName} · ${profile.region} · ${profile.desiredPay}`,
     openGraph: {
-      title: profile.title,
+      title: `${profile.title} | 촬영몬`,
       description: profile.intro,
       images: [resolveImagePath(profile.cover, "profile")],
     },

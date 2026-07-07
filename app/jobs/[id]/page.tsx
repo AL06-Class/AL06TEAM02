@@ -7,6 +7,7 @@ import { JobApplyButton, JobPrintButton, JobReportButton, JobScrapButton, format
 import { StickyActionBar } from "@/components/layout";
 import { Badge, BadgeList } from "@/components/ui";
 import { jobs } from "@/data/jobs";
+import { companyIdForJob } from "@/lib/companies";
 import { resolveImagePath } from "@/lib/images";
 
 interface JobDetailProps {
@@ -19,12 +20,12 @@ function findJob(id: string) {
 
 export function generateMetadata({ params }: JobDetailProps): Metadata {
   const job = findJob(params.id);
-  if (!job) return { title: "모집 공고 없음 | 촬영몬" };
+  if (!job) return { title: "모집 공고 없음" };
   return {
-    title: `${job.title} | 촬영몬`,
+    title: job.title,
     description: `${job.companyName} · ${job.region} · ${job.payAmount}`,
     openGraph: {
-      title: job.title,
+      title: `${job.title} | 촬영몬`,
       description: job.description,
       images: [resolveImagePath(job.image)],
     },
@@ -57,7 +58,7 @@ export default function JobDetailPage({ params }: JobDetailProps) {
           <div className="space-y-3">
             <div className="flex flex-wrap items-center gap-2 text-sm text-muted">
               <span>{job.companyName}</span>
-              <Link href={`/company/${job.id}`} className="inline-flex items-center gap-1 font-semibold text-primary">
+              <Link href={`/company/${companyIdForJob(job)}`} className="inline-flex items-center gap-1 font-semibold text-primary">
                 <Building2 aria-hidden className="h-4 w-4" />
                 기업 정보보기
               </Link>

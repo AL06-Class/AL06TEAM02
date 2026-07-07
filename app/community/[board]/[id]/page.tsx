@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { posts } from "@/data/posts";
+import { PLACEHOLDER_IMAGES } from "@/lib/images";
 import { CommunityPostDetailClient } from "./CommunityPostDetailClient";
 import { boardLabels, isBoardKey } from "../../community-data";
 
@@ -13,12 +14,17 @@ function findPost(board: string, id: string) {
 }
 
 export function generateMetadata({ params }: CommunityPostDetailPageProps): Metadata {
-  if (!isBoardKey(params.board)) return { title: "커뮤니티 | 촬영몬" };
+  if (!isBoardKey(params.board)) return { title: "커뮤니티" };
   const post = findPost(params.board, params.id);
-  if (!post) return { title: `${boardLabels[params.board]} | 촬영몬` };
+  if (!post) return { title: boardLabels[params.board] };
   return {
-    title: `${post.title} | 촬영몬 커뮤니티`,
+    title: `${post.title} | 커뮤니티`,
     description: post.excerpt,
+    openGraph: {
+      title: `${post.title} | 촬영몬 커뮤니티`,
+      description: post.excerpt,
+      images: [PLACEHOLDER_IMAGES.review],
+    },
   };
 }
 

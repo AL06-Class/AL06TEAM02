@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import { Badge } from "@/components/ui";
 import { notices } from "@/data/notices";
+import { PLACEHOLDER_IMAGES } from "@/lib/images";
 
 interface NoticeDetailPageProps {
   params: { id: string };
@@ -23,10 +24,15 @@ function noticeBody(title: string) {
 
 export function generateMetadata({ params }: NoticeDetailPageProps): Metadata {
   const notice = findNotice(params.id);
-  if (!notice) return { title: "공지사항 없음 | 촬영몬" };
+  if (!notice) return { title: "공지사항 없음" };
   return {
-    title: `${notice.title} | 촬영몬 공지사항`,
+    title: `${notice.title} | 공지사항`,
     description: `${notice.createdAt} 공지사항`,
+    openGraph: {
+      title: `${notice.title} | 촬영몬 공지사항`,
+      description: `${notice.createdAt} 공지사항`,
+      images: [PLACEHOLDER_IMAGES.default],
+    },
   };
 }
 
