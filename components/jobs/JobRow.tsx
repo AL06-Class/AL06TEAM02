@@ -1,10 +1,31 @@
 import Link from "next/link";
 import { Badge, BadgeList } from "@/components/ui";
 import { cn } from "@/components/ui/utils";
-import { formatJobDeadline, type JobCardData } from "./JobCard";
+
+export interface JobRowData {
+  id: number;
+  companyName: string;
+  title: string;
+  category: string;
+  region: string;
+  careerLevel: string;
+  equipment: string[];
+  payAmount: string;
+  deadlineType: string;
+  deadline?: string;
+  isPremium: boolean;
+  status: string;
+}
 
 interface JobRowProps {
-  job: JobCardData;
+  job: JobRowData;
+}
+
+function formatJobDeadline(job: Pick<JobRowData, "deadlineType" | "deadline">) {
+  if (job.deadlineType !== "마감일") return job.deadlineType;
+  if (!job.deadline) return "마감일 미정";
+  const date = new Date(job.deadline);
+  return `~${date.getMonth() + 1}/${date.getDate()}`;
 }
 
 export function JobRow({ job }: JobRowProps) {
