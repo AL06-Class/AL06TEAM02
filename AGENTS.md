@@ -27,8 +27,8 @@
 - 화면 톤, 레이아웃, 컴포넌트, 반응형이 관련되면 `docs/design-system.md`를 확인합니다.
 - 브랜치, PR, 병합, 승인, 작업 순서가 관련되면 `docs/project-rules.md`를 확인합니다.
 - 실행, 배포, 외부 공유가 관련되면 `docs/deploy-guide.md`를 확인합니다.
-- 2차 화면 구현 시에만 `docs/wireframe.md`, `docs/mypage-design.md`, `docs/admin-design.md`를 참조합니다.
-- 이미지 생성 시에만 `docs/image-presets.md`를 참조합니다.
+- 2차 화면 구현 시에만 `docs/reference/wireframe.md`, `docs/reference/mypage-design.md`, `docs/reference/admin-design.md`를 참조합니다.
+- 이미지 생성 시에만 `docs/reference/image-presets.md`를 참조합니다.
 
 ### 에이전트 연결
 
@@ -72,7 +72,7 @@
 ### 절대 금지
 
 - 편집몬(editmon.com)의 로고, 이미지, 문구, 게시글 원문, 사업자 정보 복제 금지.
-- 이미지 안에 텍스트/로고/워터마크 삽입 금지. 이미지는 `docs/image-presets.md` 기준으로만 생성.
+- 이미지 안에 텍스트/로고/워터마크 삽입 금지. 이미지는 `docs/reference/image-presets.md` 기준으로만 생성.
 - 검증 통과를 위한 lint 규칙 완화, 타입 `any` 남발, 빌드 에러 우회 설정 금지 — 그 자체로 리뷰 반려 사유입니다.
 - 팀원의 변경사항을 임의로 되돌리는 행위(`git checkout --`, force push) 금지.
 
@@ -106,3 +106,4 @@
 
 - 2026-07-06: 최초 작성 — 멀티 에이전트 협업 전제 규칙 수립
 - 2026-07-07: team2 문서 구조 준용 — 협업 운영 기준을 `docs/project-rules.md`로 분리하고 AI 실행 규칙 중심으로 재정리. data-guide/design-system/deploy-guide 라우팅 추가
+- 2026-07-07: 상세 설계 문서 7종을 `docs/reference/`로 이동 — 일상 협업 문서는 docs/ 직속 6개로 최소화

@@ -35,7 +35,7 @@
 
 - `data/` 7개 파일, 총 160건: jobs 30 / profiles 30 / products 20 / posts 40 / notices 10 / members 30.
 - 새 샘플은 가상 창작만 허용 — 편집몬 원문, 실존 기업/인물, 실제 사업자번호 금지.
-- 상세 스키마 정의와 데이터 간 연결 규칙은 `docs/sample-data.md` 참조 (이 문서는 이름 사전, 그쪽은 상세 명세).
+- 상세 스키마 정의와 데이터 간 연결 규칙은 `docs/reference/sample-data.md` 참조 (이 문서는 이름 사전, 그쪽은 상세 명세).
 
 ## 공통 이름 사전
 

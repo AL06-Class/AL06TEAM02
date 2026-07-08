@@ -1,6 +1,6 @@
 # 디자인 시스템
 
-모든 화면이 따라야 할 최소 디자인 기준입니다. 상세 명세는 `docs/ui-components.md`(컴포넌트/토큰)와 `docs/design.md`(배경 원칙)에 있고, **실제 컴포넌트 코드(`components/ui`, `components/layout`)가 1차 참조**입니다.
+모든 화면이 따라야 할 최소 디자인 기준입니다. 상세 명세는 `docs/reference/ui-components.md`(컴포넌트/토큰)와 `docs/reference/design.md`(배경 원칙)에 있고, **실제 컴포넌트 코드(`components/ui`, `components/layout`)가 1차 참조**입니다.
 
 ## 목적
 
@@ -14,7 +14,7 @@
 - 색상: `primary #F97316` / `primary-dark` / `accent #2563EB` / `success` / `warning` / `danger` / `ink` / `muted` / `line` / `surface` / `page` + soft 5종
 - radius: sm 4px / md 8px (**최댓값 8px** — 더 둥글게 금지)
 - 그림자: card / hover / modal 3단계만
-- 새 토큰이 필요하면 `docs/ui-components.md` 1장 수정 PR을 먼저 냅니다.
+- 새 토큰이 필요하면 `docs/reference/ui-components.md` 1장 수정 PR을 먼저 냅니다.
 
 ### 컴포넌트 재사용
 
@@ -33,7 +33,7 @@
 ### 이미지
 
 - 이미지는 `SmartImage` 컴포넌트로만 표시합니다 (누락 시 플레이스홀더 자동 폴백).
-- 새 이미지는 `docs/image-presets.md` 프리셋 기준으로 생성, 이미지 안에 글자/로고 금지.
+- 새 이미지는 `docs/reference/image-presets.md` 프리셋 기준으로 생성, 이미지 안에 글자/로고 금지.
 
 ### 접근성 최소 기준
 

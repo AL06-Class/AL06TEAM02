@@ -42,10 +42,10 @@ npm run dev
 | **기준** | [docs/deploy-guide.md](docs/deploy-guide.md) | 실행, 검증, 터널 공유, 배포 기준 |
 | 참조 | [docs/architecture.md](docs/architecture.md) | 라우트/권한/플로우 추가·변경 시 — 코드보다 먼저 수정 |
 | 참조 | [docs/PRD.MD](docs/PRD.MD) | 기능 요구가 애매할 때 (최우선 기준) |
-| 참조 | [docs/sample-data.md](docs/sample-data.md) | 샘플 데이터 상세 명세 (사전은 data-guide) |
-| 참조 | [docs/ui-components.md](docs/ui-components.md) · [docs/design.md](docs/design.md) | 컴포넌트/토큰 상세 명세 |
-| 참조 | [docs/wireframe.md](docs/wireframe.md) · [docs/mypage-design.md](docs/mypage-design.md) · [docs/admin-design.md](docs/admin-design.md) | 2차 화면 구현 시 |
-| 참조 | [docs/image-presets.md](docs/image-presets.md) | 이미지 생성 담당자만 (72장 프롬프트/경로/alt 완비) |
+| 참조 | [docs/reference/sample-data.md](docs/reference/sample-data.md) | 샘플 데이터 상세 명세 (사전은 data-guide) |
+| 참조 | [docs/reference/ui-components.md](docs/reference/ui-components.md) · [docs/reference/design.md](docs/reference/design.md) | 컴포넌트/토큰 상세 명세 |
+| 참조 | [docs/reference/wireframe.md](docs/reference/wireframe.md) · [docs/reference/mypage-design.md](docs/reference/mypage-design.md) · [docs/reference/admin-design.md](docs/reference/admin-design.md) | 2차 화면 구현 시 |
+| 참조 | [docs/reference/image-presets.md](docs/reference/image-presets.md) | 이미지 생성 담당자만 (72장 프롬프트/경로/alt 완비) |
 | 보관 | docs/archive/ | 구현 완료로 은퇴한 문서 (handoff, 기획 지침) |
 
 규칙: **코드를 바꿔서 문서와 어긋나면, 그 PR에서 문서도 같이 고친다.**
