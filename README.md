@@ -30,13 +30,19 @@ npm run dev
 
 ## 문서 안내 — 전부 읽지 마세요
 
+모든 작업에서 아래 문서를 전부 읽는 것이 아니라, 먼저 작업 성격을 판단한 뒤 필요한 문서만 추가로 확인합니다.
+
 | 등급 | 문서 | 언제 보나 |
 | --- | --- | --- |
-| **필수** | [AGENTS.md](AGENTS.md) | 모든 작업 전 (규약 + 문서 라우팅 표) |
-| **기준** | [docs/architecture.md](docs/architecture.md) | 라우트/권한/플로우 추가·변경 시 — 코드보다 먼저 수정 |
-| **기준** | [docs/PRD.MD](docs/PRD.MD) | 기능 요구가 애매할 때 (최우선 기준) |
-| 참조 | [docs/sample-data.md](docs/sample-data.md) | 데이터 필드/상태값 추가 시 (공통 이름 사전) |
-| 참조 | [docs/ui-components.md](docs/ui-components.md) · [docs/design.md](docs/design.md) | 새 컴포넌트/토큰 — 단, 기존 컴포넌트 코드가 1차 참조 |
+| **필수** | [AGENTS.md](AGENTS.md) | AI가 작업 중 반드시 지킬 실행 규칙 (문서 라우팅 포함) |
+| **기준** | [docs/project-rules.md](docs/project-rules.md) | 협업, 브랜치, PR, 승인, 병합 기준 |
+| **기준** | [docs/data-guide.md](docs/data-guide.md) | 역할, 데이터 이름, 상태값 기준 — 새 이름은 여기 먼저 추가 |
+| **기준** | [docs/design-system.md](docs/design-system.md) | 모든 화면이 따라야 할 최소 디자인 기준 |
+| **기준** | [docs/deploy-guide.md](docs/deploy-guide.md) | 실행, 검증, 터널 공유, 배포 기준 |
+| 참조 | [docs/architecture.md](docs/architecture.md) | 라우트/권한/플로우 추가·변경 시 — 코드보다 먼저 수정 |
+| 참조 | [docs/PRD.MD](docs/PRD.MD) | 기능 요구가 애매할 때 (최우선 기준) |
+| 참조 | [docs/sample-data.md](docs/sample-data.md) | 샘플 데이터 상세 명세 (사전은 data-guide) |
+| 참조 | [docs/ui-components.md](docs/ui-components.md) · [docs/design.md](docs/design.md) | 컴포넌트/토큰 상세 명세 |
 | 참조 | [docs/wireframe.md](docs/wireframe.md) · [docs/mypage-design.md](docs/mypage-design.md) · [docs/admin-design.md](docs/admin-design.md) | 2차 화면 구현 시 |
 | 참조 | [docs/image-presets.md](docs/image-presets.md) | 이미지 생성 담당자만 (72장 프롬프트/경로/alt 완비) |
 | 보관 | docs/archive/ | 구현 완료로 은퇴한 문서 (handoff, 기획 지침) |
