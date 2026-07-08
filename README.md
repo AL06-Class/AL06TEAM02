@@ -21,8 +21,9 @@ npm run dev
 
 전체 규칙은 **[AGENTS.md](AGENTS.md)** — 작업 전 반드시 읽는 유일한 필수 문서.
 
-- `main` 직접 push 금지, PR로만 병합 (팀장 최종 병합)
-- 브랜치: `feat/영역-내용`, 커밋: `feat:` `fix:` `docs:` 컨벤션
+- 브랜치 3단 구조: `이름/작업명` → `develop`(통합 테스트) → `main`(안정판)
+- 작업 PR은 **develop**으로. main은 develop 승격 PR로만 갱신 (팀장 전담, 주 1회 이상)
+- 커밋: `feat:` `fix:` `docs:` 컨벤션
 - PR: 1기능 1PR, UI 변경 시 스크린샷(PC 1280/모바일 390) 필수, 사용한 AI 에이전트 표기
 - **공유 파일**(`components/ui`, `lib/types.ts`, `data/*` 등) 수정은 팀 채널 사전 공지
 - 새 데이터 필드/라우트/토큰은 코드보다 **문서 먼저 수정** (아래 표의 기준 문서)
