@@ -29,6 +29,7 @@ docker compose down        # 종료
 - **좌하단 주황 원형 버튼 = 데모 역할 스위처** (아래 참고)
 
 ### 3. GitHub 반영 (모든 팀원)
+작업 브랜치는 항상 최신 `develop`에서 만든다.
 ```bash
 git switch -c 이름/작업명     # develop에서 분기
 # ... 작업 ...
