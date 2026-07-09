@@ -13,6 +13,10 @@ function findPost(board: string, id: string) {
   return posts.find((post) => post.board === board && String(post.id) === id);
 }
 
+export function generateStaticParams() {
+  return posts.map((post) => ({ board: post.board, id: String(post.id) }));
+}
+
 export function generateMetadata({ params }: CommunityPostDetailPageProps): Metadata {
   if (!isBoardKey(params.board)) return { title: "커뮤니티" };
   const post = findPost(params.board, params.id);

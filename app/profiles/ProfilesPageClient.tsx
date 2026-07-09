@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { Filter } from "lucide-react";
 import { ProfileCard, ProfileFilterBox } from "@/components/profiles";
 import { SideBar } from "@/components/layout";
@@ -10,12 +11,8 @@ import { SortSelect } from "@/components/shared/SortSelect";
 import { EmptyState, Pagination } from "@/components/ui";
 import { profiles } from "@/data/profiles";
 import { toPublicSubmittedProfiles, type AdminProfileStatus, type StatusOverride } from "@/lib/admin-storage";
-import { getParamValues, PROFILE_SORT_OPTIONS, queryShooterProfiles, toURLSearchParams } from "@/lib/filters";
+import { getParamValues, PROFILE_SORT_OPTIONS, queryShooterProfiles, toURLSearchParams, type SearchParamsInput } from "@/lib/filters";
 import { readStorageJSON, storageKeys } from "@/lib/storage";
-
-interface ProfilesPageClientProps {
-  searchParams?: Record<string, string | string[] | undefined>;
-}
 
 type ProfileListItem = (typeof profiles)[number];
 
@@ -23,7 +20,7 @@ function regionOptions(items: ProfileListItem[]) {
   return Array.from(new Set(items.map((profile) => profile.region.split(" ")[0]))).sort((a, b) => a.localeCompare(b, "ko-KR"));
 }
 
-function appliedChips(searchParams: Record<string, string | string[] | undefined> = {}): AppliedFilterChip[] {
+function appliedChips(searchParams: SearchParamsInput): AppliedFilterChip[] {
   const params = toURLSearchParams(searchParams);
   const chips: AppliedFilterChip[] = [];
   for (const value of getParamValues(params, "category")) chips.push({ param: "category", value, label: `분야: ${value}` });
@@ -49,16 +46,18 @@ function visibleProfiles() {
   return [...toPublicSubmittedProfiles(), ...staticProfiles] as ProfileListItem[];
 }
 
-export function ProfilesPageClient({ searchParams = {} }: ProfilesPageClientProps) {
+export function ProfilesPageClient() {
+  const searchParams = useSearchParams();
+  const currentSearchParams = useMemo(() => new URLSearchParams(searchParams.toString()), [searchParams]);
   const [items, setItems] = useState<ProfileListItem[]>(profiles);
 
   useEffect(() => {
     setItems(visibleProfiles());
   }, []);
 
-  const desktopPage = queryShooterProfiles(items, searchParams, 12);
-  const mobilePage = queryShooterProfiles(items, searchParams, 10);
-  const chips = appliedChips(searchParams);
+  const desktopPage = queryShooterProfiles(items, currentSearchParams, 12);
+  const mobilePage = queryShooterProfiles(items, currentSearchParams, 10);
+  const chips = appliedChips(currentSearchParams);
 
   return (
     <div className="lg:flex lg:gap-6">
@@ -78,7 +77,7 @@ export function ProfilesPageClient({ searchParams = {} }: ProfilesPageClientProp
         </div>
 
         <div className="hidden lg:block">
-          <ProfileFilterBox searchParams={searchParams} regions={regionOptions(items)} />
+          <ProfileFilterBox searchParams={currentSearchParams} regions={regionOptions(items)} />
         </div>
 
         <div className="flex flex-wrap items-center justify-between gap-3">
@@ -108,4 +107,3 @@ export function ProfilesPageClient({ searchParams = {} }: ProfilesPageClientProp
     </div>
   );
 }
-

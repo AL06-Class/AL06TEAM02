@@ -1,10 +1,10 @@
-import { ServicesClient } from "./ServicesClient";
+import { Suspense } from "react";
+import { ServicesPageClient } from "./ServicesPageClient";
 
-interface ServicesPageProps {
-  searchParams?: { tab?: string | string[] };
-}
-
-export default function ServicesPage({ searchParams = {} }: ServicesPageProps) {
-  const tabParam = Array.isArray(searchParams.tab) ? searchParams.tab[0] : searchParams.tab;
-  return <ServicesClient initialTab={tabParam === "personal" ? "personal" : "company"} />;
+export default function ServicesPage() {
+  return (
+    <Suspense fallback={<div className="rounded-md border border-line bg-surface p-6 text-sm text-muted shadow-card">서비스 안내를 불러오는 중입니다.</div>}>
+      <ServicesPageClient />
+    </Suspense>
+  );
 }

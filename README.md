@@ -3,13 +3,58 @@
 촬영 의뢰자와 촬영자/촬영팀을 연결하는 구인구직 플랫폼 데모.
 Next.js(App Router) + TypeScript + Tailwind, **백엔드 없이 샘플 데이터 + localStorage**로 전 기능을 시연한다.
 
-## 빠른 시작
+## 팀원 온보딩 (Mac · Windows 공통)
 
+Docker를 쓰면 OS 상관없이 동일하게 동작한다. **개발만 할 사람은 1~2단계까지만 하면 된다.**
+
+### 1. 준비 (처음 한 번)
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/) 설치 후 실행
+- 레포 클론 → `develop` 브랜치 체크아웃
+
+### 2. 개발 서버 — 원클릭
+
+명령어 칠 필요 없이 **파일 더블클릭**:
+- **Windows**: `start.bat` 더블클릭 → 서버 뜨고 브라우저 자동 열림
+- **Mac**: `start.command` 더블클릭 (처음 한 번은 우클릭 → 열기)
+- 종료: `stop.bat` / `stop.command`
+
+> 첫 실행은 의존성 설치로 몇 분 걸린다(그 다음부턴 빠름). Docker Desktop이 실행 중이어야 한다.
+
+명령어로 하고 싶으면:
 ```bash
-npm install
-npm run dev
-# → http://localhost:3000
+docker compose up          # http://localhost:5173
+docker compose down        # 종료
 ```
+- 코드를 고치면 자동 반영(HMR). Mac/Windows 완전 동일.
+- **좌하단 주황 원형 버튼 = 데모 역할 스위처** (아래 참고)
+
+### 3. GitHub 반영 (모든 팀원)
+```bash
+git switch -c 이름/작업명     # develop에서 분기
+# ... 작업 ...
+git add -A && git commit -m "feat: ..."
+git push origin 이름/작업명   # → GitHub에서 develop으로 PR
+```
+팀원은 여기까지만 하면 된다. **배포는 신경 쓸 필요 없다.**
+
+### 4. 배포 (팀장 전담)
+배포 대상: **https://al06team2.web.app**
+
+- 배포는 팀장이 `develop → main` 승격 후 **한 번만** 한다. 팀원은 firebase 로그인·초대가 필요 없다.
+- 팀장 최초 1회만 로그인:
+  ```bash
+  docker compose exec web npx firebase login --no-localhost
+  #   → URL을 브라우저로 열어 로그인 → 인증 코드 붙여넣기 (컨테이너에 유지됨)
+  ```
+- 이후 배포는 한 줄:
+  ```bash
+  docker compose exec web npm run deploy
+  #   Mac: sh scripts/deploy.sh   ·   Windows: powershell scripts/deploy.ps1
+  ```
+
+> npm만 쓰고 싶으면(도커 없이): `npm install && npm run dev` → localhost:3000.
+
+## 시연 포인트
 
 - **좌하단 주황 원형 버튼 = 데모 역할 스위처**: 비회원 / 개인 / 기업(미인증) / 기업(인증) / 관리자를 즉시 전환. 열람권·자동점프 크레딧 mock 토글 포함
 - 역할별 시연 포인트:

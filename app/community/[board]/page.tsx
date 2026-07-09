@@ -1,10 +1,14 @@
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { BoardPageClient } from "./BoardPageClient";
-import { isBoardKey } from "../community-data";
+import { boardKeys, isBoardKey } from "../community-data";
 
 interface BoardPageProps {
   params: { board: string };
+}
+
+export function generateStaticParams() {
+  return boardKeys.map((board) => ({ board }));
 }
 
 export default function BoardPage({ params }: BoardPageProps) {

@@ -10,6 +10,10 @@ function findJob(id: string) {
   return jobs.find((job) => String(job.id) === id);
 }
 
+export function generateStaticParams() {
+  return jobs.map((job) => ({ id: String(job.id) }));
+}
+
 export default function JobApplyPage({ params }: JobApplyPageProps) {
   const job = findJob(params.id);
   if (!job) notFound();

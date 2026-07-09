@@ -17,6 +17,10 @@ function findJob(id: string) {
   return jobs.find((job) => String(job.id) === id);
 }
 
+export function generateStaticParams() {
+  return jobs.map((job) => ({ id: String(job.id) }));
+}
+
 export function generateMetadata({ params }: JobDetailProps): Metadata {
   const job = findJob(params.id);
   if (!job) return { title: "모집 공고 없음" };

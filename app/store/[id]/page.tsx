@@ -11,6 +11,10 @@ function findProduct(id: string) {
   return products.find((product) => String(product.id) === id);
 }
 
+export function generateStaticParams() {
+  return products.map((product) => ({ id: String(product.id) }));
+}
+
 export function generateMetadata({ params }: StoreDetailPageProps): Metadata {
   const product = findProduct(params.id);
   if (!product) return { title: "스토어 상품" };

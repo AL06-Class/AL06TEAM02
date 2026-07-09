@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { Filter } from "lucide-react";
 import { JobCard, JobFilterBox, JobRow } from "@/components/jobs";
 import { SideBar } from "@/components/layout";
@@ -10,12 +11,8 @@ import { SortSelect } from "@/components/shared/SortSelect";
 import { EmptyState, Pagination } from "@/components/ui";
 import { jobs } from "@/data/jobs";
 import { toPublicSubmittedJobs, type AdminJobStatus, type StatusOverride } from "@/lib/admin-storage";
-import { getParamValues, JOB_SORT_OPTIONS, queryJobPostings, toURLSearchParams } from "@/lib/filters";
+import { getParamValues, JOB_SORT_OPTIONS, queryJobPostings, toURLSearchParams, type SearchParamsInput } from "@/lib/filters";
 import { readStorageJSON, storageKeys } from "@/lib/storage";
-
-interface JobsPageClientProps {
-  searchParams?: Record<string, string | string[] | undefined>;
-}
 
 type JobListItem = (typeof jobs)[number];
 
@@ -23,7 +20,7 @@ function regionOptions(items: JobListItem[]) {
   return Array.from(new Set(items.map((job) => job.region.split(" ")[0]))).sort((a, b) => a.localeCompare(b, "ko-KR"));
 }
 
-function appliedChips(searchParams: Record<string, string | string[] | undefined> = {}): AppliedFilterChip[] {
+function appliedChips(searchParams: SearchParamsInput): AppliedFilterChip[] {
   const params = toURLSearchParams(searchParams);
   const chips: AppliedFilterChip[] = [];
   for (const value of getParamValues(params, "category")) chips.push({ param: "category", value, label: `분야: ${value}` });
@@ -52,16 +49,18 @@ function visibleJobs() {
   return [...toPublicSubmittedJobs(), ...staticJobs] as JobListItem[];
 }
 
-export function JobsPageClient({ searchParams = {} }: JobsPageClientProps) {
+export function JobsPageClient() {
+  const searchParams = useSearchParams();
+  const currentSearchParams = useMemo(() => new URLSearchParams(searchParams.toString()), [searchParams]);
   const [items, setItems] = useState<JobListItem[]>(jobs);
 
   useEffect(() => {
     setItems(visibleJobs());
   }, []);
 
-  const desktopPage = queryJobPostings(items, searchParams, 20);
-  const mobilePage = queryJobPostings(items, searchParams, 10);
-  const chips = appliedChips(searchParams);
+  const desktopPage = queryJobPostings(items, currentSearchParams, 20);
+  const mobilePage = queryJobPostings(items, currentSearchParams, 10);
+  const chips = appliedChips(currentSearchParams);
   const premiumMobile = mobilePage.items.filter((job) => job.isPremium);
   const normalMobile = mobilePage.items.filter((job) => !job.isPremium);
 
@@ -83,7 +82,7 @@ export function JobsPageClient({ searchParams = {} }: JobsPageClientProps) {
         </div>
 
         <div className="hidden lg:block">
-          <JobFilterBox searchParams={searchParams} regions={regionOptions(items)} />
+          <JobFilterBox searchParams={currentSearchParams} regions={regionOptions(items)} />
         </div>
 
         <div className="flex flex-wrap items-center justify-between gap-3">
@@ -134,4 +133,3 @@ export function JobsPageClient({ searchParams = {} }: JobsPageClientProps) {
     </div>
   );
 }
-

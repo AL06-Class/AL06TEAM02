@@ -1,0 +1,30 @@
+# 촬영몬 개발용 Docker Compose
+# 팀원 실행 환경 통일용. 서버는 5173 포트에서 뜬다.
+#   docker compose up        (포그라운드)
+#   docker compose up -d     (백그라운드)
+#   docker compose down      (종료)
+# 접속: http://localhost:5173
+services:
+  web:
+    image: node:22
+    working_dir: /app
+    tty: true
+    stdin_open: true
+    ports:
+      - "5173:5173"
+    volumes:
+      - .:/app
+      - node_modules:/app/node_modules   # 호스트 node_modules와 분리
+      - next_cache:/app/.next            # 로컬 dev(.next)와 충돌 방지
+      - firebase_config:/root/.config    # Firebase 로그인 유지
+    environment:
+      - WATCHPACK_POLLING=true           # 컨테이너 내 파일 변경 감지(HMR)
+      - NEXT_TELEMETRY_DISABLED=1
+    command: >
+      sh -c "if [ -f package-lock.json ]; then npm ci; else npm install; fi &&
+             npm run dev -- -p 5173 -H 0.0.0.0"
+
+volumes:
+  node_modules:
+  next_cache:
+  firebase_config:
