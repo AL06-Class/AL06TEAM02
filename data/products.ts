@@ -13,7 +13,7 @@ export const products = [
     revisions: "2회 무료",
     commercialUse: true,
     refundPolicy: "촬영 시작 전 100% 환불, 촬영 후에는 보정 미진행분에 한해 부분 환불.",
-    image: "/images/presets/store/shootmon-store-product-01.webp",
+    image: "https://images.pexels.com/photos/36287813/pexels-photo-36287813.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
     createdAt: "2026-05-18"
   },
   {
@@ -30,7 +30,7 @@ export const products = [
     revisions: "1회 무료",
     commercialUse: true,
     refundPolicy: "기상 악화로 촬영 불가 시 전액 환불 또는 일정 변경.",
-    image: "/images/presets/store/shootmon-store-drone-01.webp",
+    image: "https://images.pexels.com/photos/1488083/pexels-photo-1488083.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
     createdAt: "2026-05-22"
   },
   {
@@ -47,7 +47,7 @@ export const products = [
     revisions: "해당 없음",
     commercialUse: true,
     refundPolicy: "이용 3일 전 취소 시 전액, 전일 취소 시 50% 환불.",
-    image: "/images/presets/store/shootmon-store-studio-01.webp",
+    image: "https://images.pexels.com/photos/19612612/pexels-photo-19612612.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
     createdAt: "2026-05-25"
   },
   {
@@ -64,7 +64,7 @@ export const products = [
     revisions: "2회 무료",
     commercialUse: true,
     refundPolicy: "촬영일 7일 전 취소 시 전액, 이후 계약금 제외 환불.",
-    image: "/images/presets/store/shootmon-store-interview-01.webp",
+    image: "https://images.pexels.com/photos/9834137/pexels-photo-9834137.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
     createdAt: "2026-06-01"
   },
   {
@@ -81,7 +81,7 @@ export const products = [
     revisions: "해당 없음",
     commercialUse: true,
     refundPolicy: "수령 전 취소 시 전액 환불, 수령 후 환불 불가.",
-    image: "/images/presets/store/shootmon-store-lighting-01.webp",
+    image: "https://images.pexels.com/photos/11234300/pexels-photo-11234300.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
     createdAt: "2026-06-03"
   },
   {
@@ -98,7 +98,7 @@ export const products = [
     revisions: "리허설 1회 포함",
     commercialUse: true,
     refundPolicy: "행사 14일 전 취소 시 전액, 이후 준비 비용 공제 후 환불.",
-    image: "/images/presets/store/shootmon-store-live-01.webp",
+    image: "https://images.pexels.com/photos/7513459/pexels-photo-7513459.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
     createdAt: "2026-06-05"
   },
   {
@@ -115,7 +115,7 @@ export const products = [
     revisions: "해당 없음",
     commercialUse: true,
     refundPolicy: "디지털 상품 특성상 다운로드 후 환불 불가, 파일 오류 시 교환.",
-    image: "/images/presets/store/shootmon-store-lut-01.webp",
+    image: "https://images.pexels.com/photos/8102676/pexels-photo-8102676.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
     createdAt: "2026-06-08"
   },
   {
@@ -132,7 +132,7 @@ export const products = [
     revisions: "해당 없음",
     commercialUse: false,
     refundPolicy: "다운로드 후 환불 불가. 상업적 재판매는 금지.",
-    image: "/images/presets/store/shootmon-store-template-01.webp",
+    image: "https://images.pexels.com/photos/6814526/pexels-photo-6814526.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
     createdAt: "2026-06-10"
   },
   {
@@ -149,7 +149,7 @@ export const products = [
     revisions: "회차당 1회 무료",
     commercialUse: true,
     refundPolicy: "미진행 회차에 대해 일할 계산 환불.",
-    image: "/images/presets/store/shootmon-store-package-01.webp",
+    image: "https://images.pexels.com/photos/3062533/pexels-photo-3062533.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
     createdAt: "2026-06-12"
   },
   {
@@ -166,7 +166,7 @@ export const products = [
     revisions: "해당 없음",
     commercialUse: true,
     refundPolicy: "수령 전 취소 시 전액 환불, 수령 후 환불 불가.",
-    image: "/images/presets/store/shootmon-store-equipment-01.webp",
+    image: "https://images.pexels.com/photos/32957317/pexels-photo-32957317.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
     createdAt: "2026-06-14"
   },
   {
@@ -183,7 +183,7 @@ export const products = [
     revisions: "1회 무료",
     commercialUse: false,
     refundPolicy: "예식 30일 전 취소 시 계약금 제외 환불, 이후 50% 공제.",
-    image: "/images/presets/store/shootmon-store-wedding-01.webp",
+    image: "https://images.pexels.com/photos/30396798/pexels-photo-30396798.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
     createdAt: "2026-06-16"
   },
   {
@@ -200,7 +200,7 @@ export const products = [
     revisions: "2회 무료",
     commercialUse: true,
     refundPolicy: "촬영 전 전액 환불, 납품 후 환불 불가.",
-    image: "/images/presets/store/shootmon-store-product-02.webp",
+    image: "https://images.pexels.com/photos/11453370/pexels-photo-11453370.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
     createdAt: "2026-06-18"
   },
   {
@@ -217,7 +217,7 @@ export const products = [
     revisions: "1회 무료",
     commercialUse: true,
     refundPolicy: "비행 불가 지역 판정 시 드론 비용 차감 환불.",
-    image: "/images/presets/store/shootmon-store-drone-02.webp",
+    image: "https://images.pexels.com/photos/11378718/pexels-photo-11378718.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
     createdAt: "2026-06-20"
   },
   {
@@ -234,7 +234,7 @@ export const products = [
     revisions: "해당 없음",
     commercialUse: true,
     refundPolicy: "이용 7일 전 전액, 3일 전 50% 환불, 이후 환불 불가.",
-    image: "/images/presets/store/shootmon-store-studio-02.webp",
+    image: "https://images.pexels.com/photos/20419529/pexels-photo-20419529.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
     createdAt: "2026-06-22"
   },
   {
@@ -251,7 +251,7 @@ export const products = [
     revisions: "해당 없음",
     commercialUse: true,
     refundPolicy: "촬영일 7일 전 취소 시 전액, 이후 50% 공제.",
-    image: "/images/presets/store/shootmon-store-equipment-02.webp",
+    image: "https://images.pexels.com/photos/8390627/pexels-photo-8390627.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
     createdAt: "2026-06-24"
   },
   {
@@ -268,7 +268,7 @@ export const products = [
     revisions: "해당 없음",
     commercialUse: true,
     refundPolicy: "수령 전 취소 시 전액 환불, 수령 후 환불 불가.",
-    image: "/images/presets/store/shootmon-store-lighting-02.webp",
+    image: "https://images.pexels.com/photos/53265/pexels-photo-53265.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
     createdAt: "2026-06-26"
   },
   {
@@ -285,7 +285,7 @@ export const products = [
     revisions: "해당 없음",
     commercialUse: true,
     refundPolicy: "디지털 상품 특성상 다운로드 후 환불 불가.",
-    image: "/images/presets/store/shootmon-store-lut-02.webp",
+    image: "https://images.pexels.com/photos/8102680/pexels-photo-8102680.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
     createdAt: "2026-06-28"
   },
   {
@@ -302,7 +302,7 @@ export const products = [
     revisions: "3회 무료",
     commercialUse: true,
     refundPolicy: "시안 확정 전 70% 환불, 확정 후 환불 불가.",
-    image: "/images/presets/store/shootmon-store-thumbnail-01.webp",
+    image: "https://images.pexels.com/photos/3045245/pexels-photo-3045245.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
     createdAt: "2026-06-30"
   },
   {
@@ -319,7 +319,7 @@ export const products = [
     revisions: "1회 무료",
     commercialUse: true,
     refundPolicy: "행사 7일 전 취소 시 전액 환불.",
-    image: "/images/presets/store/shootmon-store-package-02.webp",
+    image: "https://images.pexels.com/photos/11043433/pexels-photo-11043433.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
     createdAt: "2026-07-02"
   },
   {
@@ -336,7 +336,7 @@ export const products = [
     revisions: "해당 없음",
     commercialUse: true,
     refundPolicy: "이용일 3일 전 취소 시 전액 환불, 이후 50% 공제.",
-    image: "/images/presets/store/shootmon-store-equipment-01.webp",
+    image: "https://images.pexels.com/photos/34519041/pexels-photo-34519041.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
     createdAt: "2026-07-04"
   }
 ];

@@ -14,6 +14,10 @@ function findNotice(id: string) {
   return notices.find((notice) => String(notice.id) === id);
 }
 
+export function generateStaticParams() {
+  return notices.map((notice) => ({ id: String(notice.id) }));
+}
+
 function noticeBody(title: string) {
   return [
     `${title}에 대해 안내드립니다.`,

@@ -15,6 +15,10 @@ function findProfile(id: string) {
   return profiles.find((profile) => String(profile.id) === id);
 }
 
+export function generateStaticParams() {
+  return profiles.map((profile) => ({ id: String(profile.id) }));
+}
+
 function contactItems(profile: NonNullable<ReturnType<typeof findProfile>>) {
   const suffix = String(profile.id).padStart(2, "0");
   return [

@@ -5,11 +5,21 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, Building2, MapPin, ShieldCheck, UserRound } from "lucide-react";
 import { JobCard } from "@/components/jobs";
 import { Badge, EmptyState } from "@/components/ui";
-import { resolveCompany } from "@/lib/companies";
+import { jobs } from "@/data/jobs";
+import { companyMembers } from "@/data/members";
+import { companyIdForJob, resolveCompany } from "@/lib/companies";
 import { resolveImagePath } from "@/lib/images";
 
 interface CompanyPageProps {
   params: { id: string };
+}
+
+export function generateStaticParams() {
+  const ids = new Set([
+    ...companyMembers.map((company) => String(company.id)),
+    ...jobs.map((job) => companyIdForJob(job)),
+  ]);
+  return [...ids].map((id) => ({ id }));
 }
 
 export function generateMetadata({ params }: CompanyPageProps): Metadata {

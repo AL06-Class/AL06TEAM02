@@ -20,7 +20,7 @@ export const jobs = [
     managerEmail: "recruit@onbit.example.kr",
     address: "서울 강남구 테헤란로 152",
     description: "신규 브랜드 필름 3편 제작에 참여할 촬영감독을 찾습니다. 콘티 기반 촬영 경험과 시네마 카메라 운용이 필수이며, 조명팀과의 협업 경험을 우대합니다. 촬영은 8월 중 서울/경기 로케이션 2일, 스튜디오 1일로 진행됩니다.",
-    image: "/images/presets/jobs/shootmon-job-brand-01.webp",
+    image: "https://images.pexels.com/photos/38059001/pexels-photo-38059001.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
     createdAt: "2026-06-28",
     views: 1842,
     scrapCount: 37
@@ -46,7 +46,7 @@ export const jobs = [
     managerEmail: "hire@moovlab.example.kr",
     address: "서울 마포구 양화로 45",
     description: "구독자 40만 규모 지식 채널의 전속 촬영 PD를 채용합니다. 주 2회 스튜디오 촬영과 월 1회 야외 촬영을 담당하며, 컷 편집까지 가능하면 우대합니다. 4대 보험과 장비 지원이 제공됩니다.",
-    image: "/images/presets/jobs/shootmon-job-youtube-01.webp",
+    image: "https://images.pexels.com/photos/6964856/pexels-photo-6964856.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
     createdAt: "2026-06-15",
     views: 2315,
     scrapCount: 54
@@ -72,7 +72,7 @@ export const jobs = [
     managerEmail: "apply@pixelriver.example.kr",
     address: "서울 성동구 연무장길 20",
     description: "패션 브랜드 공식 계정에 업로드할 세로형 릴스 콘텐츠 촬영자를 모집합니다. 월 8건 내외의 정기 촬영이며, 트렌드 문법에 맞는 빠른 호흡의 촬영이 가능해야 합니다.",
-    image: "/images/presets/jobs/shootmon-job-shortform-01.webp",
+    image: "https://images.pexels.com/photos/7777117/pexels-photo-7777117.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
     createdAt: "2026-06-30",
     views: 976,
     scrapCount: 21
@@ -98,7 +98,7 @@ export const jobs = [
     managerEmail: "crew@lavienne.example.kr",
     address: "서울 서초구 반포대로 58",
     description: "주말 본식 촬영을 담당할 2인 이상 촬영팀을 상시 모집합니다. 본식 영상 촬영 경력 3년 이상, 짐벌 워킹샷 가능자를 찾습니다. 홀 전속 계약으로 월 4~6건의 안정적인 일정을 보장합니다.",
-    image: "/images/presets/jobs/shootmon-job-wedding-01.webp",
+    image: "https://images.pexels.com/photos/13884201/pexels-photo-13884201.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
     createdAt: "2026-05-20",
     views: 3204,
     scrapCount: 88
@@ -124,7 +124,7 @@ export const jobs = [
     managerEmail: "event@daol.example.kr",
     address: "서울 영등포구 국제금융로 10",
     description: "여의도 컨벤션에서 열리는 이틀간의 기업 컨퍼런스 스케치 촬영입니다. 세션 스케치, 인터뷰 스케치, 부스 스케치를 담당하며 당일 원본 전달 조건입니다.",
-    image: "/images/presets/jobs/shootmon-job-event-01.webp",
+    image: "https://images.pexels.com/photos/9275222/pexels-photo-9275222.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
     createdAt: "2026-07-01",
     views: 654,
     scrapCount: 12
@@ -150,7 +150,7 @@ export const jobs = [
     managerEmail: "hr@commerceone.example.kr",
     address: "경기 성남시 분당구 판교로 235",
     description: "자사 스튜디오에서 진행하는 제품 상세페이지 촬영 인력을 채용합니다. 의류/잡화 중심이며 사진과 짧은 영상 클립을 함께 촬영합니다. 주 5일 판교 스튜디오 출근입니다.",
-    image: "/images/presets/jobs/shootmon-job-product-01.webp",
+    image: "https://images.pexels.com/photos/12811301/pexels-photo-12811301.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
     createdAt: "2026-06-22",
     views: 1127,
     scrapCount: 30
@@ -176,7 +176,7 @@ export const jobs = [
     managerEmail: "docu@gyeol.example.kr",
     address: "서울 종로구 자하문로 12",
     description: "창작자 인터뷰 시리즈의 고정 촬영자를 찾습니다. 2캠 인터뷰 세팅과 조명 구성이 가능해야 하며, 월 3~4회 서울 시내 촬영입니다. 회차당 촬영 시간은 3시간 내외입니다.",
-    image: "/images/presets/jobs/shootmon-job-interview-01.webp",
+    image: "https://images.pexels.com/photos/14279592/pexels-photo-14279592.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
     createdAt: "2026-06-25",
     views: 889,
     scrapCount: 19
@@ -202,7 +202,7 @@ export const jobs = [
     managerEmail: "live@liveon.example.kr",
     address: "서울 강서구 마곡중앙로 161",
     description: "자체 스튜디오에서 진행하는 라이브커머스 방송의 송출 오퍼레이터를 채용합니다. 스위처 운용과 송출 세팅 경험이 필요하며, 주 4회 방송을 담당합니다. 방송 장비는 전량 회사에서 제공합니다.",
-    image: "/images/presets/jobs/shootmon-job-live-01.webp",
+    image: "https://images.pexels.com/photos/34518967/pexels-photo-34518967.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
     createdAt: "2026-06-10",
     views: 1955,
     scrapCount: 41
@@ -228,7 +228,7 @@ export const jobs = [
     managerEmail: "fly@airshot.example.kr",
     address: "제주 제주시 첨단로 213",
     description: "제주 관광 콘텐츠 시리즈의 드론 촬영을 맡을 분을 찾습니다. 초경량비행장치 조종자 증명 보유와 비행 승인 절차 경험이 필수입니다. 월 2~3회, 회당 반나절 촬영입니다.",
-    image: "/images/presets/jobs/shootmon-job-drone-01.webp",
+    image: "https://images.pexels.com/photos/2044045/pexels-photo-2044045.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
     createdAt: "2026-06-18",
     views: 1432,
     scrapCount: 35
@@ -254,7 +254,7 @@ export const jobs = [
     managerEmail: "studio@hwinbaram.example.kr",
     address: "서울 용산구 한강대로 92",
     description: "렌탈 스튜디오 상주 촬영자를 채용합니다. 대관 고객 응대와 조명 세팅 보조, 자체 프로필 촬영 상품 운영을 담당합니다. 신입 지원 가능하며 사진 촬영 가능자를 우대합니다.",
-    image: "/images/presets/jobs/shootmon-job-studio-01.webp",
+    image: "https://images.pexels.com/photos/30332804/pexels-photo-30332804.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
     createdAt: "2026-06-05",
     views: 1208,
     scrapCount: 26
@@ -280,7 +280,7 @@ export const jobs = [
     managerEmail: "media@homenspace.example.kr",
     address: "인천 연수구 송도과학로 32",
     description: "송도 지역 아파트/오피스텔 매물 소개 영상을 촬영할 프리랜서를 상시 모집합니다. 건당 20분 내외 촬영, 월 10건 이상 배정 가능합니다. 짐벌 워킹샷 촬영이 가능해야 합니다.",
-    image: "/images/presets/jobs/shootmon-job-realestate-01.webp",
+    image: "https://images.pexels.com/photos/15928940/pexels-photo-15928940.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
     createdAt: "2026-05-28",
     views: 742,
     scrapCount: 15
@@ -306,7 +306,7 @@ export const jobs = [
     managerEmail: "cast@beautybridge.example.kr",
     address: "서울 강남구 도산대로 318",
     description: "뷰티 브랜드 시즌 화보 영상 촬영자를 모집합니다. 클로즈업 제품 컷과 모델 컷을 모두 다뤄야 하며, 뷰티/패션 화보 포트폴리오 제출이 필수입니다. 촬영은 7월 말 이틀간 진행됩니다.",
-    image: "/images/presets/jobs/shootmon-job-beauty-01.webp",
+    image: "https://images.pexels.com/photos/11091320/pexels-photo-11091320.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
     createdAt: "2026-06-27",
     views: 1689,
     scrapCount: 44
@@ -332,7 +332,7 @@ export const jobs = [
     managerEmail: "edu@educlasson.example.kr",
     address: "서울 관악구 남부순환로 1820",
     description: "인터넷 강의 촬영과 실시간 송출 보조 인력을 모집했습니다. 주 3일 오후 근무 조건이며, 현재 인원이 충원되어 조기 마감되었습니다.",
-    image: "/images/presets/jobs/shootmon-job-education-01.webp",
+    image: "https://images.pexels.com/photos/6325974/pexels-photo-6325974.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
     createdAt: "2026-06-02",
     views: 1530,
     scrapCount: 9
@@ -358,7 +358,7 @@ export const jobs = [
     managerEmail: "staff@sportsvision.example.kr",
     address: "부산 해운대구 센텀중앙로 48",
     description: "부산 지역 아마추어 축구/농구 리그 경기 촬영 스태프를 모집합니다. 주말 경기 위주이며 하이라이트 편집팀에 원본을 전달하는 역할입니다. 스포츠 팔로잉 촬영 경험을 우대합니다.",
-    image: "/images/presets/jobs/shootmon-job-sports-01.webp",
+    image: "https://images.pexels.com/photos/4218027/pexels-photo-4218027.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
     createdAt: "2026-06-20",
     views: 811,
     scrapCount: 14
@@ -384,7 +384,7 @@ export const jobs = [
     managerEmail: "pd@brandworks.example.kr",
     address: "서울 성동구 왕십리로 83",
     description: "대기업 계열사 홍보영상 촬영에 A/B캠 촬영팀을 모집합니다. 시네마 카메라 2대 운용, DIT 경험, 색보정 협의 가능자를 찾습니다. 총 4회차 촬영이며 회당 단가는 협의 가능합니다.",
-    image: "/images/presets/jobs/shootmon-job-brand-02.webp",
+    image: "https://images.pexels.com/photos/2443272/pexels-photo-2443272.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
     createdAt: "2026-06-29",
     views: 2077,
     scrapCount: 61
@@ -410,7 +410,7 @@ export const jobs = [
     managerEmail: "crew@channelgureum.example.kr",
     address: "경기 고양시 일산동구 중앙로 1275",
     description: "야외 예능형 유튜브 콘텐츠의 촬영 스태프를 상시 모집합니다. 핸드헬드/짐벌 팔로잉 촬영 위주이며, 출연자 동선을 따라가는 체력이 필요합니다. 경력이 없어도 포트폴리오가 있으면 지원 가능합니다.",
-    image: "/images/presets/jobs/shootmon-job-youtube-02.webp",
+    image: "https://images.pexels.com/photos/6593783/pexels-photo-6593783.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
     createdAt: "2026-05-15",
     views: 1344,
     scrapCount: 28
@@ -436,7 +436,7 @@ export const jobs = [
     managerEmail: "join@shortformfactory.example.kr",
     address: "서울 마포구 독막로 92",
     description: "브랜드 틱톡 계정 운영을 위한 촬영/편집 겸직 인력을 채용합니다. 주간 콘텐츠 4편 촬영과 컷 편집을 담당하며, 합정 사무실 출근 기준 6개월 계약입니다.",
-    image: "/images/presets/jobs/shootmon-job-shortform-02.webp",
+    image: "https://images.pexels.com/photos/6964950/pexels-photo-6964950.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
     createdAt: "2026-07-02",
     views: 588,
     scrapCount: 17
@@ -462,7 +462,7 @@ export const jobs = [
     managerEmail: "contact@filmlog.example.kr",
     address: "대전 유성구 대학로 99",
     description: "대전/충청 지역 소상공인 다큐 시리즈의 촬영자를 찾습니다. 3개월간 월 4회 촬영이며, 인터뷰와 현장 스케치를 함께 다룹니다. 지역 거주자를 우대합니다.",
-    image: "/images/presets/jobs/shootmon-job-interview-02.webp",
+    image: "https://images.pexels.com/photos/6765111/pexels-photo-6765111.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
     createdAt: "2026-06-24",
     views: 673,
     scrapCount: 11
@@ -488,7 +488,7 @@ export const jobs = [
     managerEmail: "space@urbanframe.example.kr",
     address: "서울 송파구 올림픽로 300",
     description: "신규 분양 단지 홍보영상 촬영자를 모집합니다. 지상 촬영이 기본이며 드론 항공샷 가능 시 건당 30만원을 추가 지급합니다. 견본주택과 현장 2회 촬영입니다.",
-    image: "/images/presets/jobs/shootmon-job-realestate-02.webp",
+    image: "https://images.pexels.com/photos/26812577/pexels-photo-26812577.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
     createdAt: "2026-07-03",
     views: 903,
     scrapCount: 22
@@ -514,7 +514,7 @@ export const jobs = [
     managerEmail: "food@misik.example.kr",
     address: "서울 중구 을지로 118",
     description: "을지로 노포를 소개하는 푸드 유튜브 채널의 고정 촬영자를 찾습니다. 주 2회 저녁 촬영이며, 음식 클로즈업과 매장 스케치 촬영 감각이 중요합니다.",
-    image: "/images/presets/jobs/shootmon-job-youtube-01.webp",
+    image: "https://images.pexels.com/photos/6347621/pexels-photo-6347621.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
     createdAt: "2026-06-26",
     views: 1092,
     scrapCount: 25
@@ -540,7 +540,7 @@ export const jobs = [
     managerEmail: "snap@moment.example.kr",
     address: "대구 수성구 동대구로 111",
     description: "본식 스냅 사진과 영상을 동시에 담당할 촬영자를 모집합니다. 대구/경북 지역 예식 위주이며, 사진과 영상 포트폴리오를 모두 제출해야 합니다.",
-    image: "/images/presets/jobs/shootmon-job-wedding-02.webp",
+    image: "https://images.pexels.com/photos/2548563/pexels-photo-2548563.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
     createdAt: "2026-06-08",
     views: 1265,
     scrapCount: 33
@@ -566,7 +566,7 @@ export const jobs = [
     managerEmail: "stage@onstage.example.kr",
     address: "광주 서구 상무중앙로 61",
     description: "공연장 정기 공연의 실황 라이브 송출을 담당할 오퍼레이터를 모집합니다. 월 2~4회 주말 저녁 근무이며, 송출 장비는 현장에 구축되어 있습니다.",
-    image: "/images/presets/jobs/shootmon-job-live-02.webp",
+    image: "https://images.pexels.com/photos/7709682/pexels-photo-7709682.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
     createdAt: "2026-05-30",
     views: 512,
     scrapCount: 8
@@ -592,7 +592,7 @@ export const jobs = [
     managerEmail: "photo@growthmarket.example.kr",
     address: "서울 금천구 가산디지털1로 168",
     description: "오픈마켓 입점 상품의 사진/영상 촬영자를 단기 모집했습니다. 가산 스튜디오에서 일 단위로 진행하는 건이었으며, 지원자 확정으로 조기 마감되었습니다.",
-    image: "/images/presets/jobs/shootmon-job-product-02.webp",
+    image: "https://images.pexels.com/photos/5878878/pexels-photo-5878878.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
     createdAt: "2026-06-12",
     views: 1401,
     scrapCount: 18
@@ -618,7 +618,7 @@ export const jobs = [
     managerEmail: "hall@siyeon.example.kr",
     address: "서울 종로구 대학로 116",
     description: "대학로 공연장의 연극/뮤지컬 실황을 멀티캠으로 기록할 촬영자를 상시 모집합니다. 3캠 운용 경험자를 우대하며, 공연 일정에 따라 회당 단가를 협의합니다.",
-    image: "/images/presets/jobs/shootmon-job-sports-02.webp",
+    image: "https://images.pexels.com/photos/8186275/pexels-photo-8186275.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
     createdAt: "2026-05-25",
     views: 987,
     scrapCount: 20
@@ -644,7 +644,7 @@ export const jobs = [
     managerEmail: "recruit@classmate-edu.example.kr",
     address: "경기 수원시 영통구 광교로 145",
     description: "인강 촬영 스튜디오의 촬영 운영 매니저를 채용합니다. 강의 촬영, 프롬프터 운용, 송출 장비 관리, 외부 촬영자 스케줄 관리를 담당합니다. 광교 사옥 주 5일 근무입니다.",
-    image: "/images/presets/jobs/shootmon-job-education-02.webp",
+    image: "https://images.pexels.com/photos/6326386/pexels-photo-6326386.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
     createdAt: "2026-07-04",
     views: 445,
     scrapCount: 10
@@ -670,7 +670,7 @@ export const jobs = [
     managerEmail: "film@lookbook.example.kr",
     address: "서울 강남구 압구정로 424",
     description: "F/W 시즌 룩북 필름을 연출할 촬영감독을 모집합니다. 패션 필름 레퍼런스 기반 무드 구현이 핵심이며, 조명 디자인까지 리드할 수 있어야 합니다. 스튜디오 이틀 촬영입니다.",
-    image: "/images/presets/jobs/shootmon-job-beauty-02.webp",
+    image: "https://images.pexels.com/photos/8991614/pexels-photo-8991614.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
     createdAt: "2026-07-05",
     views: 356,
     scrapCount: 16
@@ -696,7 +696,7 @@ export const jobs = [
     managerEmail: "festa@festaplan.example.kr",
     address: "부산 수영구 광안해변로 219",
     description: "광안리 일대에서 열리는 여름 축제의 3일간 스케치 촬영자를 모집합니다. 야간 촬영 비중이 높아 저조도 촬영 경험이 필요합니다. 숙박은 주최 측에서 제공합니다.",
-    image: "/images/presets/jobs/shootmon-job-event-02.webp",
+    image: "https://images.pexels.com/photos/12111225/pexels-photo-12111225.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
     createdAt: "2026-07-01",
     views: 620,
     scrapCount: 13
@@ -722,7 +722,7 @@ export const jobs = [
     managerEmail: "drone@skyview.example.kr",
     address: "경기 화성시 동탄대로 636",
     description: "골프장 코스 소개 영상의 드론 촬영자를 찾습니다. 코스별 항공샷과 시그니처 홀 연출샷을 촬영하며, 총 18홀 2회 방문 일정입니다. 색보정 가능자를 우대합니다.",
-    image: "/images/presets/jobs/shootmon-job-drone-02.webp",
+    image: "https://images.pexels.com/photos/442589/pexels-photo-442589.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
     createdAt: "2026-06-16",
     views: 534,
     scrapCount: 9
@@ -748,7 +748,7 @@ export const jobs = [
     managerEmail: "studio@gyeollo.example.kr",
     address: "서울 마포구 와우산로 27",
     description: "주말 프로필/증명 사진 스튜디오의 보조 촬영자를 모집합니다. 조명 세팅과 보조 촬영, 고객 안내를 담당합니다. 신입 지원 가능하며 촬영 교육을 제공합니다.",
-    image: "/images/presets/jobs/shootmon-job-studio-02.webp",
+    image: "https://images.pexels.com/photos/134469/pexels-photo-134469.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
     createdAt: "2026-06-21",
     views: 830,
     scrapCount: 12
@@ -774,7 +774,7 @@ export const jobs = [
     managerEmail: "bteam@movementfilm.example.kr",
     address: "서울 강남구 봉은사로 429",
     description: "광고 촬영 현장의 B팀 오퍼레이터를 모집합니다. B캠 운용과 장비 관리가 주 업무이며, 현장 경험 1년 이상이면 지원 가능합니다. 월 3~5회 현장이 배정됩니다.",
-    image: "/images/presets/jobs/shootmon-job-brand-01.webp",
+    image: "https://images.pexels.com/photos/38059003/pexels-photo-38059003.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
     createdAt: "2026-07-02",
     views: 1140,
     scrapCount: 24
