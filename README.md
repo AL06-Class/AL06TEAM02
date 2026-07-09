@@ -19,24 +19,31 @@ docker compose down        # 종료
 - 코드를 고치면 자동 반영(HMR). Mac/Windows 완전 동일.
 - **좌하단 주황 원형 버튼 = 데모 역할 스위처** (아래 참고)
 
-### 3. 배포 (Firebase Hosting에 올릴 사람만)
+### 3. GitHub 반영 (모든 팀원)
+```bash
+git switch -c 이름/작업명     # develop에서 분기
+# ... 작업 ...
+git add -A && git commit -m "feat: ..."
+git push origin 이름/작업명   # → GitHub에서 develop으로 PR
+```
+팀원은 여기까지만 하면 된다. **배포는 신경 쓸 필요 없다.**
+
+### 4. 배포 (팀장 전담)
 배포 대상: **https://al06team2.web.app**
 
-전제: 본인 Google 계정이 `al06team2` Firebase 프로젝트에 **멤버로 초대**되어 있어야 한다(팀장이 [콘솔](https://console.firebase.google.com/project/al06team2/settings/iam)에서 초대).
+- 배포는 팀장이 `develop → main` 승격 후 **한 번만** 한다. 팀원은 firebase 로그인·초대가 필요 없다.
+- 팀장 최초 1회만 로그인:
+  ```bash
+  docker compose exec web npx firebase login --no-localhost
+  #   → URL을 브라우저로 열어 로그인 → 인증 코드 붙여넣기 (컨테이너에 유지됨)
+  ```
+- 이후 배포는 한 줄:
+  ```bash
+  docker compose exec web npm run deploy
+  #   Mac: sh scripts/deploy.sh   ·   Windows: powershell scripts/deploy.ps1
+  ```
 
-```bash
-# (1) firebase 로그인 — 처음 한 번만. 브라우저 인증이라 자동화 불가.
-docker compose exec web npx firebase login --no-localhost
-#     → 출력된 URL을 브라우저로 열어 로그인 → 인증 코드를 터미널에 붙여넣기
-#     로그인은 컨테이너에 유지됨(docker compose down 해도 보존)
-
-# (2) 배포 — 이후로는 이 한 줄
-docker compose exec web npm run deploy
-#     Mac:     sh scripts/deploy.sh
-#     Windows: powershell scripts/deploy.ps1   (또는 위 명령 그대로)
-```
-
-> 개발용 로컬 서버가 필요 없이 npm만 쓰고 싶으면: `npm install && npm run dev`(→ localhost:3000).
+> npm만 쓰고 싶으면(도커 없이): `npm install && npm run dev` → localhost:3000.
 
 ## 시연 포인트
 
