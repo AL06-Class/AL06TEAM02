@@ -3,13 +3,42 @@
 촬영 의뢰자와 촬영자/촬영팀을 연결하는 구인구직 플랫폼 데모.
 Next.js(App Router) + TypeScript + Tailwind, **백엔드 없이 샘플 데이터 + localStorage**로 전 기능을 시연한다.
 
-## 빠른 시작
+## 팀원 온보딩 (Mac · Windows 공통)
+
+Docker를 쓰면 OS 상관없이 동일하게 동작한다. **개발만 할 사람은 1~2단계까지만 하면 된다.**
+
+### 1. 준비 (처음 한 번)
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/) 설치 후 실행
+- 레포 클론 → `develop` 브랜치 체크아웃
+
+### 2. 개발 서버 (firebase 로그인 불필요)
+```bash
+docker compose up          # http://localhost:5173
+docker compose down        # 종료
+```
+- 코드를 고치면 자동 반영(HMR). Mac/Windows 완전 동일.
+- **좌하단 주황 원형 버튼 = 데모 역할 스위처** (아래 참고)
+
+### 3. 배포 (Firebase Hosting에 올릴 사람만)
+배포 대상: **https://al06team2.web.app**
+
+전제: 본인 Google 계정이 `al06team2` Firebase 프로젝트에 **멤버로 초대**되어 있어야 한다(팀장이 [콘솔](https://console.firebase.google.com/project/al06team2/settings/iam)에서 초대).
 
 ```bash
-npm install
-npm run dev
-# → http://localhost:3000
+# (1) firebase 로그인 — 처음 한 번만. 브라우저 인증이라 자동화 불가.
+docker compose exec web npx firebase login --no-localhost
+#     → 출력된 URL을 브라우저로 열어 로그인 → 인증 코드를 터미널에 붙여넣기
+#     로그인은 컨테이너에 유지됨(docker compose down 해도 보존)
+
+# (2) 배포 — 이후로는 이 한 줄
+docker compose exec web npm run deploy
+#     Mac:     sh scripts/deploy.sh
+#     Windows: powershell scripts/deploy.ps1   (또는 위 명령 그대로)
 ```
+
+> 개발용 로컬 서버가 필요 없이 npm만 쓰고 싶으면: `npm install && npm run dev`(→ localhost:3000).
+
+## 시연 포인트
 
 - **좌하단 주황 원형 버튼 = 데모 역할 스위처**: 비회원 / 개인 / 기업(미인증) / 기업(인증) / 관리자를 즉시 전환. 열람권·자동점프 크레딧 mock 토글 포함
 - 역할별 시연 포인트:
