@@ -61,6 +61,9 @@ docs/                 # 설계 문서 (기존 .md는 루트 유지)
 | `/profiles` | 촬영자 프로필 목록 | `category, region, equipment, career, pay, gender, sort, page, q` |
 | `/profiles/[id]` | 프로필 상세 | — |
 | `/profiles/search` | 모바일 프로필 상세검색 | — |
+| `/editor-profiles` | 편집자 프로필 목록 | `category, region, equipment, career, pay, gender, sort, page, q` |
+| `/editor-profiles/[id]` | 편집자 프로필 상세 | — |
+| `/editor-profiles/search` | 모바일 편집자 프로필 상세검색 | — |
 | `/community` | 커뮤니티 홈 (이번주 베스트 + 게시판별 최신) | — |
 | `/community/[board]` | 게시판 목록 (`free\|feedback\|lab\|contest\|event\|suggest\|guide`) | `page, q` |
 | `/community/[board]/[id]` | 게시글 상세 | — |
@@ -297,7 +300,7 @@ docs/                 # 설계 문서 (기존 .md는 루트 유지)
 1. 레이아웃 공통 (헤더 PC/모바일, 푸터, 드로어, 빠른 문의)
 2. 메인 PC/모바일
 3. 촬영자 모집 목록/상세 + 모바일 카테고리/상세검색
-4. 촬영자 프로필 목록/상세 + 연락처 잠금
+4. 촬영자·편집자 프로필 목록/상세 + 연락처 잠금
 5. 로그인/회원가입(개인/기업) + 역할 스위처
 6. 서비스 안내 + 유료상품 주문(모의결제)
 7. 마이페이지 개인/기업 (인증, 공고 관리, 지원자, 열람권, 점프)

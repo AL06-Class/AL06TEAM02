@@ -15,9 +15,24 @@ interface ProfileFilterBoxProps {
   regions?: string[];
   action?: string;
   resetHref?: string;
+  categoryOptions?: readonly string[];
+  equipmentOptions?: readonly string[];
+  categoryLabel?: string;
+  equipmentLabel?: string;
+  keywordPlaceholder?: string;
 }
 
-export function ProfileFilterBox({ searchParams = {}, regions = [], action = "/profiles", resetHref = "/profiles" }: ProfileFilterBoxProps) {
+export function ProfileFilterBox({
+  searchParams = {},
+  regions = [],
+  action = "/profiles",
+  resetHref = "/profiles",
+  categoryOptions = SHOOTING_CATEGORIES,
+  equipmentOptions = EQUIPMENT_OPTIONS,
+  categoryLabel = "촬영 분야",
+  equipmentLabel = "보유 장비",
+  keywordPlaceholder = "드론, 숏폼, 서울",
+}: ProfileFilterBoxProps) {
   const params = toURLSearchParams(searchParams);
   const selectedCategories = getParamValues(params, "category");
   const selectedEquipment = getParamValues(params, "equipment");
@@ -26,9 +41,9 @@ export function ProfileFilterBox({ searchParams = {}, regions = [], action = "/p
     <form action={action} className="rounded-md border border-line bg-surface p-4 shadow-card">
       <div className="grid gap-5">
         <details open>
-          <summary className="cursor-pointer text-sm font-bold text-ink">촬영 분야</summary>
+          <summary className="cursor-pointer text-sm font-bold text-ink">{categoryLabel}</summary>
           <div className="mt-3 grid gap-2 md:grid-cols-2 xl:grid-cols-3">
-            {SHOOTING_CATEGORIES.map((category) => (
+            {categoryOptions.map((category) => (
               <Checkbox
                 key={category}
                 name="category"
@@ -41,9 +56,9 @@ export function ProfileFilterBox({ searchParams = {}, regions = [], action = "/p
         </details>
 
         <details>
-          <summary className="cursor-pointer text-sm font-bold text-ink">보유 장비</summary>
+          <summary className="cursor-pointer text-sm font-bold text-ink">{equipmentLabel}</summary>
           <div className="mt-3 grid gap-2 md:grid-cols-2 xl:grid-cols-3">
-            {EQUIPMENT_OPTIONS.map((equipment) => (
+            {equipmentOptions.map((equipment) => (
               <Checkbox
                 key={equipment}
                 name="equipment"
@@ -100,7 +115,7 @@ export function ProfileFilterBox({ searchParams = {}, regions = [], action = "/p
 
         <div className="flex flex-wrap items-end gap-3">
           <div className="min-w-0 flex-1">
-            <Input name="q" label="키워드" search defaultValue={params.get("q") ?? ""} placeholder="드론, 숏폼, 서울" />
+            <Input name="q" label="키워드" search defaultValue={params.get("q") ?? ""} placeholder={keywordPlaceholder} />
           </div>
           <Button type="submit" leftIcon={<Search aria-hidden className="h-4 w-4" />}>
             검색

@@ -43,6 +43,7 @@
 
 - `JobPosting`: 촬영자·편집자 모집 공통 공고 (`data/jobs.ts`, `data/editor-jobs.ts`)
 - `ShooterProfile`: 촬영자 프로필 (`data/profiles.ts`)
+- `EditorProfile`: 편집자 프로필 (`data/editor-profiles.ts`), `ShooterProfile`과 동일한 목록 구조를 재사용
 - `StoreProduct`: 스토어 상품 (`data/products.ts`)
 - `CommunityPost`: 커뮤니티 게시글 (`data/posts.ts`)
 - `Notice`: 공지사항 (`data/notices.ts`)
@@ -60,6 +61,7 @@
 - `deadlineType` + `deadline`: 마감 (마감일/상시채용/채용시까지)
 - `maskedName`: 마스킹 이름 (예: 김O민)
 - `travelAvailable`: 출장 가능 / `hasStudio`: 스튜디오 보유
+- 편집자 프로필의 `categories`: 편집 분야 / `equipment`: 사용 편집 툴 / `travelAvailable`: 원격 작업 가능
 
 ### 상태값
 
@@ -90,9 +92,11 @@
 - 필드명 camelCase, 날짜 문자열, 상태값 사전 준수 (2026-07-07)
 - 새 이름은 구현 전 이 문서에 먼저 추가 (2026-07-07)
 - localStorage 키는 `shootmon:` 프리픽스 + 헬퍼 경유 (2026-07-07)
+- 편집자 프로필은 촬영자 프로필 목록 구조를 재사용하고 별도 샘플 데이터로 관리 (2026-07-14)
 - 편집자 모집은 `JobPosting` 공통 구조를 재사용하고 `category`와 `equipment`에 편집 분야·편집 툴 값을 사용 (2026-07-14)
 
 ## 변경 이력
 
 - 2026-07-07: 최초 작성 — sample-data.md에서 이름 사전 역할 분리, team2 data-guide 형식 준용
+- 2026-07-14: 편집자 프로필 엔티티와 필드 의미 추가
 - 2026-07-14: 편집자 모집 데이터와 편집 분야·편집 툴 이름 기준 추가
