@@ -1,5 +1,6 @@
 export const mainNavItems = [
   { label: "촬영자 모집", href: "/jobs" },
+  { label: "편집자 모집", href: "/editor-jobs" },
   { label: "촬영자 프로필", href: "/profiles" },
   { label: "편집자 프로필", href: "/editor-profiles" },
   { label: "커뮤니티", href: "/community" },
@@ -10,6 +11,7 @@ export const mainNavItems = [
 
 export const mobileTabItems = [
   { label: "촬영자 모집", href: "/jobs" },
+  { label: "편집자 모집", href: "/editor-jobs" },
   { label: "촬영자 프로필", href: "/profiles" },
   { label: "편집자 프로필", href: "/editor-profiles" },
   { label: "커뮤니티", href: "/community" },

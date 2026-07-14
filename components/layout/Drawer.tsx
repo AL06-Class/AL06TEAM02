@@ -34,6 +34,13 @@ const drawerMenu: DrawerMenuItem[] = [
     })),
   },
   {
+    label: "편집자 모집",
+    children: ["편집 분야별", "지역별", "역세권별", "상세검색"].map((label) => ({
+      label,
+      href: label === "상세검색" ? "/editor-jobs/search" : `/editor-jobs/categories/${label === "편집 분야별" ? "field" : label === "지역별" ? "region" : "subway"}`,
+    })),
+  },
+  {
     label: "촬영자 프로필",
     children: [
       { label: "직종별", href: "/profiles" },

@@ -11,8 +11,8 @@ import { SortSelect } from "@/components/shared/SortSelect";
 import { EmptyState, Pagination } from "@/components/ui";
 import { editorProfiles } from "@/data/editor-profiles";
 import {
-  EDITING_CATEGORIES,
-  EDITING_TOOLS,
+  EDITOR_PROFILE_CATEGORIES,
+  EDITOR_PROFILE_TOOLS,
   getParamValues,
   PROFILE_SORT_OPTIONS,
   queryShooterProfiles,
@@ -73,8 +73,8 @@ export function EditorProfilesPageClient() {
             regions={regionOptions(editorProfiles)}
             action="/editor-profiles"
             resetHref="/editor-profiles"
-            categoryOptions={EDITING_CATEGORIES}
-            equipmentOptions={EDITING_TOOLS}
+            categoryOptions={EDITOR_PROFILE_CATEGORIES}
+            equipmentOptions={EDITOR_PROFILE_TOOLS}
             categoryLabel="편집 분야"
             equipmentLabel="사용 툴"
             keywordPlaceholder="유튜브, 모션그래픽, Premiere Pro"

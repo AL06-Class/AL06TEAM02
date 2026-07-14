@@ -9,9 +9,9 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        primary: "#F97316",
-        "primary-dark": "#C2410C",
-        accent: "#2563EB",
+        primary: "#1276B1",
+        "primary-dark": "#0D5E8E",
+        accent: "#DBF15F",
         success: "#10B981",
         warning: "#F59E0B",
         danger: "#EF4444",
@@ -20,8 +20,8 @@ const config: Config = {
         line: "#E5E7EB",
         surface: "#FFFFFF",
         page: "#F8FAFC",
-        "primary-soft": "#FFF7ED",
-        "accent-soft": "#EFF6FF",
+        "primary-soft": "#EDF7FB",
+        "accent-soft": "#F7FCD8",
         "success-soft": "#ECFDF5",
         "warning-soft": "#FFFBEB",
         "danger-soft": "#FEF2F2",

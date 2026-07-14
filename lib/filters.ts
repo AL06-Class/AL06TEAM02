@@ -147,7 +147,7 @@ export const EQUIPMENT_OPTIONS = [
   "스튜디오 보유",
 ] as const;
 
-export const EDITING_CATEGORIES = [
+export const EDITOR_PROFILE_CATEGORIES = [
   "유튜브 편집",
   "숏폼/Reels/TikTok",
   "광고/브랜드",
@@ -160,7 +160,7 @@ export const EDITING_CATEGORIES = [
   "게임/스트리밍",
 ] as const;
 
-export const EDITING_TOOLS = [
+export const EDITOR_PROFILE_TOOLS = [
   "Premiere Pro",
   "After Effects",
   "DaVinci Resolve",
@@ -171,6 +171,30 @@ export const EDITING_TOOLS = [
   "CapCut",
   "Cinema 4D",
   "Camtasia",
+] as const;
+
+export const EDITING_CATEGORIES = [
+  "영상촬영.편집",
+  "유튜브채널",
+  "AI",
+  "광고.홍보",
+  "애니.모션",
+  "3D·VR",
+  "썸네일",
+  "숏츠",
+] as const;
+
+export const EDITING_TOOL_OPTIONS = [
+  "프리미어프로",
+  "에프터이펙트",
+  "파이널컷",
+  "베가스",
+  "파워디렉터",
+  "포토샵",
+  "일러스트",
+  "Blender",
+  "Maya",
+  "DaVinci Resolve",
 ] as const;
 
 export const CAREER_OPTIONS = ["신입", "1년 이상", "3년 이상", "5년 이상", "10년 이상", "경력무관"] as const;
@@ -197,6 +221,8 @@ interface JobFilterable {
   subwayArea?: string;
   careerLevel: string;
   equipment: string[];
+  employmentType: string;
+  payType: string;
   payAmount: string;
   deadline?: string;
   isPremium: boolean;
@@ -256,6 +282,8 @@ export function filterJobPostings<T extends JobFilterable>(items: T[], paramsInp
   const career = params.get("career") ?? "";
   const includeAnyCareer = params.get("includeAnyCareer") === "1";
   const equipment = getParamValues(params, "equipment");
+  const employmentType = params.get("employmentType") ?? "";
+  const payType = params.get("pay") ?? "";
   const query = (params.get("q") ?? "").trim();
   const scope = params.get("scope") ?? "all";
 
@@ -265,6 +293,8 @@ export function filterJobPostings<T extends JobFilterable>(items: T[], paramsInp
     if (subways.length > 0 && !subways.some((subway) => job.subwayArea === subway)) return false;
     if (equipment.length > 0 && !equipment.some((item) => job.equipment.includes(item))) return false;
     if (career && job.careerLevel !== career && !(includeAnyCareer && job.careerLevel === "경력무관")) return false;
+    if (employmentType && job.employmentType !== employmentType) return false;
+    if (payType && job.payType !== payType) return false;
     if (!query) return true;
 
     if (scope === "company") return textIncludes(job.companyName, query);

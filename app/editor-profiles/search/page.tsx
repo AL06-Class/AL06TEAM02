@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Search } from "lucide-react";
 import { Button, Checkbox, Input, Select } from "@/components/ui";
-import { CAREER_OPTIONS, EDITING_CATEGORIES, EDITING_TOOLS } from "@/lib/filters";
+import { CAREER_OPTIONS, EDITOR_PROFILE_CATEGORIES, EDITOR_PROFILE_TOOLS } from "@/lib/filters";
 
 const regions = ["서울", "경기", "인천", "부산", "대구", "광주", "대전", "제주"];
 
@@ -17,7 +17,7 @@ export default function EditorProfilesSearchPage() {
         <section className="rounded-md border border-line bg-surface p-4 shadow-card">
           <h2 className="mb-3 text-base font-bold text-ink">편집 분야</h2>
           <div className="grid gap-2">
-            {EDITING_CATEGORIES.map((category) => <Checkbox key={category} name="category" value={category} label={category} />)}
+            {EDITOR_PROFILE_CATEGORIES.map((category) => <Checkbox key={category} name="category" value={category} label={category} />)}
           </div>
         </section>
 
@@ -31,7 +31,7 @@ export default function EditorProfilesSearchPage() {
         <section className="rounded-md border border-line bg-surface p-4 shadow-card">
           <h2 className="mb-3 text-base font-bold text-ink">사용 툴</h2>
           <div className="grid gap-2">
-            {EDITING_TOOLS.map((tool) => <Checkbox key={tool} name="equipment" value={tool} label={tool} />)}
+            {EDITOR_PROFILE_TOOLS.map((tool) => <Checkbox key={tool} name="equipment" value={tool} label={tool} />)}
           </div>
         </section>
 

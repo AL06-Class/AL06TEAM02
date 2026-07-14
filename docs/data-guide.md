@@ -41,7 +41,7 @@
 
 ### 엔티티 (lib/types.ts)
 
-- `JobPosting`: 촬영자 모집 공고 (`data/jobs.ts`)
+- `JobPosting`: 촬영자·편집자 모집 공통 공고 (`data/jobs.ts`, `data/editor-jobs.ts`)
 - `ShooterProfile`: 촬영자 프로필 (`data/profiles.ts`)
 - `EditorProfile`: 편집자 프로필 (`data/editor-profiles.ts`), `ShooterProfile`과 동일한 목록 구조를 재사용
 - `StoreProduct`: 스토어 상품 (`data/products.ts`)
@@ -51,8 +51,8 @@
 
 ### 핵심 필드 (전체 필드는 lib/types.ts)
 
-- `category`: 촬영 분야 (14종 — PRD 9.3)
-- `equipment`: 장비/스킬 배열 (13종 — PRD 9.4)
+- `category`: 모집 분야 (촬영 분야 14종 또는 편집 분야 8종)
+- `equipment`: 작업 조건 배열 (촬영 장비/스킬 13종 또는 편집 가능 툴 10종)
 - `isPremium`: 프리미엄 공고 여부
 - `isRecommended`: 추천(유료) 프로필 여부
 - `careerLevel`: 경력 조건 / `careerYears`: 경력 연차
@@ -93,8 +93,10 @@
 - 새 이름은 구현 전 이 문서에 먼저 추가 (2026-07-07)
 - localStorage 키는 `shootmon:` 프리픽스 + 헬퍼 경유 (2026-07-07)
 - 편집자 프로필은 촬영자 프로필 목록 구조를 재사용하고 별도 샘플 데이터로 관리 (2026-07-14)
+- 편집자 모집은 `JobPosting` 공통 구조를 재사용하고 `category`와 `equipment`에 편집 분야·편집 툴 값을 사용 (2026-07-14)
 
 ## 변경 이력
 
 - 2026-07-07: 최초 작성 — sample-data.md에서 이름 사전 역할 분리, team2 data-guide 형식 준용
 - 2026-07-14: 편집자 프로필 엔티티와 필드 의미 추가
+- 2026-07-14: 편집자 모집 데이터와 편집 분야·편집 툴 이름 기준 추가
