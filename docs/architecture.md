@@ -18,7 +18,7 @@
 
 - **Next.js 14+ App Router**: 파일 기반 라우팅, 페이지별 metadata(SEO/OG 태그 — PRD 19장 충족)
 - **TypeScript**: `lib/types.ts`에 엔티티 타입 정의 (`sample-data.md` 스키마와 동일)
-- **Tailwind CSS**: `tailwind.config`에 design.md 3장 색상 토큰 등록 (`primary: #F97316` 등)
+- **Tailwind CSS**: `tailwind.config`에 design.md 3장 색상 토큰 등록 (`primary: #1276B1` 등)
 - **폰트**: Pretendard variable — CDN(jsdelivr) 링크, 대체 `Noto Sans KR, system-ui, sans-serif`
 - **아이콘**: lucide-react (선 기반, design.md 14장 아이콘 목록 전부 커버)
 - **상태**: 전역 상태 라이브러리 없음. 역할/뷰모드는 React Context + localStorage, 필터는 URL searchParams
@@ -263,7 +263,7 @@ docs/                 # 설계 문서 (기존 .md는 루트 유지)
 
 | 상태 | 배지 색 (design.md 토큰) | 노출 위치 |
 | --- | --- | --- |
-| 프리미엄 | Accent `#2563EB` | 공고 카드/행 |
+| 프리미엄 | Accent `#DBF15F` + Ink 텍스트 | 공고 카드/행 |
 | 추천 | Accent | 프로필 카드 |
 | 채용시까지 | Success `#10B981` | 공고 |
 | 상시채용 | Success | 공고 |
@@ -273,7 +273,7 @@ docs/                 # 설계 문서 (기존 .md는 루트 유지)
 | 인증완료 | Success | 기업 정보/관리자 |
 | 반려 | Danger | 마이페이지/관리자 |
 | 공지 | Warning | 커뮤니티/공지 |
-| 신규(등록 3일 이내) | Primary `#F97316` | 공고/프로필 |
+| 신규(등록 3일 이내) | Primary `#1276B1` | 공고/프로필 |
 
 ## 10. 불일치 해소 결정 (gap-analysis C항목)
 

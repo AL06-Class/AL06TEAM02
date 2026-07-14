@@ -340,7 +340,7 @@ function StatCard({ label, value, href, tone = "primary" }: { label: string; val
     primary: "bg-primary-soft text-primary",
     success: "bg-success-soft text-success",
     warning: "bg-warning-soft text-warning",
-    accent: "bg-accent-soft text-accent",
+    accent: "bg-accent text-ink",
   }[tone];
 
   return (
