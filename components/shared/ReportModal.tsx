@@ -98,7 +98,7 @@ export function ReportModal({ open, onClose }: ReportModalProps) {
 function inferTargetType(): ReportTargetType {
   if (typeof window === "undefined") return "게시글";
   const pathname = window.location.pathname;
-  if (pathname.startsWith("/jobs")) return "공고";
+  if (pathname.startsWith("/jobs") || pathname.startsWith("/editor-jobs")) return "공고";
   if (pathname.startsWith("/profiles")) return "프로필";
   if (pathname.startsWith("/store")) return "상품";
   if (pathname.startsWith("/community")) return "게시글";

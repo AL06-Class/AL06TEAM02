@@ -21,6 +21,7 @@ export interface JobCardData {
 interface JobCardProps {
   job: JobCardData;
   compact?: boolean;
+  basePath?: string;
 }
 
 export function formatJobDeadline(job: Pick<JobCardData, "deadlineType" | "deadline">) {
@@ -30,12 +31,12 @@ export function formatJobDeadline(job: Pick<JobCardData, "deadlineType" | "deadl
   return `~${date.getMonth() + 1}/${date.getDate()}`;
 }
 
-export function JobCard({ job, compact = false }: JobCardProps) {
+export function JobCard({ job, compact = false, basePath = "/jobs" }: JobCardProps) {
   const closed = job.status === "마감";
 
   return (
     <Link
-      href={`/jobs/${job.id}`}
+      href={`${basePath}/${job.id}`}
       className={cn(
         "group block overflow-hidden rounded-md border border-line bg-surface shadow-card transition duration-150 hover:shadow-hover",
         closed && "opacity-60 grayscale",

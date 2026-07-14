@@ -1,11 +1,13 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Accordion, Badge } from "@/components/ui";
 import { useAuth } from "@/lib/auth-context";
 import { LoginBox } from "./LoginBox";
 
 export function SideBar() {
+  const pathname = usePathname();
   const { role, mockState } = useAuth();
   const loggedIn = role !== "guest";
 
@@ -31,8 +33,28 @@ export function SideBar() {
       <Accordion
         items={[
           {
+            title: "편집자 모집",
+            defaultOpen: pathname.startsWith("/editor-jobs"),
+            content: (
+              <div className="grid gap-2">
+                <Link href="/editor-jobs" className="hover:text-primary">
+                  전체 모집
+                </Link>
+                <Link href="/editor-jobs/categories/field" className="hover:text-primary">
+                  편집 분야별
+                </Link>
+                <Link href="/editor-jobs/categories/region" className="hover:text-primary">
+                  지역별
+                </Link>
+                <Link href="/editor-jobs/search" className="hover:text-primary">
+                  상세검색
+                </Link>
+              </div>
+            ),
+          },
+          {
             title: "촬영자 모집",
-            defaultOpen: true,
+            defaultOpen: !pathname.startsWith("/editor-jobs"),
             content: (
               <div className="grid gap-2">
                 <Link href="/jobs" className="hover:text-primary">
@@ -68,4 +90,3 @@ export function SideBar() {
     </aside>
   );
 }
-
