@@ -52,7 +52,7 @@ interface ShooterProfile {
   updatedAt: string;
 }
 
-// 편집자 프로필 — 목록 구조는 ShooterProfile과 동일하고 categories/equipment의 의미만 편집 분야/사용 툴로 구분
+// 편집자 프로필 — 목록 구조는 ShooterProfile과 동일하고 categories/equipment는 편집자 모집의 분야/툴 사전을 공유
 interface EditorProfile extends Omit<ShooterProfile, 'travelAvailable' | 'hasStudio'> {
   travelAvailable: boolean;   // 원격 작업 가능
   hasStudio: false;           // 공통 프로필 카드 호환용 고정값
