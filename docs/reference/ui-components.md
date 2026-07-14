@@ -9,19 +9,19 @@
 ### 1.1 색상
 
 `design.md` 3.1 그대로 Tailwind 토큰으로 등록:
-`primary #F97316` / `primary-dark #C2410C` / `accent #2563EB` / `success #10B981` / `warning #F59E0B` / `danger #EF4444` / `ink #111827` / `muted #6B7280` / `line #E5E7EB` / `surface #FFFFFF` / `page #F8FAFC`
+`primary #1276B1` / `primary-dark #0D5E8E` / `accent #DBF15F` / `success #10B981` / `warning #F59E0B` / `danger #EF4444` / `ink #111827` / `muted #6B7280` / `line #E5E7EB` / `surface #FFFFFF` / `page #F8FAFC`
 
 추가 파생 토큰 (배지/알림 배경용 연한 색):
 
 | 토큰 | 값 | 용도 |
 | --- | --- | --- |
-| primary-soft | `#FFF7ED` | Primary 배지 배경, 선택 칩 배경 |
-| accent-soft | `#EFF6FF` | 프리미엄/추천 배지 배경 |
+| primary-soft | `#EDF7FB` | Primary 배지 배경, 선택 칩 배경 |
+| accent-soft | `#F7FCD8` | Accent의 연한 보조 배경 |
 | success-soft | `#ECFDF5` | 인증완료/상시채용 배지 배경 |
 | warning-soft | `#FFFBEB` | 심사중/공지 배지 배경 |
 | danger-soft | `#FEF2F2` | 마감/반려 배지 배경 |
 
-배지는 `soft 배경 + 본색 텍스트` 조합을 기본으로 한다 (색약 대비 확보).
+배지는 `soft 배경 + 본색 텍스트` 조합을 기본으로 한다. 단, Accent Lime 배지는 `accent 배경 + ink 텍스트`를 사용해 명도 대비를 확보한다.
 
 ### 1.2 간격 (spacing 스케일)
 

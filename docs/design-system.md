@@ -11,7 +11,8 @@
 
 ### 토큰 (tailwind.config.ts에 등록됨 — 임의 추가 금지)
 
-- 색상: `primary #F97316` / `primary-dark` / `accent #2563EB` / `success` / `warning` / `danger` / `ink` / `muted` / `line` / `surface` / `page` + soft 5종
+- 색상: `primary #1276B1` / `primary-dark #0D5E8E` / `accent #DBF15F` / `success` / `warning` / `danger` / `ink` / `muted` / `line` / `surface` / `page` + soft 5종
+- Primary는 주요 액션용 블루, Accent는 추천·프리미엄 강조 배경용 라임으로 사용합니다. Accent 위 텍스트는 가독성을 위해 `ink`를 사용합니다.
 - radius: sm 4px / md 8px (**최댓값 8px** — 더 둥글게 금지)
 - 그림자: card / hover / modal 3단계만
 - 새 토큰이 필요하면 `docs/reference/ui-components.md` 1장 수정 PR을 먼저 냅니다.
@@ -51,7 +52,9 @@
 - 토큰 임의 추가 금지, 변경은 문서 수정 PR 선행 (2026-07-06)
 - 이미지는 SmartImage 경유 (2026-07-07)
 - radius 최댓값 8px, 카드 중첩 금지 (2026-07-06)
+- 브랜드 색상은 Primary Blue `#1276B1` + Accent Lime `#DBF15F` 조합 사용 (2026-07-14)
 
 ## 변경 이력
 
 - 2026-07-07: 최초 작성 — ui-components.md/design.md의 최소 기준 요약본, team2 design-system 형식 준용
+- 2026-07-14: 메인 컬러를 오렌지에서 블루·라임 조합으로 변경하고 접근성 대비 규칙 추가

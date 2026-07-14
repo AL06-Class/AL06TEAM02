@@ -45,7 +45,7 @@ const statusTone: Record<string, BadgeTone> = {
 };
 
 const toneClass: Record<BadgeTone, string> = {
-  accent: "bg-accent-soft text-accent",
+  accent: "bg-accent text-ink",
   success: "bg-success-soft text-success",
   warning: "bg-warning-soft text-warning",
   danger: "bg-danger-soft text-danger",
