@@ -147,32 +147,6 @@ export const EQUIPMENT_OPTIONS = [
   "스튜디오 보유",
 ] as const;
 
-export const EDITOR_PROFILE_CATEGORIES = [
-  "유튜브 편집",
-  "숏폼/Reels/TikTok",
-  "광고/브랜드",
-  "모션그래픽",
-  "웨딩/행사",
-  "다큐/인터뷰",
-  "색보정",
-  "예능/자막",
-  "교육/강의",
-  "게임/스트리밍",
-] as const;
-
-export const EDITOR_PROFILE_TOOLS = [
-  "Premiere Pro",
-  "After Effects",
-  "DaVinci Resolve",
-  "Final Cut Pro",
-  "Photoshop",
-  "Illustrator",
-  "Audition",
-  "CapCut",
-  "Cinema 4D",
-  "Camtasia",
-] as const;
-
 export const EDITING_CATEGORIES = [
   "영상촬영.편집",
   "유튜브채널",

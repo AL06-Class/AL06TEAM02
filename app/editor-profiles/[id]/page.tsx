@@ -85,7 +85,7 @@ export default function EditorProfileDetailPage({ params }: EditorProfileDetailP
               <BadgeList labels={profile.categories} max={6} />
             </div>
             <div>
-              <h2 className="mb-2 text-lg font-bold text-ink">사용 툴</h2>
+              <h2 className="mb-2 text-lg font-bold text-ink">편집 가능 툴</h2>
               <BadgeList labels={profile.equipment} max={8} />
             </div>
             <p className="text-sm text-muted">

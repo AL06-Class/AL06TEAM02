@@ -11,8 +11,8 @@ import { SortSelect } from "@/components/shared/SortSelect";
 import { EmptyState, Pagination } from "@/components/ui";
 import { editorProfiles } from "@/data/editor-profiles";
 import {
-  EDITOR_PROFILE_CATEGORIES,
-  EDITOR_PROFILE_TOOLS,
+  EDITING_CATEGORIES,
+  EDITING_TOOL_OPTIONS,
   getParamValues,
   PROFILE_SORT_OPTIONS,
   queryShooterProfiles,
@@ -59,7 +59,7 @@ export function EditorProfilesPageClient() {
         <div className="flex items-center justify-between gap-3">
           <div>
             <h1 className="text-2xl font-black text-ink">편집자 프로필</h1>
-            <p className="mt-1 text-sm text-muted">검증된 편집 분야와 사용 툴을 확인하세요 · 총 {desktopPage.totalItems}건</p>
+            <p className="mt-1 text-sm text-muted">검증된 편집 분야와 편집 가능 툴을 확인하세요 · 총 {desktopPage.totalItems}건</p>
           </div>
           <Link href="/editor-profiles/search" className="inline-flex h-10 items-center gap-2 rounded-md border border-line bg-surface px-3 text-sm font-semibold text-ink shadow-card lg:hidden">
             <Filter aria-hidden className="h-4 w-4" />
@@ -73,11 +73,11 @@ export function EditorProfilesPageClient() {
             regions={regionOptions(editorProfiles)}
             action="/editor-profiles"
             resetHref="/editor-profiles"
-            categoryOptions={EDITOR_PROFILE_CATEGORIES}
-            equipmentOptions={EDITOR_PROFILE_TOOLS}
+            categoryOptions={EDITING_CATEGORIES}
+            equipmentOptions={EDITING_TOOL_OPTIONS}
             categoryLabel="편집 분야"
-            equipmentLabel="사용 툴"
-            keywordPlaceholder="유튜브, 모션그래픽, Premiere Pro"
+            equipmentLabel="편집 가능 툴"
+            keywordPlaceholder="유튜브채널, 애니.모션, 프리미어프로"
           />
         </div>
 
