@@ -42,6 +42,14 @@ const drawerMenu: DrawerMenuItem[] = [
     ],
   },
   {
+    label: "편집자 프로필",
+    children: [
+      { label: "전체 프로필", href: "/editor-profiles" },
+      { label: "편집 분야별", href: "/editor-profiles" },
+      { label: "상세검색", href: "/editor-profiles/search" },
+    ],
+  },
+  {
     label: "커뮤니티",
     children: [
       { label: "자유게시판", href: "/community/free" },

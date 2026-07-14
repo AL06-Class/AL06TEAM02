@@ -63,9 +63,21 @@ export function SideBar() {
               </div>
             ),
           },
+          {
+            title: "편집자 프로필",
+            content: (
+              <div className="grid gap-2">
+                <Link href="/editor-profiles" className="hover:text-primary">
+                  전체 프로필
+                </Link>
+                <Link href="/editor-profiles/search" className="hover:text-primary">
+                  상세검색
+                </Link>
+              </div>
+            ),
+          },
         ]}
       />
     </aside>
   );
 }
-

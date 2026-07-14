@@ -22,14 +22,15 @@ export interface ProfileCardData {
 interface ProfileCardProps {
   profile: ProfileCardData;
   compact?: boolean;
+  hrefBase?: string;
 }
 
-export function ProfileCard({ profile, compact = false }: ProfileCardProps) {
+export function ProfileCard({ profile, compact = false, hrefBase = "/profiles" }: ProfileCardProps) {
   const age = profile.birthYear ? `${new Date().getFullYear() - profile.birthYear}세` : "팀";
 
   return (
     <Link
-      href={`/profiles/${profile.id}`}
+      href={`${hrefBase}/${profile.id}`}
       className="group block overflow-hidden rounded-md border border-line bg-surface shadow-card transition duration-150 hover:shadow-hover"
     >
       <div className="relative aspect-[4/3] overflow-hidden bg-page">
