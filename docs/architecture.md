@@ -54,6 +54,10 @@ docs/                 # 설계 문서 (기존 .md는 루트 유지)
 | `/jobs/[id]` | 모집 상세 | — |
 | `/jobs/categories/[type]` | 모바일 카테고리 (`field`\|`region`\|`subway`) | — |
 | `/jobs/search` | 모바일 상세검색 폼 | — |
+| `/editor-jobs` | 편집자 모집 목록 | `category, region, subway, career, equipment, employmentType, pay, sort, page, q` |
+| `/editor-jobs/[id]` | 편집자 모집 상세 | — |
+| `/editor-jobs/categories/[type]` | 편집자 모집 모바일 카테고리 (`field`\|`region`\|`subway`) | — |
+| `/editor-jobs/search` | 편집자 모집 모바일 상세검색 폼 | — |
 | `/profiles` | 촬영자 프로필 목록 | `category, region, equipment, career, pay, gender, sort, page, q` |
 | `/profiles/[id]` | 프로필 상세 | — |
 | `/profiles/search` | 모바일 프로필 상세검색 | — |

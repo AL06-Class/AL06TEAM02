@@ -19,6 +19,7 @@ export interface JobRowData {
 
 interface JobRowProps {
   job: JobRowData;
+  basePath?: string;
 }
 
 function formatJobDeadline(job: Pick<JobRowData, "deadlineType" | "deadline">) {
@@ -28,12 +29,12 @@ function formatJobDeadline(job: Pick<JobRowData, "deadlineType" | "deadline">) {
   return `~${date.getMonth() + 1}/${date.getDate()}`;
 }
 
-export function JobRow({ job }: JobRowProps) {
+export function JobRow({ job, basePath = "/jobs" }: JobRowProps) {
   const closed = job.status === "마감";
 
   return (
     <Link
-      href={`/jobs/${job.id}`}
+      href={`${basePath}/${job.id}`}
       className={cn(
         "grid min-h-14 grid-cols-[140px_minmax(0,1fr)_200px_100px_110px_90px_90px] items-center gap-3 border-b border-line px-3 py-2 text-sm transition hover:bg-page",
         closed && "text-muted opacity-60",
