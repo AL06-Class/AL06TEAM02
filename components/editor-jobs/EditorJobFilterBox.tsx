@@ -28,7 +28,7 @@ export function EditorJobFilterBox({ searchParams = {}, regions = [] }: EditorJo
       <div className="grid gap-5">
         <details open>
           <summary className="cursor-pointer text-sm font-bold text-ink">편집 분야</summary>
-          <div className="mt-3 grid gap-2 md:grid-cols-2 xl:grid-cols-4">
+          <div className="mt-3 grid gap-2 md:grid-cols-2 xl:grid-cols-3">
             {EDITING_CATEGORIES.map((category) => (
               <Checkbox key={category} name="category" value={category} label={category} defaultChecked={selectedCategories.includes(category)} />
             ))}
