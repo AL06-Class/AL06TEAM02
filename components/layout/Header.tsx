@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 import { LogOut, Search } from "lucide-react";
-import { Button, Input } from "@/components/ui";
+import { Button, Input, SmartImage } from "@/components/ui";
 import { useAuth } from "@/lib/auth-context";
 import { isActivePath, mainNavItems, utilityItems } from "./navigation";
 
@@ -34,8 +34,12 @@ export function Header() {
     <header className="border-b border-line bg-surface">
       <div className="border-b border-line">
         <div className="mx-auto flex h-9 max-w-[1180px] items-center justify-between px-4 text-xs text-muted">
-          <Link href="/" className="text-lg font-black text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2">
-            촬영몬
+          <Link
+            href="/"
+            aria-label="CLIPBee 홈"
+            className="inline-flex h-full items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+          >
+            <SmartImage src="/images/brand/clipbee-logo.png" alt="CLIPBee" width={231} height={53} priority className="h-7 w-auto object-contain" />
           </Link>
           <div className="flex items-center gap-4">
             {utilityItems.map((item) => (
