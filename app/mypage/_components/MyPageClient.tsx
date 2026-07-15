@@ -12,6 +12,7 @@ import {
   BriefcaseBusiness,
   Building2,
   CheckCircle2,
+  ChevronDown,
   ChevronRight,
   Clock3,
   CreditCard,
@@ -387,6 +388,15 @@ function ProductPurchaseCard({ title, description, href, action }: { title: stri
   );
 }
 
+function ProfileRegistrationActions() {
+  return (
+    <div className="flex flex-wrap justify-center gap-2">
+      <Link href="/profiles/new" className={linkPrimaryClass}>촬영자 프로필 등록</Link>
+      <Link href="/editor-profiles/new" className={linkSecondaryClass}>편집자 프로필 등록</Link>
+    </div>
+  );
+}
+
 function routeKind(role: string): AccountKind | null {
   if (role === "personal") return "personal";
   if (role === "company-unverified" || role === "company-verified" || role === "admin") return "company";
@@ -477,6 +487,7 @@ export function MyPageClient({ page, searchJobId = null }: { page: MyPageKey; se
             <Badge label={statusBadge} tone={kind === "company" ? verifyTone(mockState.verifyStatus) : undefined} className="mt-2" />
           </div>
           <nav className="mt-5 space-y-1 border-t border-line pt-4">
+            {kind === "company" ? <CompanyProfileRegistrationLinks /> : null}
             {menu.map((item) => {
               const active = item.key === page;
               const Icon = item.icon;
@@ -653,11 +664,7 @@ function PersonalDashboard({ profileState, personalStats, applications, payments
       ) : (
         <EmptyState
           title="등록된 촬영자 프로필이 없습니다"
-          action={
-            <Link href="/profiles/new" className={linkPrimaryClass}>
-              프로필 등록하기
-            </Link>
-          }
+          action={<ProfileRegistrationActions />}
           className="rounded-md border border-line bg-surface shadow-card"
         />
       )}
@@ -732,6 +739,18 @@ function CompanyDashboard({ companyState, companyStats }: { companyState: Compan
           </div>
         </div>
       </SectionCard>
+      <SectionCard>
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <h2 className="text-lg font-black text-ink">프로필 등록</h2>
+            <p className="mt-1 text-sm text-muted">기업 계정도 촬영자 또는 편집자 프로필을 등록할 수 있습니다.</p>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            <Link href="/profiles/new" className={linkPrimaryClass}>촬영자 프로필 등록</Link>
+            <Link href="/editor-profiles/new" className={linkSecondaryClass}>편집자 프로필 등록</Link>
+          </div>
+        </div>
+      </SectionCard>
       <MobileMenu kind="company" />
       <RecentActivity items={[{ id: "company-activity-1", at: new Date().toISOString(), label: "기업 마이페이지 상태가 최신화되었습니다" }]} />
     </div>
@@ -742,6 +761,7 @@ function MobileMenu({ kind }: { kind: AccountKind }) {
   const menu = kind === "personal" ? personalMenu : companyMenu;
   return (
     <div className="space-y-2 lg:hidden">
+      {kind === "company" ? <CompanyProfileRegistrationLinks /> : null}
       {menu.map((item) => {
         const Icon = item.icon;
         return (
@@ -752,6 +772,30 @@ function MobileMenu({ kind }: { kind: AccountKind }) {
           </Link>
         );
       })}
+    </div>
+  );
+}
+
+function CompanyProfileRegistrationLinks() {
+  const [open, setOpen] = useState(true);
+
+  return (
+    <div className="mb-3 space-y-2 border-b border-line pb-3">
+      <button type="button" onClick={() => setOpen((current) => !current)} className="flex h-10 w-full items-center gap-2 rounded-sm px-2 text-sm font-bold text-ink hover:bg-page" aria-expanded={open}>
+        <UserRound aria-hidden className="h-4 w-4 text-muted" />
+        <span className="flex-1 text-left">내 기업프로필</span>
+        <ChevronDown aria-hidden className={cn("h-4 w-4 text-muted transition", open ? "rotate-180" : "")} />
+      </button>
+      {open ? (
+        <div className="space-y-1 border-l-2 border-line pl-3">
+          <Link href="/profiles/new" className="flex h-9 items-center rounded-sm px-2 text-xs font-bold text-muted transition hover:bg-primary-soft hover:text-primary">
+            촬영자 프로필 등록
+          </Link>
+          <Link href="/editor-profiles/new" className="flex h-9 items-center rounded-sm px-2 text-xs font-bold text-muted transition hover:bg-primary-soft hover:text-primary">
+            편집자 프로필 등록
+          </Link>
+        </div>
+      ) : null}
     </div>
   );
 }
@@ -837,11 +881,7 @@ function ProfilePage({ profileState, setProfileState }: { profileState: ProfileS
     return (
       <EmptyState
         title="아직 등록된 촬영자 프로필이 없습니다"
-        action={
-          <Link href="/profiles/new" className={linkPrimaryClass}>
-            프로필 등록하기
-          </Link>
-        }
+        action={<ProfileRegistrationActions />}
         className="rounded-md border border-line bg-surface shadow-card"
       />
     );
@@ -899,7 +939,10 @@ function ProfilePage({ profileState, setProfileState }: { profileState: ProfileS
         </div>
         <div className="mt-5 flex flex-wrap justify-end gap-2">
           <Link href="/profiles/new" className={linkSecondaryClass}>
-            수정
+            촬영자 프로필 수정
+          </Link>
+          <Link href="/editor-profiles/new" className={linkSecondaryClass}>
+            편집자 프로필 등록
           </Link>
           <Button variant="danger" onClick={() => setDeleteOpen(true)}>
             삭제

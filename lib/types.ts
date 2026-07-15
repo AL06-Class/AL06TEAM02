@@ -38,6 +38,8 @@ interface ShooterProfile {
   region: string;
   categories: string[];       // 촬영 분야 1~3개
   equipment: string[];        // 1~5개
+  editingTools?: string[];    // 촬영자 프로필의 추가 편집 가능 툴
+  shootingCategories?: string[]; // 편집자 프로필의 추가 촬영 분야
   desiredPay: string;         // 예: "건당 50만원부터"
   careerYears: number;
   careerHistory: string[];    // 경력 2~4줄

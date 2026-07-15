@@ -102,6 +102,8 @@ const editorContent = [
 export const editorProfiles = editorContent.map((content, index) => ({
   ...profiles[index],
   ...content,
+  editingTools: [] as string[],
+  shootingCategories: [] as string[],
   id: index + 1,
   travelAvailable: index !== 3,
   hasStudio: false as const,

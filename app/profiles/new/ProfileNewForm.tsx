@@ -3,10 +3,10 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FormEvent, ReactNode, useEffect, useState } from "react";
-import { AlertTriangle, CheckCircle2, Plus, Trash2 } from "lucide-react";
+import { CheckCircle2, Plus, Trash2 } from "lucide-react";
 import { Button, FileUpload, Input, Modal, Select, Textarea, Toggle, useToast } from "@/components/ui";
 import { cn } from "@/components/ui/utils";
-import { EQUIPMENT_OPTIONS, SHOOTING_CATEGORIES } from "@/lib/filters";
+import { EDITING_CATEGORIES, EDITING_TOOL_OPTIONS, EQUIPMENT_OPTIONS, SHOOTING_CATEGORIES } from "@/lib/filters";
 import { useAuth } from "@/lib/auth-context";
 import { appendStorageItem, storageKeys, writeStorageJSON } from "@/lib/storage";
 
@@ -27,6 +27,8 @@ interface ProfileDraft {
   visibility: string;
   categories: string[];
   equipment: string[];
+  editingTools: string[];
+  shootingCategories: string[];
   desiredPay: string;
   region: string;
   travelAvailable: boolean;
@@ -49,6 +51,8 @@ const initialDraft: ProfileDraft = {
   visibility: "전체 공개",
   categories: [],
   equipment: [],
+  editingTools: [],
+  shootingCategories: [],
   desiredPay: "",
   region: "",
   travelAvailable: true,
@@ -64,7 +68,17 @@ function required(value: string) {
   return value.trim().length > 0;
 }
 
-export function ProfileNewForm() {
+export function ProfileNewForm({ kind = "shooting" }: { kind?: "shooting" | "editing" }) {
+  const isEditing = kind === "editing";
+  const routePath = isEditing ? "/editor-profiles/new" : "/profiles/new";
+  const categoryOptions = isEditing ? EDITING_CATEGORIES : SHOOTING_CATEGORIES;
+  const primaryOptions = isEditing ? EDITING_TOOL_OPTIONS : EQUIPMENT_OPTIONS;
+  const crossOptions = isEditing ? SHOOTING_CATEGORIES : EDITING_TOOL_OPTIONS;
+  const categoryLabel = isEditing ? "편집 가능 분야" : "촬영 가능 분야";
+  const primaryLabel = isEditing ? "편집 가능 툴" : "보유 장비";
+  const crossLabel = isEditing ? "촬영 가능 분야" : "편집 가능 툴";
+  const profileStorageKey = isEditing ? storageKeys.mypageEditorProfile : storageKeys.mypageProfile;
+  const portfolioStorageKey = isEditing ? storageKeys.mypageEditorPortfolio : storageKeys.mypagePortfolio;
   const router = useRouter();
   const { role, isReady } = useAuth();
   const { showToast } = useToast();
@@ -78,16 +92,16 @@ export function ProfileNewForm() {
 
   useEffect(() => {
     if (isReady && role === "guest") {
-      router.replace(`/login?redirect=${encodeURIComponent("/profiles/new")}`);
+      router.replace(`/login?redirect=${encodeURIComponent(routePath)}`);
     }
-  }, [isReady, role, router]);
+  }, [isReady, role, routePath, router]);
 
   function update<K extends keyof ProfileDraft>(key: K, value: ProfileDraft[K]) {
     setDraft((current) => ({ ...current, [key]: value }));
     setErrors((current) => ({ ...current, [key]: "" }));
   }
 
-  function toggleList(key: "categories" | "equipment", value: string) {
+  function toggleList(key: "categories" | "equipment" | "editingTools" | "shootingCategories", value: string) {
     setDraft((current) => {
       const values = current[key];
       return { ...current, [key]: values.includes(value) ? values.filter((item) => item !== value) : [...values, value] };
@@ -122,14 +136,14 @@ export function ProfileNewForm() {
 
     const now = new Date().toISOString();
     const links = draft.portfolioLinks.filter((item) => item.url.trim());
-    writeStorageJSON(storageKeys.mypageProfile, {
+    writeStorageJSON(profileStorageKey, {
       hasProfile: true,
       isPublic: draft.visibility !== "비공개",
       workStatus: "활동가능",
       reviewStatus: "검수중",
       rejectedReason: "",
     });
-    writeStorageJSON(storageKeys.mypagePortfolio, {
+    writeStorageJSON(portfolioStorageKey, {
       images: (portfolioImages.length > 0 ? portfolioImages : profileImages).map((file, index) => ({
         id: `image-${now}-${index}`,
         src: profilePlaceholder,
@@ -145,7 +159,10 @@ export function ProfileNewForm() {
     });
     appendStorageItem(storageKeys.submittedProfiles, {
       id: Date.now(),
+      profileType: kind,
       ...draft,
+      editingTools: isEditing ? draft.equipment : draft.editingTools,
+      shootingCategories: isEditing ? draft.shootingCategories : [],
       profileImageFileNames: profileImages.map((file) => file.name),
       coverImageFileNames: coverImages.map((file) => file.name),
       portfolioImageFileNames: portfolioImages.map((file) => file.name),
@@ -160,10 +177,6 @@ export function ProfileNewForm() {
     return <div className="rounded-md border border-line bg-surface p-6 text-sm text-muted shadow-card">프로필 등록 권한을 확인하는 중입니다.</div>;
   }
 
-  if (role !== "personal") {
-    return <GuardCard title="개인회원 전용 화면입니다" description="촬영자 프로필 등록은 개인회원만 이용할 수 있습니다." href="/profiles" action="프로필 목록으로" />;
-  }
-
   if (complete) {
     return (
       <div className="mx-auto max-w-[640px] rounded-md border border-line bg-surface p-6 text-center shadow-card">
@@ -171,10 +184,13 @@ export function ProfileNewForm() {
         <h1 className="mt-4 text-2xl font-black text-ink">프로필 검수 요청이 접수되었습니다</h1>
         <p className="mt-2 text-sm text-muted">마이페이지에서 검수중 상태로 확인할 수 있습니다.</p>
         <div className="mt-6 flex flex-wrap justify-center gap-3">
-          <Link href="/mypage/profile" className={linkPrimaryClass}>
-            내 프로필 보기
+          <Link href={isEditing ? "/editor-profiles" : "/mypage/profile"} className={linkPrimaryClass}>
+            {isEditing ? "편집자 프로필 목록" : "내 프로필 보기"}
           </Link>
-          <Link href="/profiles" className={linkSecondaryClass}>
+          <Link href={isEditing ? "/profiles" : "/editor-profiles/new"} className={linkSecondaryClass}>
+            {isEditing ? "촬영자 프로필 등록" : "편집자 프로필도 등록"}
+          </Link>
+          <Link href={isEditing ? "/editor-profiles" : "/profiles"} className={linkSecondaryClass}>
             목록으로
           </Link>
         </div>
@@ -186,7 +202,7 @@ export function ProfileNewForm() {
     <>
       <form onSubmit={submit} className="mx-auto max-w-[920px] space-y-5">
         <div>
-          <h1 className="text-3xl font-black text-ink max-md:text-2xl">프로필 등록</h1>
+          <h1 className="text-3xl font-black text-ink max-md:text-2xl">{isEditing ? "편집자 프로필 등록" : "촬영자 프로필 등록"}</h1>
           <p className="mt-2 text-sm text-muted">등록 후 검수중 상태로 저장됩니다.</p>
         </div>
 
@@ -204,10 +220,23 @@ export function ProfileNewForm() {
           </div>
         </FormSection>
 
-        <FormSection title="분야·장비">
-          <ChipPicker title="촬영 가능 분야" required error={errors.categories} values={SHOOTING_CATEGORIES} selected={draft.categories} onToggle={(value) => toggleList("categories", value)} />
+        <FormSection title={isEditing ? "분야·툴" : "분야·장비"}>
+          <ChipPicker title={categoryLabel} required error={errors.categories} values={categoryOptions} selected={draft.categories} onToggle={(value) => toggleList("categories", value)} />
           <div className="mt-5">
-            <ChipPicker title="보유 장비" values={EQUIPMENT_OPTIONS} selected={draft.equipment} onToggle={(value) => toggleList("equipment", value)} />
+            <ChipPicker
+              title={primaryLabel}
+              values={primaryOptions}
+              selected={draft.equipment}
+              onToggle={(value) => toggleList("equipment", value)}
+            />
+          </div>
+          <div className="mt-5">
+            <ChipPicker
+              title={crossLabel}
+              values={crossOptions}
+              selected={isEditing ? draft.shootingCategories : draft.editingTools}
+              onToggle={(value) => toggleList(isEditing ? "shootingCategories" : "editingTools", value)}
+            />
           </div>
         </FormSection>
 
@@ -289,8 +318,9 @@ export function ProfileNewForm() {
               {draft.region || "지역 미입력"} · {draft.desiredPay || "단가 미입력"}
             </p>
           </div>
-          <PreviewBlock label="분야" value={draft.categories.join(", ") || "-"} />
-          <PreviewBlock label="장비" value={draft.equipment.join(", ") || "-"} />
+          <PreviewBlock label={categoryLabel} value={draft.categories.join(", ") || "-"} />
+          <PreviewBlock label={primaryLabel} value={draft.equipment.join(", ") || "-"} />
+          <PreviewBlock label={crossLabel} value={(isEditing ? draft.shootingCategories : draft.editingTools).join(", ") || "-"} />
           <PreviewBlock label="경력" value={draft.careers.map((item) => [item.period, item.title].filter(Boolean).join(" ")).filter(Boolean).join("\n") || "-"} />
         </div>
       </Modal>
@@ -356,19 +386,6 @@ function PreviewBlock({ label, value }: { label: string; value: string }) {
     <div className="rounded-md bg-page p-3">
       <p className="text-xs font-semibold text-muted">{label}</p>
       <p className="mt-1 whitespace-pre-line font-semibold text-ink">{value}</p>
-    </div>
-  );
-}
-
-function GuardCard({ title, description, href, action }: { title: string; description: string; href: string; action: string }) {
-  return (
-    <div className="mx-auto max-w-[520px] rounded-md border border-line bg-surface p-6 text-center shadow-card">
-      <AlertTriangle aria-hidden className="mx-auto h-10 w-10 text-warning" />
-      <h1 className="mt-4 text-2xl font-black text-ink">{title}</h1>
-      <p className="mt-2 text-sm text-muted">{description}</p>
-      <Link href={href} className={cn(linkPrimaryClass, "mt-6")}>
-        {action}
-      </Link>
     </div>
   );
 }

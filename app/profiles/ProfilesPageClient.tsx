@@ -70,10 +70,18 @@ export function ProfilesPageClient() {
             <h1 className="text-2xl font-black text-ink">촬영자 프로필</h1>
             <p className="mt-1 text-sm text-muted">총 {desktopPage.totalItems}건</p>
           </div>
-          <Link href="/profiles/search" className="inline-flex h-10 items-center gap-2 rounded-md border border-line bg-surface px-3 text-sm font-semibold text-ink shadow-card lg:hidden">
-            <Filter aria-hidden className="h-4 w-4" />
-            필터
-          </Link>
+          <div className="flex flex-wrap justify-end gap-2">
+            <Link href="/profiles/new" className="inline-flex h-10 items-center justify-center rounded-md border border-primary bg-primary px-3 text-sm font-semibold text-white">
+              촬영자 프로필 등록
+            </Link>
+            <Link href="/editor-profiles/new" className="hidden h-10 items-center justify-center rounded-md border border-line bg-surface px-3 text-sm font-semibold text-ink sm:inline-flex">
+              편집자 프로필 등록
+            </Link>
+            <Link href="/profiles/search" className="inline-flex h-10 items-center gap-2 rounded-md border border-line bg-surface px-3 text-sm font-semibold text-ink shadow-card lg:hidden">
+              <Filter aria-hidden className="h-4 w-4" />
+              필터
+            </Link>
+          </div>
         </div>
 
         <div className="hidden lg:block">

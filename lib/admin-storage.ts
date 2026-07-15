@@ -44,10 +44,13 @@ export interface SubmittedJobRecord {
 
 export interface SubmittedProfileRecord {
   id: number;
+  profileType?: "shooting" | "editing";
   title: string;
   visibility: string;
   categories: string[];
   equipment: string[];
+  editingTools?: string[];
+  shootingCategories?: string[];
   desiredPay: string;
   region: string;
   travelAvailable: boolean;
@@ -98,12 +101,15 @@ export interface AdminJobRecord {
 
 export interface AdminProfileRecord {
   id: number;
+  profileType?: "shooting" | "editing";
   source: "data" | "submitted";
   maskedName: string;
   title: string;
   region: string;
   categories: string[];
   equipment: string[];
+  editingTools?: string[];
+  shootingCategories?: string[];
   desiredPay: string;
   careerYears: number;
   careerHistory: string[];
@@ -304,12 +310,15 @@ function submittedProfileToAdmin(profile: SubmittedProfileRecord, override?: Sta
   const careers = profile.careers.map((item) => [item.period, item.title].filter(Boolean).join(" ")).filter(Boolean);
   return {
     id: profile.id,
+    profileType: profile.profileType ?? "shooting",
     source: "submitted",
     maskedName: currentPersonal.maskedName,
     title: profile.title,
     region: profile.region,
     categories: profile.categories,
     equipment: profile.equipment,
+    editingTools: profile.editingTools,
+    shootingCategories: profile.shootingCategories,
     desiredPay: profile.desiredPay,
     careerYears: Math.max(careers.length, 1),
     careerHistory: careers.length > 0 ? careers : ["경력 입력 없음"],
@@ -330,6 +339,7 @@ export function getProfileRows(): AdminProfileRecord[] {
     const override = overrides[String(profile.id)];
     return {
       id: profile.id,
+      profileType: "shooting",
       source: "data",
       maskedName: profile.maskedName,
       title: profile.title,
@@ -515,6 +525,7 @@ export function toPublicSubmittedEditorJobs() {
 export function toPublicSubmittedProfiles() {
   const overrides = readOverrideMap<AdminProfileStatus>(storageKeys.adminProfileStatuses);
   return readSubmittedProfiles()
+    .filter((profile) => (profile.profileType ?? "shooting") === "shooting")
     .map((profile) => submittedProfileToAdmin(profile, overrides[String(profile.id)]))
     .filter((profile) => profile.status === "공개")
     .map((profile) => ({
@@ -526,6 +537,42 @@ export function toPublicSubmittedProfiles() {
       region: profile.region,
       categories: profile.categories,
       equipment: profile.equipment,
+      editingTools: profile.editingTools,
+      shootingCategories: profile.shootingCategories,
+      desiredPay: profile.desiredPay,
+      careerYears: profile.careerYears,
+      careerHistory: profile.careerHistory,
+      education: undefined,
+      status: "활동가능",
+      travelAvailable: true,
+      hasStudio: false,
+      portfolioImages: profile.portfolioImages,
+      portfolioLinks: profile.portfolioLinks,
+      isRecommended: false,
+      avatar: profilePlaceholder,
+      cover: profilePlaceholder,
+      intro: profile.careerHistory.join(" "),
+      updatedAt: profile.submittedAt,
+    }));
+}
+
+export function toPublicSubmittedEditorProfiles() {
+  const overrides = readOverrideMap<AdminProfileStatus>(storageKeys.adminProfileStatuses);
+  return readSubmittedProfiles()
+    .filter((profile) => profile.profileType === "editing")
+    .map((profile) => submittedProfileToAdmin(profile, overrides[String(profile.id)]))
+    .filter((profile) => profile.status === "공개")
+    .map((profile) => ({
+      id: profile.id,
+      maskedName: profile.maskedName,
+      gender: undefined,
+      birthYear: undefined,
+      title: profile.title,
+      region: profile.region,
+      categories: profile.categories,
+      equipment: profile.equipment,
+      editingTools: profile.editingTools ?? profile.equipment,
+      shootingCategories: profile.shootingCategories ?? [],
       desiredPay: profile.desiredPay,
       careerYears: profile.careerYears,
       careerHistory: profile.careerHistory,

@@ -88,6 +88,12 @@ export default function EditorProfileDetailPage({ params }: EditorProfileDetailP
               <h2 className="mb-2 text-lg font-bold text-ink">편집 가능 툴</h2>
               <BadgeList labels={profile.equipment} max={8} />
             </div>
+            {profile.shootingCategories?.length ? (
+              <div>
+                <h2 className="mb-2 text-lg font-bold text-ink">촬영 가능 분야</h2>
+                <BadgeList labels={profile.shootingCategories} max={8} />
+              </div>
+            ) : null}
             <p className="text-sm text-muted">
               활동 지역 {profile.region} · 원격 작업 {profile.travelAvailable ? "가능" : "협의"}
             </p>

@@ -99,6 +99,12 @@ export default function ProfileDetailPage({ params }: ProfileDetailProps) {
               <h2 className="mb-2 text-lg font-bold text-ink">보유 장비</h2>
               <BadgeList labels={profile.equipment} max={8} />
             </div>
+            {profile.editingTools?.length ? (
+              <div>
+                <h2 className="mb-2 text-lg font-bold text-ink">편집 가능 툴</h2>
+                <BadgeList labels={profile.editingTools} max={8} />
+              </div>
+            ) : null}
             <p className="text-sm text-muted">
               활동 지역 {profile.region} · 출장 가능 {profile.travelAvailable ? "O" : "X"} · 스튜디오 보유 {profile.hasStudio ? "O" : "X"}
             </p>

@@ -215,6 +215,8 @@ interface ProfileFilterable {
   region: string;
   categories: string[];
   equipment: string[];
+  editingTools?: string[];
+  shootingCategories?: string[];
   desiredPay: string;
   careerYears: number;
   gender?: string;
@@ -337,6 +339,8 @@ export function filterShooterProfiles<T extends ProfileFilterable>(items: T[], p
       profile.intro,
       ...profile.categories,
       ...profile.equipment,
+      ...(profile.editingTools ?? []),
+      ...(profile.shootingCategories ?? []),
     ].some((value) => textIncludes(value, query));
   });
 }

@@ -53,8 +53,8 @@
 
 - `category`: 기본 모집 분야 (촬영 분야 14종 또는 편집 분야 8종 중 1개)
 - `equipment`: 작업 조건 배열 (촬영 장비/스킬 13종 또는 편집 가능 툴 10종)
-- `editingTools`: 촬영자 모집에서 추가로 선택하는 편집 가능 툴 배열 (편집 가능 툴 10종)
-- `shootingCategories`: 편집자 모집에서 추가로 선택하는 촬영 분야 배열 (촬영 분야 14종)
+- `editingTools`: 촬영자 프로필·촬영자 모집에서 추가로 선택하는 편집 가능 툴 배열 (편집 가능 툴 10종)
+- `shootingCategories`: 편집자 프로필·편집자 모집에서 추가로 선택하는 촬영 분야 배열 (촬영 분야 14종)
 - `isPremium`: 프리미엄 공고 여부
 - `isRecommended`: 추천(유료) 프로필 여부
 - `careerLevel`: 경력 조건 / `careerYears`: 경력 연차
@@ -64,6 +64,7 @@
 - `maskedName`: 마스킹 이름 (예: 김O민)
 - `travelAvailable`: 출장 가능 / `hasStudio`: 스튜디오 보유
 - 편집자 프로필의 `categories`: 편집자 모집과 동일한 편집 분야 8종 / `equipment`: 동일한 편집 가능 툴 10종 / `travelAvailable`: 원격 작업 가능
+- 촬영자 프로필의 `editingTools`와 편집자 프로필의 `shootingCategories`는 교차 역량 표시용 선택 배열이며, 기존 `categories`·`equipment`와 구분한다.
 - 촬영자 모집의 `editingTools`와 편집자 모집의 `shootingCategories`는 교차 역량 검색용 선택 배열이며, 기존 `category`·`equipment`와 구분한다.
 
 ### 상태값
