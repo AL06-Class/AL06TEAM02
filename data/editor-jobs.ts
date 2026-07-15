@@ -1,13 +1,27 @@
 import type { JobPosting } from "@/lib/types";
 import { jobs } from "./jobs";
 
-type EditorJobSeed = Omit<JobPosting, "applyMethods" | "image" | "status"> & {
+type EditorJobSeed = Omit<JobPosting, "applyMethods" | "image" | "status" | "editingTools" | "shootingCategories"> & {
   imageIndex: number;
+  shootingCategories?: string[];
 };
 
-function createEditorJob({ imageIndex, ...seed }: EditorJobSeed): JobPosting {
+const shootingCategoriesByEditingCategory: Record<string, string[]> = {
+  "영상촬영.편집": ["브랜드/광고 촬영", "인터뷰/다큐"],
+  "유튜브채널": ["유튜브/채널 촬영"],
+  "AI": ["숏폼/Reels/TikTok"],
+  "광고.홍보": ["브랜드/광고 촬영", "제품/커머스"],
+  "애니.모션": ["브랜드/광고 촬영"],
+  "3D·VR": ["제품/커머스", "부동산/공간"],
+  "썸네일": ["제품/커머스", "뷰티/패션"],
+  "숏츠": ["숏폼/Reels/TikTok", "유튜브/채널 촬영"],
+};
+
+function createEditorJob({ imageIndex, shootingCategories, ...seed }: EditorJobSeed): JobPosting {
   return {
     ...seed,
+    editingTools: seed.equipment,
+    shootingCategories: shootingCategories ?? shootingCategoriesByEditingCategory[seed.category] ?? [],
     applyMethods: ["이메일"],
     image: jobs[imageIndex].image,
     status: "게시중",

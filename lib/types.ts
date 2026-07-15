@@ -3,11 +3,13 @@ export interface JobPosting {
   id: number;
   companyName: string;        // 가상 회사/의뢰자명
   title: string;              // 모집 제목 (모바일 2~3줄 이내 길이)
-  category: string;           // 촬영 분야 14종 또는 편집 분야 8종 중 1개
+  category: string;           // 기본 촬영 분야 14종 또는 편집 분야 8종 중 1개
   region: string;             // 예: "서울 마포구"
   subwayArea?: string;        // 예: "홍대입구역" (일부만)
   careerLevel: '신입' | '1년 이상' | '3년 이상' | '5년 이상' | '10년 이상' | '경력무관';
-  equipment: string[];        // 촬영 장비/스킬 또는 편집 가능 툴 1~4개
+  equipment: string[];        // 기본 촬영 장비/스킬 또는 편집 가능 툴 1~4개
+  editingTools: string[];     // 촬영자 모집의 추가 편집 가능 툴
+  shootingCategories: string[]; // 편집자 모집의 추가 촬영 분야
   employmentType: '프리랜서' | '정규직' | '계약직' | '파트타임' | '프로젝트';
   payType: '건당' | '일당' | '월급' | '협의';
   payAmount: string;          // 예: "건당 80만원", "월 300만원", "협의"

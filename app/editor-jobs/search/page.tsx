@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Search } from "lucide-react";
 import { Button, Checkbox, Input, Select } from "@/components/ui";
-import { CAREER_OPTIONS, EDITING_CATEGORIES, EDITING_TOOL_OPTIONS } from "@/lib/filters";
+import { CAREER_OPTIONS, EDITING_CATEGORIES, EDITING_TOOL_OPTIONS, SHOOTING_CATEGORIES } from "@/lib/filters";
 
 const regions = ["서울", "경기", "인천", "부산", "대구", "광주", "대전", "제주"];
 const employmentTypes = ["프리랜서", "정규직", "계약직", "파트타임", "프로젝트"];
@@ -30,6 +30,15 @@ export default function EditorJobsSearchPage() {
           <div className="grid gap-2 sm:grid-cols-2">
             {EDITING_TOOL_OPTIONS.map((tool) => (
               <Checkbox key={tool} name="equipment" value={tool} label={tool} />
+            ))}
+          </div>
+        </section>
+
+        <section className="rounded-md border border-line bg-surface p-4 shadow-card">
+          <h2 className="mb-3 text-base font-bold text-ink">촬영 분야</h2>
+          <div className="grid gap-2 sm:grid-cols-2">
+            {SHOOTING_CATEGORIES.map((category) => (
+              <Checkbox key={category} name="shootingCategories" value={category} label={category} />
             ))}
           </div>
         </section>

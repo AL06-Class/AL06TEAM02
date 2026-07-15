@@ -8,7 +8,7 @@ import { Badge, Button, Checkbox, FileUpload, Input, Modal, Radio, Select, Texta
 import { cn } from "@/components/ui/utils";
 import { companyMembers } from "@/data/members";
 import { jobs } from "@/data/jobs";
-import { CAREER_OPTIONS, EQUIPMENT_OPTIONS, SHOOTING_CATEGORIES } from "@/lib/filters";
+import { CAREER_OPTIONS, EDITING_TOOL_OPTIONS, EDITING_CATEGORIES, EQUIPMENT_OPTIONS, SHOOTING_CATEGORIES } from "@/lib/filters";
 import { formatKrw } from "@/lib/format";
 import { useAuth } from "@/lib/auth-context";
 import { appendStorageItem, readStorageJSON, storageKeys, writeStorageJSON } from "@/lib/storage";
@@ -17,6 +17,7 @@ type MyJobStatus = "게시중" | "심사중" | "반려" | "마감";
 
 interface MyJob {
   id: number;
+  jobType: "shooting" | "editing";
   title: string;
   status: MyJobStatus;
   deadline: string;
@@ -39,6 +40,8 @@ interface JobDraft {
   shootType: string;
   tasks: string;
   equipment: string[];
+  editingTools: string[];
+  shootingCategories: string[];
   conditions: string;
   payType: "건당" | "일당" | "월급" | "협의";
   payAmount: string;
@@ -77,6 +80,8 @@ const initialDraft: JobDraft = {
   shootType: "프로젝트",
   tasks: "",
   equipment: [],
+  editingTools: [],
+  shootingCategories: [],
   conditions: "",
   payType: "건당",
   payAmount: "",
@@ -100,6 +105,7 @@ function createJobsFallback(): MyJob[] {
     .filter((job) => job.companyName === currentCompany.companyName)
     .map((job, index) => ({
       id: job.id,
+      jobType: "shooting" as const,
       title: job.title,
       status: index === 1 ? "심사중" : index === 2 ? "반려" : job.status === "마감" ? "마감" : "게시중",
       deadline: job.deadline ?? "상시채용",
@@ -115,7 +121,15 @@ function required(value: string) {
   return value.trim().length > 0;
 }
 
-export function JobNewForm() {
+export function JobNewForm({ kind = "shooting" }: { kind?: "shooting" | "editing" }) {
+  const isEditing = kind === "editing";
+  const routePath = isEditing ? "/editor-jobs/new" : "/jobs/new";
+  const categoryOptions = isEditing ? EDITING_CATEGORIES : SHOOTING_CATEGORIES;
+  const primaryConditionOptions = isEditing ? EDITING_TOOL_OPTIONS : EQUIPMENT_OPTIONS;
+  const crossConditionOptions = isEditing ? SHOOTING_CATEGORIES : EDITING_TOOL_OPTIONS;
+  const primaryConditionLabel = isEditing ? "편집 가능 툴" : "필요 장비/스킬";
+  const crossConditionLabel = isEditing ? "촬영 분야" : "편집 가능 툴";
+  const conditionTitle = isEditing ? "편집 조건" : "촬영 조건";
   const router = useRouter();
   const { role, isReady, mockState } = useAuth();
   const { showToast } = useToast();
@@ -127,9 +141,9 @@ export function JobNewForm() {
 
   useEffect(() => {
     if (isReady && role === "guest") {
-      router.replace(`/login?redirect=${encodeURIComponent("/jobs/new")}`);
+      router.replace(`/login?redirect=${encodeURIComponent(routePath)}`);
     }
-  }, [isReady, role, router]);
+  }, [isReady, role, router, routePath]);
 
   const exposurePrice = useMemo(() => {
     const premium = draft.premium ? 69000 : 0;
@@ -149,10 +163,17 @@ export function JobNewForm() {
     }));
   }
 
+  function toggleCondition(key: "editingTools" | "shootingCategories", item: string) {
+    setDraft((current) => ({
+      ...current,
+      [key]: current[key].includes(item) ? current[key].filter((value) => value !== item) : [...current[key], item],
+    }));
+  }
+
   function validate() {
     const next: Record<string, string> = {};
     if (!required(draft.title)) next.title = "공고 제목을 입력해 주세요.";
-    if (!required(draft.category)) next.category = "촬영 분야를 선택해 주세요.";
+    if (!required(draft.category)) next.category = `${isEditing ? "편집" : "촬영"} 분야를 선택해 주세요.`;
     if (!required(draft.career)) next.career = "경력을 선택해 주세요.";
     if (draft.deadlineType === "마감일" && !required(draft.deadline)) next.deadline = "마감일을 입력해 주세요.";
     if (!required(draft.payType)) next.payType = "급여 유형을 선택해 주세요.";
@@ -176,6 +197,7 @@ export function JobNewForm() {
     const deadline = draft.deadlineType === "마감일" ? draft.deadline : draft.deadlineType;
     const myJob: MyJob = {
       id,
+      jobType: kind,
       title: draft.title,
       status: "심사중",
       deadline,
@@ -188,8 +210,11 @@ export function JobNewForm() {
     writeStorageJSON(storageKeys.mypageJobs, [myJob, ...existing.filter((item) => item.id !== id)]);
     appendStorageItem(storageKeys.submittedJobs, {
       id,
+      jobType: kind,
       companyName: currentCompany.companyName,
       ...draft,
+      editingTools: isEditing ? draft.equipment : draft.editingTools,
+      shootingCategories: isEditing ? draft.shootingCategories : [],
       imageFileNames: imageFiles.map((file) => file.name),
       status: "심사중",
       createdAt: now,
@@ -202,11 +227,7 @@ export function JobNewForm() {
     return <div className="rounded-md border border-line bg-surface p-6 text-sm text-muted shadow-card">공고 등록 권한을 확인하는 중입니다.</div>;
   }
 
-  if (role === "personal") {
-    return <GuardCard title="기업회원 전용 화면입니다" description="공고 등록은 인증 완료 기업회원만 이용할 수 있습니다." href="/" action="메인으로" />;
-  }
-
-  if (role === "company-unverified" || mockState.verifyStatus !== "인증완료") {
+  if ((role === "company-unverified" || role === "company-verified") && mockState.verifyStatus !== "인증완료") {
     return <GuardCard title="기업 인증 후 등록할 수 있습니다" description="사업자 인증이 완료되면 공고 심사 요청을 보낼 수 있습니다." href="/mypage/verification" action="인증하러 가기" />;
   }
 
@@ -220,7 +241,7 @@ export function JobNewForm() {
           <Link href="/mypage/jobs" className={linkPrimaryClass}>
             공고 관리 보기
           </Link>
-          <Link href="/jobs" className={linkSecondaryClass}>
+          <Link href={isEditing ? "/editor-jobs" : "/jobs"} className={linkSecondaryClass}>
             목록으로
           </Link>
         </div>
@@ -236,7 +257,7 @@ export function JobNewForm() {
             {sectionNav.map(([id, label], index) => (
               <a key={id} href={`#${id}`} className="flex items-center gap-2 rounded-sm px-3 py-2 text-sm font-semibold text-muted hover:bg-page hover:text-primary">
                 <span className="tabular-nums">{index + 1}</span>
-                {label}
+                {id === "shooting" ? conditionTitle : label}
               </a>
             ))}
           </nav>
@@ -244,7 +265,7 @@ export function JobNewForm() {
 
         <form onSubmit={submit} className="min-w-0 space-y-5">
           <div>
-            <Badge label="기업 인증완료" tone="success" />
+            <Badge label={role === "personal" ? "개인 데모 등록" : "기업 인증완료"} tone={role === "personal" ? undefined : "success"} />
             <h1 className="mt-3 text-3xl font-black text-ink max-md:text-2xl">공고 등록</h1>
             <p className="mt-2 text-sm text-muted">제출 후 관리자 검수 전까지 심사중으로 표시됩니다.</p>
           </div>
@@ -253,12 +274,12 @@ export function JobNewForm() {
             <div className="grid gap-4 md:grid-cols-2">
               <Input label="공고 제목" requiredMark value={draft.title} onChange={(event) => update("title", event.target.value)} error={errors.title} className="md:col-span-2" />
               <Select
-                label="촬영 분야"
+                label={isEditing ? "편집 분야" : "촬영 분야"}
                 requiredMark
                 value={draft.category}
                 onChange={(event) => update("category", event.target.value)}
                 error={errors.category}
-                options={[{ label: "선택", value: "" }, ...SHOOTING_CATEGORIES.map((value) => ({ label: value, value }))]}
+                options={[{ label: "선택", value: "" }, ...categoryOptions.map((value) => ({ label: value, value }))]}
               />
               <div className="md:col-span-2">
                 <FileUpload label="대표 이미지" multiple={false} onChange={setImageFiles} />
@@ -295,19 +316,29 @@ export function JobNewForm() {
             </div>
           </FormSection>
 
-          <FormSection id="shooting" title="촬영 조건">
+          <FormSection id="shooting" title={conditionTitle}>
             <div className="grid gap-4">
-              <Select label="촬영 형태" value={draft.shootType} onChange={(event) => update("shootType", event.target.value)} options={["프로젝트", "정기 촬영", "상주", "반일", "하루"].map((value) => ({ label: value, value }))} />
-              <Textarea label="담당업무" rows={4} value={draft.tasks} onChange={(event) => update("tasks", event.target.value)} placeholder="촬영 범위와 산출물을 입력하세요." />
+              <Select label={isEditing ? "작업 형태" : "촬영 형태"} value={draft.shootType} onChange={(event) => update("shootType", event.target.value)} options={["프로젝트", "정기 작업", "상주", "반일", "하루"].map((value) => ({ label: value, value }))} />
+              <Textarea label="담당업무" rows={4} value={draft.tasks} onChange={(event) => update("tasks", event.target.value)} placeholder={`${isEditing ? "편집" : "촬영"} 범위와 산출물을 입력하세요.`} />
               <div>
-                <p className="mb-2 text-sm font-medium text-ink">필요 장비/스킬</p>
+                <p className="mb-2 text-sm font-medium text-ink">{primaryConditionLabel}</p>
                 <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-                  {EQUIPMENT_OPTIONS.map((item) => (
+                  {primaryConditionOptions.map((item) => (
                     <Checkbox key={item} label={item} checked={draft.equipment.includes(item)} onChange={() => toggleEquipment(item)} />
                   ))}
                 </div>
               </div>
-              <Textarea label="촬영 조건/복리후생" rows={4} value={draft.conditions} onChange={(event) => update("conditions", event.target.value)} />
+              <div>
+                <p className="mb-2 text-sm font-medium text-ink">{crossConditionLabel}</p>
+                <p className="mb-2 text-xs text-muted">필요한 경우 부가 조건으로 선택하세요.</p>
+                <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+                  {crossConditionOptions.map((item) => {
+                    const selected = isEditing ? draft.shootingCategories.includes(item) : draft.editingTools.includes(item);
+                    return <Checkbox key={item} label={item} checked={selected} onChange={() => toggleCondition(isEditing ? "shootingCategories" : "editingTools", item)} />;
+                  })}
+                </div>
+              </div>
+              <Textarea label={`${isEditing ? "편집" : "촬영"} 조건/복리후생`} rows={4} value={draft.conditions} onChange={(event) => update("conditions", event.target.value)} />
             </div>
           </FormSection>
 
@@ -342,7 +373,7 @@ export function JobNewForm() {
           </FormSection>
 
           <FormSection id="detail" title="상세 내용">
-            <Textarea rows={8} value={draft.description} onChange={(event) => update("description", event.target.value)} placeholder="촬영 목적, 일정, 참고사항, 우대 조건을 입력하세요." />
+            <Textarea rows={8} value={draft.description} onChange={(event) => update("description", event.target.value)} placeholder={`${isEditing ? "편집" : "촬영"} 목적, 일정, 참고사항, 우대 조건을 입력하세요.`} />
           </FormSection>
 
           <FormSection id="address" title="지도/주소">
@@ -382,7 +413,7 @@ export function JobNewForm() {
             <Badge label="심사중" />
             <h2 className="mt-2 text-xl font-black text-ink">{draft.title || "공고 제목"}</h2>
             <p className="mt-1 text-muted">
-              {currentCompany.companyName} · {draft.category || "분야 미선택"} · {draft.address}
+              {role === "personal" ? "개인 데모 회원" : currentCompany.companyName} · {draft.category || "분야 미선택"} · {draft.address}
             </p>
           </div>
           <dl className="grid gap-2 sm:grid-cols-2">
@@ -390,6 +421,7 @@ export function JobNewForm() {
             <PreviewItem label="급여" value={draft.payType === "협의" ? "협의" : `${draft.payType} ${draft.payAmount || "-"}`} />
             <PreviewItem label="고용형태" value={draft.employmentType || "-"} />
             <PreviewItem label="마감" value={draft.deadlineType === "마감일" ? draft.deadline || "-" : draft.deadlineType} />
+            <PreviewItem label={crossConditionLabel} value={(isEditing ? draft.shootingCategories : draft.editingTools).join(", ") || "선택 없음"} />
           </dl>
           <p className="whitespace-pre-line rounded-md bg-page p-3 text-ink">{draft.description || "상세 내용 미입력"}</p>
         </div>

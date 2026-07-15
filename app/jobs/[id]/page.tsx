@@ -104,6 +104,7 @@ export default function JobDetailPage({ params }: JobDetailProps) {
                 ["촬영형태", job.employmentType],
                 ["담당업무", job.category],
                 ["필요 장비", job.equipment.join(", ")],
+                ["편집 가능 툴", job.editingTools.length > 0 ? job.editingTools.join(", ") : "선택 없음"],
                 ["촬영조건", `${job.region} · ${job.address}`],
               ]}
             />
@@ -161,7 +162,7 @@ export default function JobDetailPage({ params }: JobDetailProps) {
                 <span className="text-muted">마감</span>
                 <strong className="text-ink">{closed ? "마감" : formatJobDeadline(job)}</strong>
               </div>
-              <BadgeList labels={[job.category, ...job.equipment]} max={4} />
+              <BadgeList labels={[job.category, ...job.equipment, ...job.editingTools]} max={4} />
               <JobApplyButton jobId={job.id} />
               <a
                 href={`mailto:${job.managerEmail}`}

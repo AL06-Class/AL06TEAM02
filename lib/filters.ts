@@ -195,6 +195,8 @@ interface JobFilterable {
   subwayArea?: string;
   careerLevel: string;
   equipment: string[];
+  editingTools?: string[];
+  shootingCategories?: string[];
   employmentType: string;
   payType: string;
   payAmount: string;
@@ -256,6 +258,8 @@ export function filterJobPostings<T extends JobFilterable>(items: T[], paramsInp
   const career = params.get("career") ?? "";
   const includeAnyCareer = params.get("includeAnyCareer") === "1";
   const equipment = getParamValues(params, "equipment");
+  const editingTools = getParamValues(params, "editingTools");
+  const shootingCategories = getParamValues(params, "shootingCategories");
   const employmentType = params.get("employmentType") ?? "";
   const payType = params.get("pay") ?? "";
   const query = (params.get("q") ?? "").trim();
@@ -266,6 +270,8 @@ export function filterJobPostings<T extends JobFilterable>(items: T[], paramsInp
     if (regions.length > 0 && !regions.some((region) => job.region.includes(region))) return false;
     if (subways.length > 0 && !subways.some((subway) => job.subwayArea === subway)) return false;
     if (equipment.length > 0 && !equipment.some((item) => job.equipment.includes(item))) return false;
+    if (editingTools.length > 0 && !editingTools.some((item) => job.editingTools?.includes(item))) return false;
+    if (shootingCategories.length > 0 && !shootingCategories.some((item) => job.shootingCategories?.includes(item))) return false;
     if (career && job.careerLevel !== career && !(includeAnyCareer && job.careerLevel === "경력무관")) return false;
     if (employmentType && job.employmentType !== employmentType) return false;
     if (payType && job.payType !== payType) return false;
@@ -281,6 +287,8 @@ export function filterJobPostings<T extends JobFilterable>(items: T[], paramsInp
       job.payAmount,
       job.description,
       ...job.equipment,
+      ...(job.editingTools ?? []),
+      ...(job.shootingCategories ?? []),
     ].some((value) => textIncludes(value, query));
   });
 }

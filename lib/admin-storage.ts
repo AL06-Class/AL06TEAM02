@@ -19,11 +19,14 @@ export interface StatusOverride<TStatus extends string> {
 
 export interface SubmittedJobRecord {
   id: number;
+  jobType?: "shooting" | "editing";
   companyName: string;
   title: string;
   category: string;
   career: string;
   equipment: string[];
+  editingTools?: string[];
+  shootingCategories?: string[];
   employmentType: string;
   payType: string;
   payAmount: string;
@@ -69,6 +72,7 @@ export interface AdminVerificationRecord {
 
 export interface AdminJobRecord {
   id: number;
+  jobType?: "shooting" | "editing";
   source: "data" | "submitted";
   companyName: string;
   title: string;
@@ -76,6 +80,8 @@ export interface AdminJobRecord {
   region: string;
   careerLevel: string;
   equipment: string[];
+  editingTools?: string[];
+  shootingCategories?: string[];
   employmentType: string;
   payAmount: string;
   deadlineType: string;
@@ -218,6 +224,7 @@ function submittedJobToAdmin(job: SubmittedJobRecord, override?: StatusOverride<
   const status = override?.status ?? job.status;
   return {
     id: job.id,
+    jobType: job.jobType ?? "shooting",
     source: "submitted",
     companyName: job.companyName,
     title: job.title,
@@ -225,6 +232,8 @@ function submittedJobToAdmin(job: SubmittedJobRecord, override?: StatusOverride<
     region: job.address,
     careerLevel: job.career || "경력무관",
     equipment: job.equipment,
+    editingTools: job.editingTools,
+    shootingCategories: job.shootingCategories,
     employmentType: job.employmentType,
     payAmount: job.payType === "협의" ? "협의" : `${job.payType} ${job.payAmount || "협의"}`,
     deadlineType: job.deadlineType,
@@ -248,6 +257,7 @@ export function getJobRows(): AdminJobRecord[] {
     const demoStatus: AdminJobStatus = job.companyName === currentCompany.companyName && index === 1 ? "심사중" : job.status === "마감" ? "마감" : "게시중";
     return {
       id: job.id,
+      jobType: "shooting",
       source: "data",
       companyName: job.companyName,
       title: job.title,
@@ -255,6 +265,8 @@ export function getJobRows(): AdminJobRecord[] {
       region: job.region,
       careerLevel: job.careerLevel,
       equipment: job.equipment,
+      editingTools: job.editingTools,
+      shootingCategories: job.shootingCategories,
       employmentType: job.employmentType,
       payAmount: job.payAmount,
       deadlineType: job.deadlineType,
@@ -431,6 +443,7 @@ export function getStorePendingCount() {
 export function toPublicSubmittedJobs() {
   const overrides = readOverrideMap<AdminJobStatus>(storageKeys.adminJobStatuses);
   return readSubmittedJobs()
+    .filter((job) => !job.jobType || job.jobType === "shooting")
     .map((job) => submittedJobToAdmin(job, overrides[String(job.id)]))
     .filter((job) => job.status === "게시중")
     .map((job) => ({
@@ -442,6 +455,44 @@ export function toPublicSubmittedJobs() {
       subwayArea: undefined,
       careerLevel: job.careerLevel,
       equipment: job.equipment,
+      editingTools: job.editingTools,
+      shootingCategories: job.shootingCategories,
+      employmentType: job.employmentType,
+      payType: job.payAmount.startsWith("협의") ? "협의" : "건당",
+      payAmount: job.payAmount,
+      deadlineType: job.deadlineType,
+      deadline: job.deadline,
+      isPremium: job.isPremium,
+      status: job.status,
+      applyMethods: ["온라인"],
+      managerName: job.managerName,
+      managerEmail: job.managerEmail,
+      address: job.address,
+      description: job.description,
+      image: jobPlaceholder,
+      createdAt: job.createdAt,
+      views: 0,
+      scrapCount: 0,
+    }));
+}
+
+export function toPublicSubmittedEditorJobs() {
+  const overrides = readOverrideMap<AdminJobStatus>(storageKeys.adminJobStatuses);
+  return readSubmittedJobs()
+    .filter((job) => job.jobType === "editing")
+    .map((job) => submittedJobToAdmin(job, overrides[String(job.id)]))
+    .filter((job) => job.status === "게시중")
+    .map((job) => ({
+      id: job.id,
+      companyName: job.companyName,
+      title: job.title,
+      category: job.category,
+      region: job.region,
+      subwayArea: undefined,
+      careerLevel: job.careerLevel,
+      equipment: job.equipment,
+      editingTools: job.editingTools ?? job.equipment,
+      shootingCategories: job.shootingCategories ?? [],
       employmentType: job.employmentType,
       payType: job.payAmount.startsWith("협의") ? "협의" : "건당",
       payAmount: job.payAmount,
