@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 import { Menu, Search, User } from "lucide-react";
-import { Button, Input, Tabs } from "@/components/ui";
+import { Button, Input, SmartImage, Tabs } from "@/components/ui";
 import { isActivePath, mobileTabItems } from "./navigation";
 import { Drawer } from "./Drawer";
 
@@ -35,8 +35,8 @@ export function MobileHeader() {
           >
             <Menu aria-hidden className="h-6 w-6" />
           </button>
-          <Link href="/" className="text-center text-xl font-black text-ink">
-            촬영몬
+          <Link href="/" aria-label="CLIPBee 홈" className="inline-flex min-w-0 items-center justify-center">
+            <SmartImage src="/images/brand/clipbee-logo.png" alt="CLIPBee" width={231} height={53} priority className="h-7 w-auto object-contain" />
           </Link>
           <Link
             href="/mypage"
