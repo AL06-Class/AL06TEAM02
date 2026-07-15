@@ -713,6 +713,10 @@ function CompanyDashboard({ companyState, companyStats }: { companyState: Compan
             <p className="mt-2 text-sm text-muted">
               {companyState.industry} · {companyState.region}
             </p>
+            <div className="mt-4 flex flex-wrap gap-2">
+              <Link href="/profiles/new" className={linkPrimaryClass}>촬영자 프로필 등록</Link>
+              <Link href="/editor-profiles/new" className={linkSecondaryClass}>편집자 프로필 등록</Link>
+            </div>
           </div>
         </div>
         {mockState.verifyStatus !== "인증완료" ? (
@@ -736,18 +740,6 @@ function CompanyDashboard({ companyState, companyStats }: { companyState: Compan
           <div className="flex flex-wrap gap-2">
             <Link href="/jobs/new" className={linkPrimaryClass}>촬영자 모집 등록</Link>
             <Link href="/editor-jobs/new" className={linkSecondaryClass}>편집자 모집 등록</Link>
-          </div>
-        </div>
-      </SectionCard>
-      <SectionCard>
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <h2 className="text-lg font-black text-ink">프로필 등록</h2>
-            <p className="mt-1 text-sm text-muted">기업 계정도 촬영자 또는 편집자 프로필을 등록할 수 있습니다.</p>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            <Link href="/profiles/new" className={linkPrimaryClass}>촬영자 프로필 등록</Link>
-            <Link href="/editor-profiles/new" className={linkSecondaryClass}>편집자 프로필 등록</Link>
           </div>
         </div>
       </SectionCard>
