@@ -19,11 +19,14 @@ export interface StatusOverride<TStatus extends string> {
 
 export interface SubmittedJobRecord {
   id: number;
+  jobType?: "shooting" | "editing";
   companyName: string;
   title: string;
   category: string;
   career: string;
   equipment: string[];
+  editingTools?: string[];
+  shootingCategories?: string[];
   employmentType: string;
   payType: string;
   payAmount: string;
@@ -41,10 +44,13 @@ export interface SubmittedJobRecord {
 
 export interface SubmittedProfileRecord {
   id: number;
+  profileType?: "shooting" | "editing";
   title: string;
   visibility: string;
   categories: string[];
   equipment: string[];
+  editingTools?: string[];
+  shootingCategories?: string[];
   desiredPay: string;
   region: string;
   travelAvailable: boolean;
@@ -69,6 +75,7 @@ export interface AdminVerificationRecord {
 
 export interface AdminJobRecord {
   id: number;
+  jobType?: "shooting" | "editing";
   source: "data" | "submitted";
   companyName: string;
   title: string;
@@ -76,6 +83,8 @@ export interface AdminJobRecord {
   region: string;
   careerLevel: string;
   equipment: string[];
+  editingTools?: string[];
+  shootingCategories?: string[];
   employmentType: string;
   payAmount: string;
   deadlineType: string;
@@ -92,12 +101,15 @@ export interface AdminJobRecord {
 
 export interface AdminProfileRecord {
   id: number;
+  profileType?: "shooting" | "editing";
   source: "data" | "submitted";
   maskedName: string;
   title: string;
   region: string;
   categories: string[];
   equipment: string[];
+  editingTools?: string[];
+  shootingCategories?: string[];
   desiredPay: string;
   careerYears: number;
   careerHistory: string[];
@@ -218,6 +230,7 @@ function submittedJobToAdmin(job: SubmittedJobRecord, override?: StatusOverride<
   const status = override?.status ?? job.status;
   return {
     id: job.id,
+    jobType: job.jobType ?? "shooting",
     source: "submitted",
     companyName: job.companyName,
     title: job.title,
@@ -225,6 +238,8 @@ function submittedJobToAdmin(job: SubmittedJobRecord, override?: StatusOverride<
     region: job.address,
     careerLevel: job.career || "경력무관",
     equipment: job.equipment,
+    editingTools: job.editingTools,
+    shootingCategories: job.shootingCategories,
     employmentType: job.employmentType,
     payAmount: job.payType === "협의" ? "협의" : `${job.payType} ${job.payAmount || "협의"}`,
     deadlineType: job.deadlineType,
@@ -248,6 +263,7 @@ export function getJobRows(): AdminJobRecord[] {
     const demoStatus: AdminJobStatus = job.companyName === currentCompany.companyName && index === 1 ? "심사중" : job.status === "마감" ? "마감" : "게시중";
     return {
       id: job.id,
+      jobType: "shooting",
       source: "data",
       companyName: job.companyName,
       title: job.title,
@@ -255,6 +271,8 @@ export function getJobRows(): AdminJobRecord[] {
       region: job.region,
       careerLevel: job.careerLevel,
       equipment: job.equipment,
+      editingTools: job.editingTools,
+      shootingCategories: job.shootingCategories,
       employmentType: job.employmentType,
       payAmount: job.payAmount,
       deadlineType: job.deadlineType,
@@ -292,12 +310,15 @@ function submittedProfileToAdmin(profile: SubmittedProfileRecord, override?: Sta
   const careers = profile.careers.map((item) => [item.period, item.title].filter(Boolean).join(" ")).filter(Boolean);
   return {
     id: profile.id,
+    profileType: profile.profileType ?? "shooting",
     source: "submitted",
     maskedName: currentPersonal.maskedName,
     title: profile.title,
     region: profile.region,
     categories: profile.categories,
     equipment: profile.equipment,
+    editingTools: profile.editingTools,
+    shootingCategories: profile.shootingCategories,
     desiredPay: profile.desiredPay,
     careerYears: Math.max(careers.length, 1),
     careerHistory: careers.length > 0 ? careers : ["경력 입력 없음"],
@@ -318,6 +339,7 @@ export function getProfileRows(): AdminProfileRecord[] {
     const override = overrides[String(profile.id)];
     return {
       id: profile.id,
+      profileType: "shooting",
       source: "data",
       maskedName: profile.maskedName,
       title: profile.title,
@@ -431,6 +453,7 @@ export function getStorePendingCount() {
 export function toPublicSubmittedJobs() {
   const overrides = readOverrideMap<AdminJobStatus>(storageKeys.adminJobStatuses);
   return readSubmittedJobs()
+    .filter((job) => !job.jobType || job.jobType === "shooting")
     .map((job) => submittedJobToAdmin(job, overrides[String(job.id)]))
     .filter((job) => job.status === "게시중")
     .map((job) => ({
@@ -442,6 +465,44 @@ export function toPublicSubmittedJobs() {
       subwayArea: undefined,
       careerLevel: job.careerLevel,
       equipment: job.equipment,
+      editingTools: job.editingTools,
+      shootingCategories: job.shootingCategories,
+      employmentType: job.employmentType,
+      payType: job.payAmount.startsWith("협의") ? "협의" : "건당",
+      payAmount: job.payAmount,
+      deadlineType: job.deadlineType,
+      deadline: job.deadline,
+      isPremium: job.isPremium,
+      status: job.status,
+      applyMethods: ["온라인"],
+      managerName: job.managerName,
+      managerEmail: job.managerEmail,
+      address: job.address,
+      description: job.description,
+      image: jobPlaceholder,
+      createdAt: job.createdAt,
+      views: 0,
+      scrapCount: 0,
+    }));
+}
+
+export function toPublicSubmittedEditorJobs() {
+  const overrides = readOverrideMap<AdminJobStatus>(storageKeys.adminJobStatuses);
+  return readSubmittedJobs()
+    .filter((job) => job.jobType === "editing")
+    .map((job) => submittedJobToAdmin(job, overrides[String(job.id)]))
+    .filter((job) => job.status === "게시중")
+    .map((job) => ({
+      id: job.id,
+      companyName: job.companyName,
+      title: job.title,
+      category: job.category,
+      region: job.region,
+      subwayArea: undefined,
+      careerLevel: job.careerLevel,
+      equipment: job.equipment,
+      editingTools: job.editingTools ?? job.equipment,
+      shootingCategories: job.shootingCategories ?? [],
       employmentType: job.employmentType,
       payType: job.payAmount.startsWith("협의") ? "협의" : "건당",
       payAmount: job.payAmount,
@@ -464,6 +525,7 @@ export function toPublicSubmittedJobs() {
 export function toPublicSubmittedProfiles() {
   const overrides = readOverrideMap<AdminProfileStatus>(storageKeys.adminProfileStatuses);
   return readSubmittedProfiles()
+    .filter((profile) => (profile.profileType ?? "shooting") === "shooting")
     .map((profile) => submittedProfileToAdmin(profile, overrides[String(profile.id)]))
     .filter((profile) => profile.status === "공개")
     .map((profile) => ({
@@ -475,6 +537,42 @@ export function toPublicSubmittedProfiles() {
       region: profile.region,
       categories: profile.categories,
       equipment: profile.equipment,
+      editingTools: profile.editingTools,
+      shootingCategories: profile.shootingCategories,
+      desiredPay: profile.desiredPay,
+      careerYears: profile.careerYears,
+      careerHistory: profile.careerHistory,
+      education: undefined,
+      status: "활동가능",
+      travelAvailable: true,
+      hasStudio: false,
+      portfolioImages: profile.portfolioImages,
+      portfolioLinks: profile.portfolioLinks,
+      isRecommended: false,
+      avatar: profilePlaceholder,
+      cover: profilePlaceholder,
+      intro: profile.careerHistory.join(" "),
+      updatedAt: profile.submittedAt,
+    }));
+}
+
+export function toPublicSubmittedEditorProfiles() {
+  const overrides = readOverrideMap<AdminProfileStatus>(storageKeys.adminProfileStatuses);
+  return readSubmittedProfiles()
+    .filter((profile) => profile.profileType === "editing")
+    .map((profile) => submittedProfileToAdmin(profile, overrides[String(profile.id)]))
+    .filter((profile) => profile.status === "공개")
+    .map((profile) => ({
+      id: profile.id,
+      maskedName: profile.maskedName,
+      gender: undefined,
+      birthYear: undefined,
+      title: profile.title,
+      region: profile.region,
+      categories: profile.categories,
+      equipment: profile.equipment,
+      editingTools: profile.editingTools ?? profile.equipment,
+      shootingCategories: profile.shootingCategories ?? [],
       desiredPay: profile.desiredPay,
       careerYears: profile.careerYears,
       careerHistory: profile.careerHistory,

@@ -10,6 +10,8 @@ export interface JobRowData {
   region: string;
   careerLevel: string;
   equipment: string[];
+  editingTools?: string[];
+  shootingCategories?: string[];
   payAmount: string;
   deadlineType: string;
   deadline?: string;
@@ -47,7 +49,7 @@ export function JobRow({ job, basePath = "/jobs" }: JobRowProps) {
         </div>
       </div>
       <span className="truncate font-semibold text-ink">{job.title}</span>
-      <BadgeList labels={[job.category, ...job.equipment]} max={3} />
+      <BadgeList labels={[job.category, ...job.equipment, ...(job.editingTools ?? []), ...(job.shootingCategories ?? [])]} max={3} />
       <span className="truncate text-muted">{job.region}</span>
       <span className="truncate font-semibold text-ink">{job.payAmount}</span>
       <Badge label={job.careerLevel} />

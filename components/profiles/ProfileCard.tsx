@@ -11,6 +11,8 @@ export interface ProfileCardData {
   region: string;
   categories: string[];
   equipment: string[];
+  editingTools?: string[];
+  shootingCategories?: string[];
   desiredPay: string;
   careerYears: number;
   status: string;
@@ -58,7 +60,7 @@ export function ProfileCard({ profile, compact = false, hrefBase = "/profiles" }
         <p className="truncate text-sm text-muted">
           {profile.region} · {profile.careerYears}년
         </p>
-        <BadgeList labels={[...profile.categories.slice(0, 2), ...profile.equipment.slice(0, compact ? 1 : 2)]} max={compact ? 3 : 4} />
+        <BadgeList labels={[...profile.categories.slice(0, 2), ...profile.equipment.slice(0, compact ? 1 : 2), ...(profile.editingTools ?? []).slice(0, 1), ...(profile.shootingCategories ?? []).slice(0, 1)]} max={compact ? 3 : 4} />
         <p className="truncate text-base font-bold text-ink max-md:text-sm">{profile.desiredPay}</p>
       </div>
     </Link>

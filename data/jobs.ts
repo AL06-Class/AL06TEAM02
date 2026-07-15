@@ -1,4 +1,6 @@
-export const jobs = [
+import type { JobPosting } from "@/lib/types";
+
+const shootingJobSeeds = [
   {
     id: 1,
     companyName: "스튜디오 온빛",
@@ -779,4 +781,10 @@ export const jobs = [
     views: 1140,
     scrapCount: 24
   }
-];
+ ] satisfies Omit<JobPosting, "editingTools" | "shootingCategories">[];
+
+export const jobs = shootingJobSeeds.map((job) => ({
+  ...job,
+  editingTools: job.equipment.includes("편집 가능") ? ["프리미어프로"] : [],
+  shootingCategories: [],
+})) satisfies JobPosting[];

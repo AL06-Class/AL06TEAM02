@@ -5,6 +5,7 @@ import {
   CAREER_OPTIONS,
   EDITING_CATEGORIES,
   EDITING_TOOL_OPTIONS,
+  SHOOTING_CATEGORIES,
   getParamValues,
   toURLSearchParams,
   type SearchParamsInput,
@@ -22,6 +23,7 @@ export function EditorJobFilterBox({ searchParams = {}, regions = [] }: EditorJo
   const params = toURLSearchParams(searchParams);
   const selectedCategories = getParamValues(params, "category");
   const selectedEquipment = getParamValues(params, "equipment");
+  const selectedShootingCategories = getParamValues(params, "shootingCategories");
 
   return (
     <form action="/editor-jobs" className="rounded-md border border-line bg-surface p-4 shadow-card">
@@ -40,6 +42,15 @@ export function EditorJobFilterBox({ searchParams = {}, regions = [] }: EditorJo
           <div className="mt-3 grid gap-2 md:grid-cols-2 xl:grid-cols-3">
             {EDITING_TOOL_OPTIONS.map((tool) => (
               <Checkbox key={tool} name="equipment" value={tool} label={tool} defaultChecked={selectedEquipment.includes(tool)} />
+            ))}
+          </div>
+        </details>
+
+        <details>
+          <summary className="cursor-pointer text-sm font-bold text-ink">촬영 분야</summary>
+          <div className="mt-3 grid gap-2 md:grid-cols-2 xl:grid-cols-3">
+            {SHOOTING_CATEGORIES.map((category) => (
+              <Checkbox key={category} name="shootingCategories" value={category} label={category} defaultChecked={selectedShootingCategories.includes(category)} />
             ))}
           </div>
         </details>

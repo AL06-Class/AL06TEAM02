@@ -99,6 +99,7 @@ export default function EditorJobDetailPage({ params }: EditorJobDetailProps) {
                 ["고용형태", job.employmentType],
                 ["편집 분야", job.category],
                 ["편집 가능 툴", job.equipment.join(", ")],
+                ["촬영 분야", job.shootingCategories.length > 0 ? job.shootingCategories.join(", ") : "선택 없음"],
                 ["근무조건", `${job.region} · ${job.address}`],
               ]}
             />
@@ -142,7 +143,7 @@ export default function EditorJobDetailPage({ params }: EditorJobDetailProps) {
               <div className="flex justify-between gap-3 text-sm"><span className="text-muted">경력</span><strong className="text-ink">{job.careerLevel}</strong></div>
               <div className="flex justify-between gap-3 text-sm"><span className="text-muted">지역</span><strong className="text-right text-ink">{job.region}</strong></div>
               <div className="flex justify-between gap-3 text-sm"><span className="text-muted">마감</span><strong className="text-ink">{closed ? "마감" : formatJobDeadline(job)}</strong></div>
-              <BadgeList labels={[job.category, ...job.equipment]} max={4} />
+              <BadgeList labels={[job.category, ...job.equipment, ...job.shootingCategories]} max={4} />
               <a href={`mailto:${job.managerEmail}`} className={emailButtonClass}>
                 <Mail aria-hidden className="h-4 w-4" />
                 이메일 지원

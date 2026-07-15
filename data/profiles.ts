@@ -1,4 +1,4 @@
-export const profiles = [
+const profileSeeds = [
   {
     id: 1,
     maskedName: "김O현",
@@ -720,3 +720,9 @@ export const profiles = [
     updatedAt: "2026-06-23"
   }
 ];
+
+export const profiles = profileSeeds.map((profile) => ({
+  ...profile,
+  editingTools: profile.equipment.includes("편집 가능") ? ["프리미어프로"] : [],
+  shootingCategories: [],
+}));

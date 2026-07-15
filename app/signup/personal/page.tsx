@@ -46,7 +46,10 @@ export default function PersonalSignupPage() {
         <p className="mt-2 text-sm text-muted">프로필을 등록하면 제안을 받을 수 있습니다.</p>
         <div className="mt-6 flex flex-wrap justify-center gap-3">
           <Link href="/profiles/new" className={linkPrimaryClass}>
-            프로필 등록
+            촬영자 프로필 등록
+          </Link>
+          <Link href="/editor-profiles/new" className={linkSecondaryClass}>
+            편집자 프로필 등록
           </Link>
           <Link href="/" className={linkSecondaryClass}>
             나중에

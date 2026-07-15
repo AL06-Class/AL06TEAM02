@@ -10,6 +10,8 @@ export interface JobCardData {
   region: string;
   careerLevel: string;
   equipment: string[];
+  editingTools?: string[];
+  shootingCategories?: string[];
   payAmount: string;
   deadlineType: string;
   deadline?: string;
@@ -63,7 +65,7 @@ export function JobCard({ job, compact = false, basePath = "/jobs" }: JobCardPro
           <Badge label={job.careerLevel} />
           <Badge label={formatJobDeadline(job)} tone={closed ? "danger" : undefined} />
         </div>
-        {!compact ? <BadgeList labels={[job.category, ...job.equipment]} max={3} /> : null}
+        {!compact ? <BadgeList labels={[job.category, ...job.equipment, ...(job.editingTools ?? []), ...(job.shootingCategories ?? [])]} max={3} /> : null}
         <p className="truncate text-sm font-bold text-ink">{job.payAmount}</p>
       </div>
     </Link>

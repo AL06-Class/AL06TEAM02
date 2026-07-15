@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { Filter } from "lucide-react";
 import { ProfileCard, ProfileFilterBox } from "@/components/profiles";
@@ -10,6 +10,7 @@ import { AppliedFilterChips, type AppliedFilterChip } from "@/components/shared/
 import { SortSelect } from "@/components/shared/SortSelect";
 import { EmptyState, Pagination } from "@/components/ui";
 import { editorProfiles } from "@/data/editor-profiles";
+import { toPublicSubmittedEditorProfiles } from "@/lib/admin-storage";
 import {
   EDITING_CATEGORIES,
   EDITING_TOOL_OPTIONS,
@@ -21,6 +22,10 @@ import {
 } from "@/lib/filters";
 
 type EditorProfileListItem = (typeof editorProfiles)[number];
+
+function visibleProfiles() {
+  return [...toPublicSubmittedEditorProfiles(), ...editorProfiles] as EditorProfileListItem[];
+}
 
 function regionOptions(items: EditorProfileListItem[]) {
   return Array.from(new Set(items.map((profile) => profile.region.split(" ")[0]))).sort((a, b) => a.localeCompare(b, "ko-KR"));
@@ -46,8 +51,14 @@ function appliedChips(searchParams: SearchParamsInput): AppliedFilterChip[] {
 export function EditorProfilesPageClient() {
   const searchParams = useSearchParams();
   const currentSearchParams = useMemo(() => new URLSearchParams(searchParams.toString()), [searchParams]);
-  const desktopPage = queryShooterProfiles(editorProfiles, currentSearchParams, 12);
-  const mobilePage = queryShooterProfiles(editorProfiles, currentSearchParams, 10);
+  const [items, setItems] = useState<EditorProfileListItem[]>(editorProfiles);
+
+  useEffect(() => {
+    setItems(visibleProfiles());
+  }, []);
+
+  const desktopPage = queryShooterProfiles(items, currentSearchParams, 12);
+  const mobilePage = queryShooterProfiles(items, currentSearchParams, 10);
   const chips = appliedChips(currentSearchParams);
 
   return (
@@ -61,16 +72,24 @@ export function EditorProfilesPageClient() {
             <h1 className="text-2xl font-black text-ink">편집자 프로필</h1>
             <p className="mt-1 text-sm text-muted">검증된 편집 분야와 편집 가능 툴을 확인하세요 · 총 {desktopPage.totalItems}건</p>
           </div>
-          <Link href="/editor-profiles/search" className="inline-flex h-10 items-center gap-2 rounded-md border border-line bg-surface px-3 text-sm font-semibold text-ink shadow-card lg:hidden">
-            <Filter aria-hidden className="h-4 w-4" />
-            필터
-          </Link>
+          <div className="flex flex-wrap justify-end gap-2">
+            <Link href="/editor-profiles/new" className="inline-flex h-10 items-center justify-center rounded-md border border-primary bg-primary px-3 text-sm font-semibold text-white">
+              편집자 프로필 등록
+            </Link>
+            <Link href="/profiles/new" className="hidden h-10 items-center justify-center rounded-md border border-line bg-surface px-3 text-sm font-semibold text-ink sm:inline-flex">
+              촬영자 프로필 등록
+            </Link>
+            <Link href="/editor-profiles/search" className="inline-flex h-10 items-center gap-2 rounded-md border border-line bg-surface px-3 text-sm font-semibold text-ink shadow-card lg:hidden">
+              <Filter aria-hidden className="h-4 w-4" />
+              필터
+            </Link>
+          </div>
         </div>
 
         <div className="hidden lg:block">
           <ProfileFilterBox
             searchParams={currentSearchParams}
-            regions={regionOptions(editorProfiles)}
+            regions={regionOptions(items)}
             action="/editor-profiles"
             resetHref="/editor-profiles"
             categoryOptions={EDITING_CATEGORIES}

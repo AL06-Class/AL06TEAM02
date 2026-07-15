@@ -12,6 +12,7 @@ import {
   BriefcaseBusiness,
   Building2,
   CheckCircle2,
+  ChevronDown,
   ChevronRight,
   Clock3,
   CreditCard,
@@ -140,6 +141,7 @@ interface CompanyState {
 
 interface MyJob {
   id: number;
+  jobType: "shooting" | "editing";
   title: string;
   status: MyJobStatus;
   deadline: string;
@@ -320,6 +322,7 @@ function createJobsFallback(): MyJob[] {
   const ownJobs = jobs.filter((job) => job.companyName === currentCompany.companyName);
   return ownJobs.map((job, index) => ({
     id: job.id,
+    jobType: "shooting" as const,
     title: job.title,
     status: index === 1 ? "심사중" : index === 2 ? "반려" : job.status === "마감" ? "마감" : "게시중",
     deadline: job.deadline ?? "상시채용",
@@ -382,6 +385,15 @@ function ProductPurchaseCard({ title, description, href, action }: { title: stri
         {action}
       </Link>
     </SectionCard>
+  );
+}
+
+function ProfileRegistrationActions() {
+  return (
+    <div className="flex flex-wrap justify-center gap-2">
+      <Link href="/profiles/new" className={linkPrimaryClass}>촬영자 프로필 등록</Link>
+      <Link href="/editor-profiles/new" className={linkSecondaryClass}>편집자 프로필 등록</Link>
+    </div>
   );
 }
 
@@ -475,6 +487,7 @@ export function MyPageClient({ page, searchJobId = null }: { page: MyPageKey; se
             <Badge label={statusBadge} tone={kind === "company" ? verifyTone(mockState.verifyStatus) : undefined} className="mt-2" />
           </div>
           <nav className="mt-5 space-y-1 border-t border-line pt-4">
+            {kind === "company" ? <CompanyProfileRegistrationLinks /> : null}
             {menu.map((item) => {
               const active = item.key === page;
               const Icon = item.icon;
@@ -651,11 +664,7 @@ function PersonalDashboard({ profileState, personalStats, applications, payments
       ) : (
         <EmptyState
           title="등록된 촬영자 프로필이 없습니다"
-          action={
-            <Link href="/profiles/new" className={linkPrimaryClass}>
-              프로필 등록하기
-            </Link>
-          }
+          action={<ProfileRegistrationActions />}
           className="rounded-md border border-line bg-surface shadow-card"
         />
       )}
@@ -665,6 +674,18 @@ function PersonalDashboard({ profileState, personalStats, applications, payments
         <StatCard label="받은 제안" value={`${personalStats.proposals}건`} href="/alerts" tone="success" />
         <StatCard label="내 상품" value={`${personalStats.products}건`} href="/mypage/products" tone="warning" />
       </div>
+      <SectionCard>
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <h2 className="text-lg font-black text-ink">모집 공고 등록</h2>
+            <p className="mt-1 text-sm text-muted">개인 계정에서도 데모 등록 화면을 확인할 수 있습니다.</p>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            <Link href="/jobs/new" className={linkPrimaryClass}>촬영자 모집 등록</Link>
+            <Link href="/editor-jobs/new" className={linkSecondaryClass}>편집자 모집 등록</Link>
+          </div>
+        </div>
+      </SectionCard>
       <MobileMenu kind="personal" />
       <RecentActivity items={activities} />
     </div>
@@ -692,6 +713,10 @@ function CompanyDashboard({ companyState, companyStats }: { companyState: Compan
             <p className="mt-2 text-sm text-muted">
               {companyState.industry} · {companyState.region}
             </p>
+            <div className="mt-4 flex flex-wrap gap-2">
+              <Link href="/profiles/new" className={linkPrimaryClass}>촬영자 프로필 등록</Link>
+              <Link href="/editor-profiles/new" className={linkSecondaryClass}>편집자 프로필 등록</Link>
+            </div>
           </div>
         </div>
         {mockState.verifyStatus !== "인증완료" ? (
@@ -706,6 +731,18 @@ function CompanyDashboard({ companyState, companyStats }: { companyState: Compan
         <StatCard label="열람권" value={companyStats.contactPass} href="/mypage/contact-pass" tone="success" />
         <StatCard label="점프 크레딧" value={`${companyStats.jumpCredits}건`} href="/mypage/jump" tone="warning" />
       </div>
+      <SectionCard>
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <h2 className="text-lg font-black text-ink">모집 공고 등록</h2>
+            <p className="mt-1 text-sm text-muted">등록할 모집 유형을 선택하세요.</p>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            <Link href="/jobs/new" className={linkPrimaryClass}>촬영자 모집 등록</Link>
+            <Link href="/editor-jobs/new" className={linkSecondaryClass}>편집자 모집 등록</Link>
+          </div>
+        </div>
+      </SectionCard>
       <MobileMenu kind="company" />
       <RecentActivity items={[{ id: "company-activity-1", at: new Date().toISOString(), label: "기업 마이페이지 상태가 최신화되었습니다" }]} />
     </div>
@@ -716,6 +753,7 @@ function MobileMenu({ kind }: { kind: AccountKind }) {
   const menu = kind === "personal" ? personalMenu : companyMenu;
   return (
     <div className="space-y-2 lg:hidden">
+      {kind === "company" ? <CompanyProfileRegistrationLinks /> : null}
       {menu.map((item) => {
         const Icon = item.icon;
         return (
@@ -726,6 +764,30 @@ function MobileMenu({ kind }: { kind: AccountKind }) {
           </Link>
         );
       })}
+    </div>
+  );
+}
+
+function CompanyProfileRegistrationLinks() {
+  const [open, setOpen] = useState(true);
+
+  return (
+    <div className="mb-3 space-y-2 border-b border-line pb-3">
+      <button type="button" onClick={() => setOpen((current) => !current)} className="flex h-10 w-full items-center gap-2 rounded-sm px-2 text-sm font-bold text-ink hover:bg-page" aria-expanded={open}>
+        <UserRound aria-hidden className="h-4 w-4 text-muted" />
+        <span className="flex-1 text-left">내 기업프로필</span>
+        <ChevronDown aria-hidden className={cn("h-4 w-4 text-muted transition", open ? "rotate-180" : "")} />
+      </button>
+      {open ? (
+        <div className="space-y-1 border-l-2 border-line pl-3">
+          <Link href="/profiles/new" className="flex h-9 items-center rounded-sm px-2 text-xs font-bold text-muted transition hover:bg-primary-soft hover:text-primary">
+            촬영자 프로필 등록
+          </Link>
+          <Link href="/editor-profiles/new" className="flex h-9 items-center rounded-sm px-2 text-xs font-bold text-muted transition hover:bg-primary-soft hover:text-primary">
+            편집자 프로필 등록
+          </Link>
+        </div>
+      ) : null}
     </div>
   );
 }
@@ -754,15 +816,30 @@ function RecentActivity({ items }: { items: Array<{ id: string; at: string; labe
 }
 
 function CorporateVerificationBanner({ status }: { status: VerifyStatus }) {
+  const router = useRouter();
+  const { setMockState } = useAuth();
+  const { showToast } = useToast();
+
+  function completeDemoVerification() {
+    setMockState({ verifyStatus: "인증완료" });
+    showToast("데모 기업 인증이 완료되었습니다.");
+    router.push("/mypage/jobs");
+  }
+
   if (status === "반려") {
     return (
       <StatusBanner
         tone="danger"
         title="기업 인증이 반려되었습니다"
         action={
-          <Link href="/mypage/verification" className={linkSecondaryClass}>
-            재제출
-          </Link>
+          <div className="flex flex-wrap gap-2">
+            <Link href="/mypage/verification" className={linkSecondaryClass}>
+              재제출
+            </Link>
+            <Button variant="outline" onClick={completeDemoVerification}>
+              데모 인증 완료
+            </Button>
+          </div>
         }
       >
         사업자 정보와 제출 서류가 일치하지 않습니다.
@@ -774,12 +851,17 @@ function CorporateVerificationBanner({ status }: { status: VerifyStatus }) {
       tone="warning"
       title={status === "검수중" ? "기업 인증 검수중입니다" : "기업 인증이 필요합니다"}
       action={
-        <Link href="/mypage/verification" className={linkSecondaryClass}>
-          인증하러 가기
-        </Link>
+        <div className="flex flex-wrap gap-2">
+          <Link href="/mypage/verification" className={linkSecondaryClass}>
+            인증하러 가기
+          </Link>
+          <Button variant="outline" onClick={completeDemoVerification}>
+            데모 인증 완료
+          </Button>
+        </div>
       }
     >
-      인증 전에는 공고와 지원자 관련 기능이 제한됩니다.
+      인증 전에는 공고와 지원자 관련 기능이 제한됩니다. 데모에서는 인증 완료 후 등록 화면을 바로 확인할 수 있습니다.
     </StatusBanner>
   );
 }
@@ -791,11 +873,7 @@ function ProfilePage({ profileState, setProfileState }: { profileState: ProfileS
     return (
       <EmptyState
         title="아직 등록된 촬영자 프로필이 없습니다"
-        action={
-          <Link href="/profiles/new" className={linkPrimaryClass}>
-            프로필 등록하기
-          </Link>
-        }
+        action={<ProfileRegistrationActions />}
         className="rounded-md border border-line bg-surface shadow-card"
       />
     );
@@ -853,7 +931,10 @@ function ProfilePage({ profileState, setProfileState }: { profileState: ProfileS
         </div>
         <div className="mt-5 flex flex-wrap justify-end gap-2">
           <Link href="/profiles/new" className={linkSecondaryClass}>
-            수정
+            촬영자 프로필 수정
+          </Link>
+          <Link href="/editor-profiles/new" className={linkSecondaryClass}>
+            편집자 프로필 등록
           </Link>
           <Button variant="danger" onClick={() => setDeleteOpen(true)}>
             삭제
@@ -1009,9 +1090,17 @@ function ApplicationsPage({ applications }: { applications: ApplicationRecord[] 
       <EmptyState
         title="아직 지원한 공고가 없습니다"
         action={
-          <Link href="/jobs" className={linkPrimaryClass}>
-            공고 탐색하기
-          </Link>
+          <div className="flex flex-wrap justify-center gap-2">
+            <Link href="/jobs" className={linkPrimaryClass}>
+              공고 탐색하기
+            </Link>
+            <Link href="/jobs/new" className={linkSecondaryClass}>
+              촬영자 모집 등록
+            </Link>
+            <Link href="/editor-jobs/new" className={linkSecondaryClass}>
+              편집자 모집 등록
+            </Link>
+          </div>
         }
         className="rounded-md border border-line bg-surface shadow-card"
       />
@@ -1380,6 +1469,7 @@ function CompanyPage({ companyState, setCompanyState }: { companyState: CompanyS
 }
 
 function VerificationPage() {
+  const router = useRouter();
   const { mockState, setMockState } = useAuth();
   const { showToast } = useToast();
   const [hasFiles, setHasFiles] = useState(false);
@@ -1392,6 +1482,12 @@ function VerificationPage() {
     }
     setMockState({ verifyStatus: "검수중" });
     showToast("서류가 제출되었습니다.");
+  }
+
+  function completeDemoVerification() {
+    setMockState({ verifyStatus: "인증완료" });
+    showToast("데모 기업 인증이 완료되었습니다.");
+    router.push("/mypage/jobs");
   }
 
   return (
@@ -1417,6 +1513,9 @@ function VerificationPage() {
         </div>
         <Button className="mt-5" onClick={submit}>
           {mockState.verifyStatus === "반려" ? "서류 다시 제출" : "제출하기"}
+        </Button>
+        <Button className="mt-2" variant="outline" onClick={completeDemoVerification}>
+          데모 인증 완료 후 공고 등록
         </Button>
       </SectionCard>
     </div>
@@ -1454,9 +1553,10 @@ function JobsManagePage({ myJobs, setMyJobs, applications, setJumpHistory }: { m
       <EmptyState
         title="등록된 공고가 없습니다"
         action={
-          <Link href="/jobs/new" className={linkPrimaryClass}>
-            공고 등록
-          </Link>
+          <div className="flex flex-wrap justify-center gap-2">
+            <Link href="/jobs/new" className={linkPrimaryClass}>촬영자 모집 등록</Link>
+            <Link href="/editor-jobs/new" className={linkSecondaryClass}>편집자 모집 등록</Link>
+          </div>
         }
         className="rounded-md border border-line bg-surface shadow-card"
       />
@@ -1467,9 +1567,10 @@ function JobsManagePage({ myJobs, setMyJobs, applications, setJumpHistory }: { m
     <div className="space-y-4">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <Tabs items={tabs} value={tab} onChange={setTab} variant="scroll" />
-        <Link href="/jobs/new" className={linkPrimaryClass}>
-          + 공고 등록
-        </Link>
+        <div className="flex flex-wrap gap-2">
+          <Link href="/jobs/new" className={linkPrimaryClass}>+ 촬영자 모집</Link>
+          <Link href="/editor-jobs/new" className={linkSecondaryClass}>+ 편집자 모집</Link>
+        </div>
       </div>
       {rows.length > 0 ? (
         <div className="divide-y divide-line rounded-md border border-line bg-surface shadow-card">
@@ -1479,7 +1580,7 @@ function JobsManagePage({ myJobs, setMyJobs, applications, setJumpHistory }: { m
               <div key={job.id} className="grid gap-3 p-4 lg:grid-cols-[110px_minmax(0,1fr)_90px_160px_280px] lg:items-center">
                 <Badge label={job.status} />
                 <div className="min-w-0">
-                  <Link href={`/jobs/${job.id}`} className="font-bold text-ink hover:text-primary">
+                  <Link href={`${job.jobType === "editing" ? "/editor-jobs" : "/jobs"}/${job.id}`} className="font-bold text-ink hover:text-primary">
                     {job.title}
                   </Link>
                   {job.status === "반려" ? <p className="mt-1 text-xs text-danger">사유: {job.rejectedReason}</p> : null}

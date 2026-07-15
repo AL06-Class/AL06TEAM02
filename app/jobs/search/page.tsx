@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Search } from "lucide-react";
 import { Button, Checkbox, Input, Select } from "@/components/ui";
-import { CAREER_OPTIONS, EQUIPMENT_OPTIONS, SHOOTING_CATEGORIES } from "@/lib/filters";
+import { CAREER_OPTIONS, EDITING_TOOL_OPTIONS, EQUIPMENT_OPTIONS, SHOOTING_CATEGORIES } from "@/lib/filters";
 
 const regions = ["서울", "경기", "인천", "부산", "대구", "광주", "대전", "제주"];
 
@@ -43,6 +43,15 @@ export default function JobsSearchPage() {
           <Select name="pay" label="급여" options={[{ label: "전체", value: "" }, { label: "건당", value: "건당" }, { label: "일당", value: "일당" }, { label: "월급", value: "월급" }, { label: "협의", value: "협의" }]} />
           <Select name="age" label="나이" options={[{ label: "무관", value: "" }, { label: "20대", value: "20" }, { label: "30대", value: "30" }, { label: "40대 이상", value: "40" }]} />
           <Select name="employmentType" label="계약형태" options={[{ label: "전체", value: "" }, { label: "프리랜서", value: "프리랜서" }, { label: "정규직", value: "정규직" }, { label: "계약직", value: "계약직" }, { label: "프로젝트", value: "프로젝트" }]} />
+        </section>
+
+        <section className="rounded-md border border-line bg-surface p-4 shadow-card">
+          <h2 className="mb-3 text-base font-bold text-ink">편집 가능 툴</h2>
+          <div className="grid gap-2 sm:grid-cols-2">
+            {EDITING_TOOL_OPTIONS.map((tool) => (
+              <Checkbox key={tool} name="editingTools" value={tool} label={tool} />
+            ))}
+          </div>
         </section>
 
         <section className="rounded-md border border-line bg-surface p-4 shadow-card">

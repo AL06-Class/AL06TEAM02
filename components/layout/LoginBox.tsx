@@ -10,6 +10,7 @@ import { type UserRole, useAuth } from "@/lib/auth-context";
 interface LoginBoxProps {
   companyRole?: Extract<UserRole, "company-unverified" | "company-verified">;
   redirectTo?: string;
+  defaultMemberType?: "personal" | "company";
 }
 
 function safeRedirect(value?: string) {
@@ -17,11 +18,11 @@ function safeRedirect(value?: string) {
   return value;
 }
 
-export function LoginBox({ companyRole = "company-unverified", redirectTo }: LoginBoxProps = {}) {
+export function LoginBox({ companyRole = "company-unverified", redirectTo, defaultMemberType = "personal" }: LoginBoxProps = {}) {
   const router = useRouter();
   const { setRole } = useAuth();
   const { showToast } = useToast();
-  const [memberType, setMemberType] = useState<"personal" | "company">("personal");
+  const [memberType, setMemberType] = useState<"personal" | "company">(defaultMemberType);
 
   function completeLogin(message: string) {
     setRole(memberType === "personal" ? "personal" : companyRole);

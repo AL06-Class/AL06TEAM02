@@ -25,6 +25,7 @@ function appliedChips(searchParams: SearchParamsInput): AppliedFilterChip[] {
   const chips: AppliedFilterChip[] = [];
   for (const value of getParamValues(params, "category")) chips.push({ param: "category", value, label: `분야: ${value}` });
   for (const value of getParamValues(params, "equipment")) chips.push({ param: "equipment", value, label: `장비: ${value}` });
+  for (const value of getParamValues(params, "editingTools")) chips.push({ param: "editingTools", value, label: `편집 툴: ${value}` });
   for (const value of getParamValues(params, "region")) chips.push({ param: "region", value, label: `지역: ${value}` });
   for (const value of getParamValues(params, "subway")) chips.push({ param: "subway", value, label: `역세권: ${value}` });
   const career = params.get("career");

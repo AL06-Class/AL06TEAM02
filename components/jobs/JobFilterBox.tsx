@@ -4,6 +4,7 @@ import { Button, Checkbox, Input, Select } from "@/components/ui";
 import {
   CAREER_OPTIONS,
   EQUIPMENT_OPTIONS,
+  EDITING_TOOL_OPTIONS,
   SHOOTING_CATEGORIES,
   getParamValues,
   toURLSearchParams,
@@ -21,6 +22,7 @@ export function JobFilterBox({ searchParams = {}, regions = [], action = "/jobs"
   const params = toURLSearchParams(searchParams);
   const selectedCategories = getParamValues(params, "category");
   const selectedEquipment = getParamValues(params, "equipment");
+  const selectedEditingTools = getParamValues(params, "editingTools");
   const selectedRegion = params.get("region") ?? "";
   const selectedCareer = params.get("career") ?? "";
   const selectedScope = params.get("scope") ?? "all";
@@ -54,6 +56,15 @@ export function JobFilterBox({ searchParams = {}, regions = [], action = "/jobs"
                 label={equipment}
                 defaultChecked={selectedEquipment.includes(equipment)}
               />
+            ))}
+          </div>
+        </details>
+
+        <details>
+          <summary className="cursor-pointer text-sm font-bold text-ink">편집 가능 툴</summary>
+          <div className="mt-3 grid gap-2 md:grid-cols-2 xl:grid-cols-3">
+            {EDITING_TOOL_OPTIONS.map((tool) => (
+              <Checkbox key={tool} name="editingTools" value={tool} label={tool} defaultChecked={selectedEditingTools.includes(tool)} />
             ))}
           </div>
         </details>

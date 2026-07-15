@@ -50,19 +50,21 @@ docs/                 # 설계 문서 (기존 .md는 루트 유지)
 | 경로 | 화면 | 쿼리 파라미터 |
 | --- | --- | --- |
 | `/` | 메인 | — |
-| `/jobs` | 촬영자 모집 목록 | `category, region, subway, career, equipment, sort, page, q` |
+| `/jobs` | 촬영자 모집 목록 | `category, region, subway, career, equipment, editingTools, sort, page, q` |
 | `/jobs/[id]` | 모집 상세 | — |
 | `/jobs/categories/[type]` | 모바일 카테고리 (`field`\|`region`\|`subway`) | — |
 | `/jobs/search` | 모바일 상세검색 폼 | — |
-| `/editor-jobs` | 편집자 모집 목록 | `category, region, subway, career, equipment, employmentType, pay, sort, page, q` |
+| `/editor-jobs` | 편집자 모집 목록 | `category, region, subway, career, equipment, shootingCategories, employmentType, pay, sort, page, q` |
 | `/editor-jobs/[id]` | 편집자 모집 상세 | — |
 | `/editor-jobs/categories/[type]` | 편집자 모집 모바일 카테고리 (`field`\|`region`\|`subway`) | — |
 | `/editor-jobs/search` | 편집자 모집 모바일 상세검색 폼 | — |
 | `/profiles` | 촬영자 프로필 목록 | `category, region, equipment, career, pay, gender, sort, page, q` |
 | `/profiles/[id]` | 프로필 상세 | — |
+| `/profiles/new` | 촬영자 프로필 등록 | 개인 |
 | `/profiles/search` | 모바일 프로필 상세검색 | — |
 | `/editor-profiles` | 편집자 프로필 목록 | `category, region, equipment, career, pay, gender, sort, page, q` |
 | `/editor-profiles/[id]` | 편집자 프로필 상세 | — |
+| `/editor-profiles/new` | 편집자 프로필 등록 | 개인 |
 | `/editor-profiles/search` | 모바일 편집자 프로필 상세검색 | — |
 | `/community` | 커뮤니티 홈 (이번주 베스트 + 게시판별 최신) | — |
 | `/community/[board]` | 게시판 목록 (`free\|feedback\|lab\|contest\|event\|suggest\|guide`) | `page, q` |
@@ -83,9 +85,11 @@ docs/                 # 설계 문서 (기존 .md는 루트 유지)
 
 | 경로 | 화면 | 요구 역할 |
 | --- | --- | --- |
-| `/jobs/new` | 공고 등록 | 기업(인증완료) |
+| `/jobs/new` | 공고 등록 | 로그인 회원 (데모: 개인 및 미인증 기업도 등록 화면 확인 가능) |
+| `/editor-jobs/new` | 편집자 모집 공고 등록 | 로그인 회원 (데모: 개인 및 미인증 기업도 등록 화면 확인 가능) |
 | `/jobs/[id]/apply` | 온라인 지원 | 개인 |
-| `/profiles/new` | 프로필 등록 | 개인 |
+| `/profiles/new` | 촬영자 프로필 등록 | 개인 |
+| `/editor-profiles/new` | 편집자 프로필 등록 | 개인 |
 | `/store/new` | 상품 등록 | 개인 또는 기업 |
 | `/community/write` | 글쓰기 | 개인 또는 기업 (`?board=` 프리셀렉트) |
 | `/services/order/[productKey]` | 유료상품 주문/모의결제 (`banner\|jump\|contact-pass\|promotion`) | 상품별 상이 |
@@ -143,7 +147,7 @@ docs/                 # 설계 문서 (기존 .md는 루트 유지)
 | 목록/상세 공개 정보 열람 | ✅ | ✅ | ✅ | ✅ | ✅ |
 | 프로필 연락처 열람 | ❌ | ❌ | ❌ | 열람권 보유 시 ✅ | ✅ |
 | 공고 온라인 지원 | ❌ | ✅ | ❌ | ❌ | — |
-| 공고 등록 | ❌ | ❌ | ❌ | ✅(심사 후 게시) | ✅ |
+| 공고 등록 | ❌ | 데모 ✅ | 데모 ✅ | ✅(심사 후 게시) | ✅ |
 | 프로필 등록 | ❌ | ✅(검수 후 노출) | ❌ | ❌ | — |
 | 스크랩 | ❌ | 공고 | 프로필 | 프로필 | — |
 | 커뮤니티 글/댓글 | ❌ | ✅ | ✅ | ✅ | ✅ |
@@ -160,7 +164,7 @@ docs/                 # 설계 문서 (기존 .md는 루트 유지)
 | 모집 상세 "온라인 지원" | 로그인 유도 모달 | 기업: "개인회원 전용" 안내 |
 | 스크랩 버튼 | 로그인 유도 모달 | — |
 | 글쓰기/댓글 | 로그인 유도 모달 | — |
-| `/jobs/new` 진입 | `/login?redirect=/jobs/new` | 개인: 안내 후 메인. 기업(미인증): 인증 유도 화면 → `/mypage/verification` |
+| `/jobs/new`, `/editor-jobs/new` 진입 | `/login?redirect=` | 데모에서는 개인·미인증 기업도 등록 화면 진입 가능. 실제 인증 정책은 별도 적용 |
 | `/profiles/new` 진입 | `/login?redirect=` | 기업: "개인회원 전용" 안내 |
 | `/store/new` 진입 | `/login?redirect=` | — |
 | `/mypage`, `/alerts` | `/login?redirect=` | — |

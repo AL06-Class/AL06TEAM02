@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { Filter } from "lucide-react";
 import { EditorJobFilterBox } from "@/components/editor-jobs";
@@ -11,6 +11,7 @@ import { AppliedFilterChips, type AppliedFilterChip } from "@/components/shared/
 import { SortSelect } from "@/components/shared/SortSelect";
 import { EmptyState, Pagination } from "@/components/ui";
 import { editorJobs } from "@/data/editor-jobs";
+import { toPublicSubmittedEditorJobs } from "@/lib/admin-storage";
 import { getParamValues, JOB_SORT_OPTIONS, queryJobPostings, toURLSearchParams, type SearchParamsInput } from "@/lib/filters";
 
 type EditorJobListItem = (typeof editorJobs)[number];
@@ -19,11 +20,16 @@ function regionOptions(items: EditorJobListItem[]) {
   return Array.from(new Set(items.map((job) => job.region.split(" ")[0]))).sort((a, b) => a.localeCompare(b, "ko-KR"));
 }
 
+function visibleEditorJobs() {
+  return [...toPublicSubmittedEditorJobs(), ...editorJobs] as EditorJobListItem[];
+}
+
 function appliedChips(searchParams: SearchParamsInput): AppliedFilterChip[] {
   const params = toURLSearchParams(searchParams);
   const chips: AppliedFilterChip[] = [];
   for (const value of getParamValues(params, "category")) chips.push({ param: "category", value, label: `편집 분야: ${value}` });
   for (const value of getParamValues(params, "equipment")) chips.push({ param: "equipment", value, label: `편집 툴: ${value}` });
+  for (const value of getParamValues(params, "shootingCategories")) chips.push({ param: "shootingCategories", value, label: `촬영 분야: ${value}` });
   for (const value of getParamValues(params, "region")) chips.push({ param: "region", value, label: `지역: ${value}` });
   const career = params.get("career");
   const employmentType = params.get("employmentType");
@@ -40,8 +46,14 @@ function appliedChips(searchParams: SearchParamsInput): AppliedFilterChip[] {
 export function EditorJobsPageClient() {
   const searchParams = useSearchParams();
   const currentSearchParams = useMemo(() => new URLSearchParams(searchParams.toString()), [searchParams]);
-  const desktopPage = queryJobPostings(editorJobs, currentSearchParams, 20);
-  const mobilePage = queryJobPostings(editorJobs, currentSearchParams, 10);
+  const [items, setItems] = useState<EditorJobListItem[]>(editorJobs);
+
+  useEffect(() => {
+    setItems(visibleEditorJobs());
+  }, []);
+
+  const desktopPage = queryJobPostings(items, currentSearchParams, 20);
+  const mobilePage = queryJobPostings(items, currentSearchParams, 10);
   const chips = appliedChips(currentSearchParams);
   const premiumMobile = mobilePage.items.filter((job) => job.isPremium);
   const normalMobile = mobilePage.items.filter((job) => !job.isPremium);
@@ -64,7 +76,7 @@ export function EditorJobsPageClient() {
         </div>
 
         <div className="hidden lg:block">
-          <EditorJobFilterBox searchParams={currentSearchParams} regions={regionOptions(editorJobs)} />
+          <EditorJobFilterBox searchParams={currentSearchParams} regions={regionOptions(items)} />
         </div>
 
         <div className="flex flex-wrap items-center justify-between gap-3">
