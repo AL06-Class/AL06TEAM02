@@ -1,4 +1,4 @@
-# 촬영몬 UI 컴포넌트 명세
+# CLIPBee UI 컴포넌트 명세
 
 작성일: 2026-07-06
 기준 문서: `design.md`(색상/타이포), `wireframe.md`(사용 위치), `architecture.md`(2장 컴포넌트 구조)

@@ -45,8 +45,8 @@ export function Footer() {
           ))}
         </div>
         <div className="mt-4 space-y-1 text-xs leading-5 text-muted">
-          <p>촬영몬 사업자 정보 / 계좌 안내</p>
-          <p>copyright shootmon. All rights reserved.</p>
+          <p>CLIPBee 주식회사(가칭) · 사업자 정보 및 계좌 안내는 시연용입니다.</p>
+          <p>Copyright CLIPBee. All rights reserved.</p>
         </div>
       </div>
     </footer>

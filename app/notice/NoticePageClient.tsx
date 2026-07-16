@@ -26,7 +26,7 @@ export function NoticePageClient() {
     <div className="space-y-5">
       <div>
         <h1 className="text-2xl font-black text-ink">공지사항</h1>
-        <p className="mt-1 text-sm text-muted">촬영몬 운영 공지와 서비스 변경 사항입니다.</p>
+        <p className="mt-1 text-sm text-muted">CLIPBee 운영 공지와 서비스 변경 사항입니다.</p>
       </div>
 
       {pinned.length > 0 ? (

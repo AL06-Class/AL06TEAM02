@@ -352,7 +352,7 @@ export function getProfileRows(): AdminProfileRecord[] {
       status: override?.status ?? "공개",
       portfolioImages: profile.portfolioImages,
       portfolioLinks: profile.portfolioLinks,
-      email: `profile${String(profile.id).padStart(2, "0")}@shootmon.example.kr`,
+      email: `profile${String(profile.id).padStart(2, "0")}@clipbee.example.kr`,
       phone: `010-45${String(profile.id).padStart(2, "0")}-78${String(profile.id).padStart(2, "0")}`,
       submittedAt: override?.updatedAt ?? profile.updatedAt,
       reason: override?.reason,
@@ -404,7 +404,7 @@ export function getReports(): AdminReportRecord[] {
       targetTitle: "B캠/촬영 보조 성실히 배우겠습니다",
       reason: "잘못 기재된 연락처",
       detail: "연락처가 반복 반송됩니다.",
-      reporter: "촬영몬스튜디오",
+      reporter: "CLIPBee 스튜디오",
       receivedAt: "2026-07-06T11:30:00.000Z",
     },
   ];

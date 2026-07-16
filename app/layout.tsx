@@ -11,10 +11,10 @@ export const metadata: Metadata = {
     default: "CLIPBee",
     template: "%s | CLIPBee",
   },
-  description: "촬영 의뢰자와 촬영자를 연결하는 CLIPBee",
+  description: "촬영·편집 의뢰자와 촬영자·촬영팀·편집자를 연결하는 CLIPBee",
   openGraph: {
     title: "CLIPBee",
-    description: "촬영 의뢰자와 촬영자를 연결하는 CLIPBee",
+    description: "촬영·편집 의뢰자와 촬영자·촬영팀·편집자를 연결하는 CLIPBee",
     images: ["/images/presets/placeholders/shootmon-placeholder-camera-01.svg"],
   },
 };

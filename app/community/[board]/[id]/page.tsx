@@ -25,7 +25,7 @@ export function generateMetadata({ params }: CommunityPostDetailPageProps): Meta
     title: `${post.title} | 커뮤니티`,
     description: post.excerpt,
     openGraph: {
-      title: `${post.title} | 촬영몬 커뮤니티`,
+      title: `${post.title} | CLIPBee 커뮤니티`,
       description: post.excerpt,
       images: [PLACEHOLDER_IMAGES.review],
     },

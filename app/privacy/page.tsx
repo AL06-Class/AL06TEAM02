@@ -11,7 +11,7 @@ const sections: DocumentSection[] = [
     id: "intro",
     title: "기본 원칙",
     paragraphs: [
-      "촬영몬랩 주식회사(가칭)는 서비스 제공에 필요한 최소한의 개인정보만 처리하는 것을 원칙으로 합니다.",
+      "CLIPBee 주식회사(가칭)는 서비스 제공에 필요한 최소한의 개인정보만 처리하는 것을 원칙으로 합니다.",
       "본 개인정보처리방침은 데모용 표준 템플릿이며, 실제 서비스 출시 전 처리 항목과 보관 기간은 다시 확정해야 합니다.",
     ],
   },
@@ -44,11 +44,11 @@ const sections: DocumentSection[] = [
     title: "정보주체 권리",
     paragraphs: [
       "회원은 본인 정보 조회, 수정, 삭제, 처리 정지를 요청할 수 있습니다.",
-      "문의는 고객센터 또는 support@shootmon.example.kr로 접수하는 시연 흐름을 기준으로 합니다.",
+      "문의는 고객센터 또는 support@clipbee.example.kr로 접수하는 시연 흐름을 기준으로 합니다.",
     ],
   },
 ];
 
 export default function PrivacyPage() {
-  return <DocumentPage title="개인정보처리방침" description="촬영몬 데모 서비스의 개인정보 처리 기준을 안내합니다." sections={sections} />;
+  return <DocumentPage title="개인정보처리방침" description="CLIPBee 데모 서비스의 개인정보 처리 기준을 안내합니다." sections={sections} />;
 }

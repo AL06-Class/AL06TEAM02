@@ -24,7 +24,7 @@ function contactItems(profile: NonNullable<ReturnType<typeof findProfile>>) {
   return [
     { label: "전화번호", masked: "02-****-****", value: `02-6200-10${suffix}` },
     { label: "휴대폰", masked: "010-****-****", value: `010-45${suffix}-78${suffix}` },
-    { label: "이메일", masked: "****@***", value: `profile${suffix}@shootmon.example.kr` },
+    { label: "이메일", masked: "****@***", value: `profile${suffix}@clipbee.example.kr` },
     { label: "홈페이지", masked: "https://***", value: `https://portfolio.example.kr/shooter-${suffix}` },
     { label: "주소", masked: "상세 주소 비공개", value: `${profile.region} 활동 거점` },
   ];
@@ -37,7 +37,7 @@ export function generateMetadata({ params }: ProfileDetailProps): Metadata {
     title: profile.title,
     description: `${profile.maskedName} · ${profile.region} · ${profile.desiredPay}`,
     openGraph: {
-      title: `${profile.title} | 촬영몬`,
+      title: `${profile.title} | CLIPBee`,
       description: profile.intro,
       images: [resolveImagePath(profile.cover, "profile")],
     },

@@ -180,7 +180,7 @@ export function OrderFlow({ productKey }: OrderFlowProps) {
         <section className="rounded-md border border-line bg-surface p-5 shadow-card">
           <h2 className="text-lg font-bold text-ink">주문 확인</h2>
           <div className="mt-5 grid gap-4 md:grid-cols-2">
-            <InfoBox label="구매자" value={role === "personal" ? "홍O민 개인회원" : "촬영몬스튜디오 기업회원"} />
+            <InfoBox label="구매자" value={role === "personal" ? "홍O민 개인회원" : "CLIPBee 스튜디오 기업회원"} />
             <InfoBox label="결제수단" value="테스트 결제" />
           </div>
           <div className="mt-5 overflow-hidden rounded-md border border-line">

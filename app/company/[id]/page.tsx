@@ -30,7 +30,7 @@ export function generateMetadata({ params }: CompanyPageProps): Metadata {
     title: `${company.companyName} 기업 정보`,
     description,
     openGraph: {
-      title: `${company.companyName} 기업 정보 | 촬영몬`,
+      title: `${company.companyName} 기업 정보 | CLIPBee`,
       description,
       images: [resolveImagePath(company.ogImage)],
     },
@@ -51,7 +51,7 @@ export default function CompanyPage({ params }: CompanyPageProps) {
               <Badge label="인증완료" tone="success" />
             </div>
             <h1 className="text-3xl font-black leading-tight text-ink max-md:text-2xl">{company.companyName}</h1>
-            <p className="mt-2 text-sm text-muted">촬영몬 기업 인증을 완료한 의뢰자입니다.</p>
+            <p className="mt-2 text-sm text-muted">CLIPBee 기업 인증을 완료한 의뢰자입니다.</p>
           </div>
           <Link href="/jobs" className="inline-flex h-10 items-center gap-2 rounded-md border border-line bg-surface px-4 text-sm font-semibold text-ink hover:bg-page">
             <ArrowLeft aria-hidden className="h-4 w-4" />

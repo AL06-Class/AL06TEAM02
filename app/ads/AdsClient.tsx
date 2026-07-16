@@ -48,7 +48,7 @@ export function AdsClient() {
         <div className="rounded-md border border-line bg-surface p-5 shadow-card">
           <h2 className="text-xl font-black text-ink">노출 위치</h2>
           <div className="mt-5 rounded-md border border-line bg-page p-4">
-            <div className="rounded-sm bg-ink px-4 py-3 text-sm font-black text-white">촬영몬 메인</div>
+            <div className="rounded-sm bg-ink px-4 py-3 text-sm font-black text-white">CLIPBee 메인</div>
             <div className="mt-3 rounded-sm border-2 border-primary bg-primary-soft px-4 py-8 text-center">
               <MonitorSmartphone aria-hidden className="mx-auto h-8 w-8 text-primary" />
               <p className="mt-2 text-sm font-black text-primary">프리미엄 배너 영역</p>

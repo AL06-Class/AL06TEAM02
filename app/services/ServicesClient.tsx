@@ -148,7 +148,7 @@ export function ServicesClient({ initialTab }: ServicesClientProps) {
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
           <h1 className="text-3xl font-black text-ink max-md:text-2xl">서비스 안내</h1>
-          <p className="mt-2 text-sm text-muted">촬영몬 유료 노출과 기업 전환 상품을 확인합니다.</p>
+          <p className="mt-2 text-sm text-muted">CLIPBee 유료 노출과 기업 전환 상품을 확인합니다.</p>
         </div>
         <Link href="/ads" className="inline-flex h-10 items-center justify-center rounded-md border border-line bg-surface px-4 text-sm font-semibold text-ink transition hover:bg-page">
           광고 문의

@@ -1,4 +1,4 @@
-# 촬영몬 마이페이지 설계
+# CLIPBee 마이페이지 설계
 
 작성일: 2026-07-06
 기준 문서: `PRD.MD` 13장, `architecture.md` 3.3(라우트)·6장(플로우), `wireframe.md`(공통 레이아웃), `ui-components.md`

@@ -68,7 +68,7 @@ export function AdminShell({ children }: { children: ReactNode }) {
       <aside className="bg-ink text-white lg:sticky lg:top-0 lg:h-svh">
         <div className="flex h-16 items-center justify-between border-b border-white/10 px-5">
           <Link href="/admin" className="text-lg font-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">
-            촬영몬 관리자
+            CLIPBee 관리자
           </Link>
           <Badge label={String(pendingTotal)} tone="warning" />
         </div>

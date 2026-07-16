@@ -7,7 +7,7 @@ export default function NotFound() {
         href="/"
         className="text-2xl font-black text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
       >
-        촬영몬
+        CLIPBee
       </Link>
       <p className="mt-5 text-lg font-bold text-ink">페이지를 찾을 수 없습니다</p>
       <Link

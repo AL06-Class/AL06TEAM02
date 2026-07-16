@@ -33,7 +33,7 @@ export function generateMetadata({ params }: NoticeDetailPageProps): Metadata {
     title: `${notice.title} | 공지사항`,
     description: `${notice.createdAt} 공지사항`,
     openGraph: {
-      title: `${notice.title} | 촬영몬 공지사항`,
+      title: `${notice.title} | CLIPBee 공지사항`,
       description: `${notice.createdAt} 공지사항`,
       images: [PLACEHOLDER_IMAGES.default],
     },
