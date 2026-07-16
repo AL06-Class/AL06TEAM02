@@ -3,7 +3,7 @@ import { DocumentPage, type DocumentSection } from "@/app/_components/DocumentPa
 
 export const metadata: Metadata = {
   title: "개인정보처리방침",
-  description: "촬영몬 데모 서비스 개인정보 처리 기준",
+  description: "CLIPBee 데모 서비스 개인정보 처리 기준",
 };
 
 const sections: DocumentSection[] = [
