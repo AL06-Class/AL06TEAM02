@@ -54,9 +54,11 @@
 - radius 최댓값 8px, 카드 중첩 금지 (2026-07-06)
 - 브랜드 색상은 Primary Blue `#1276B1` + Accent Lime `#DFFE17` 조합 사용 (2026-07-15)
 - 공통 헤더 로고는 `public/images/brand/clipbee-logo.png`의 CLIPBee 워드마크 사용 (2026-07-15)
+- 브라우저 파비콘은 `app/icon.png`의 CLIPBee 캐릭터 원본 사용 (2026-07-16)
 
 ## 변경 이력
 
 - 2026-07-07: 최초 작성 — ui-components.md/design.md의 최소 기준 요약본, team2 design-system 형식 준용
 - 2026-07-14: 메인 컬러를 오렌지에서 블루·라임 조합으로 변경하고 접근성 대비 규칙 추가
 - 2026-07-15: Accent Lime을 `#DFFE17`로 변경하고 PC·모바일 헤더에 CLIPBee 로고 적용
+- 2026-07-16: CLIPBee 캐릭터 이미지를 브라우저 파비콘으로 적용
