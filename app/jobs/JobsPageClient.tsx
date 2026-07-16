@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { Filter } from "lucide-react";
-import { JobCard, JobFilterBox, JobRow } from "@/components/jobs";
+import { JOB_LIST_GRID_CLASS, JobCard, JobFilterBox, JobRow } from "@/components/jobs";
 import { SideBar } from "@/components/layout";
 import { AppliedFilterChips, type AppliedFilterChip } from "@/components/shared/AppliedFilterChips";
 import { SortSelect } from "@/components/shared/SortSelect";
@@ -92,7 +92,7 @@ export function JobsPageClient() {
         </div>
 
         <div className="hidden overflow-hidden rounded-md border border-line bg-surface shadow-card lg:block">
-          <div className="grid grid-cols-[140px_minmax(0,1fr)_200px_100px_110px_90px_90px] gap-3 border-b border-line bg-page px-3 py-3 text-xs font-bold text-muted">
+          <div className={`grid ${JOB_LIST_GRID_CLASS} gap-3 border-b border-line bg-page px-3 py-3 text-xs font-bold text-muted`}>
             <span>회사명</span>
             <span>제목</span>
             <span>분야·장비</span>

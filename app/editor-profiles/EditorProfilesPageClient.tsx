@@ -73,12 +73,6 @@ export function EditorProfilesPageClient() {
             <p className="mt-1 text-sm text-muted">검증된 편집 분야와 편집 가능 툴을 확인하세요 · 총 {desktopPage.totalItems}건</p>
           </div>
           <div className="flex flex-wrap justify-end gap-2">
-            <Link href="/editor-profiles/new" className="inline-flex h-10 items-center justify-center rounded-md border border-primary bg-primary px-3 text-sm font-semibold text-white">
-              편집자 프로필 등록
-            </Link>
-            <Link href="/profiles/new" className="hidden h-10 items-center justify-center rounded-md border border-line bg-surface px-3 text-sm font-semibold text-ink sm:inline-flex">
-              촬영자 프로필 등록
-            </Link>
             <Link href="/editor-profiles/search" className="inline-flex h-10 items-center gap-2 rounded-md border border-line bg-surface px-3 text-sm font-semibold text-ink shadow-card lg:hidden">
               <Filter aria-hidden className="h-4 w-4" />
               필터
