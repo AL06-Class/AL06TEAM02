@@ -45,7 +45,7 @@ export function ReportModal({ open, onClose }: ReportModalProps) {
       status: "접수",
       targetType: inferTargetType(),
       targetUrl: typeof window === "undefined" ? "/" : window.location.pathname,
-      targetTitle: typeof document === "undefined" ? "신고 대상" : document.title.replace(" | 촬영몬", "") || "신고 대상",
+      targetTitle: typeof document === "undefined" ? "신고 대상" : document.title.replace(" | CLIPBee", "") || "신고 대상",
       reason,
       detail: detail.trim(),
       reporter: reporterName(role),
@@ -107,7 +107,7 @@ function inferTargetType(): ReportTargetType {
 
 function reporterName(role: string) {
   if (role === "personal") return "홍O민";
-  if (role.startsWith("company")) return "촬영몬스튜디오";
+  if (role.startsWith("company")) return "CLIPBee 스튜디오";
   if (role === "admin") return "관리자";
   return "비회원";
 }

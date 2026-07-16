@@ -65,7 +65,7 @@ export default function Home() {
         <div className="relative min-h-[180px] overflow-hidden rounded-md bg-ink lg:min-h-[230px]">
           <Image
             src={resolveImagePath("https://images.pexels.com/photos/1117132/pexels-photo-1117132.jpeg?auto=compress&cs=tinysrgb&h=650&w=940", "banner")}
-            alt="촬영몬 프리미엄 배너"
+            alt="CLIPBee 프리미엄 배너"
             fill
             priority
             sizes="(max-width: 1024px) 100vw, 880px"

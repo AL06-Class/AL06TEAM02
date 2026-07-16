@@ -1,6 +1,6 @@
-# 촬영몬 (Shootmon)
+# CLIPBee
 
-촬영 의뢰자와 촬영자/촬영팀을 연결하는 구인구직 플랫폼 데모.
+촬영·편집 의뢰자와 촬영자·촬영팀·편집자를 연결하는 구인구직 플랫폼 데모.
 Next.js(App Router) + TypeScript + Tailwind, **백엔드 없이 샘플 데이터 + localStorage**로 전 기능을 시연한다.
 
 ## 팀원 온보딩 (Mac · Windows 공통)
@@ -59,9 +59,10 @@ git push origin 이름/작업명   # → GitHub에서 develop으로 PR
 
 - **좌하단 블루 원형 버튼 = 데모 역할 스위처**: 비회원 / 개인 / 기업(미인증) / 기업(인증) / 관리자를 즉시 전환. 열람권·자동점프 크레딧 mock 토글 포함
 - 역할별 시연 포인트:
-  - 기업(인증) + 열람권 ON → 프로필 상세에서 연락처 열림 + 제안 보내기
+  - 기업(인증) + 열람권 ON → 촬영자·편집자 프로필 상세에서 연락처 열림 + 제안 보내기
   - 관리자 → `/admin` 진입 가능 (다른 역할은 404), 공고/인증 승인·반려가 사용자 화면에 즉시 반영
-  - 공고 등록(`/jobs/new`) → 심사중 → 관리자 승인 → 목록 노출까지 전 플로우 동작
+  - 촬영자·편집자 공고 등록(`/jobs/new`, `/editor-jobs/new`) → 심사중 → 관리자 승인 → 목록 노출까지 전 플로우 동작
+  - 촬영자·편집자 프로필 등록(`/profiles/new`, `/editor-profiles/new`)과 마이페이지 관리 흐름 동작
 
 ## 협업 규칙 (요약)
 
@@ -109,11 +110,11 @@ git push origin 이름/작업명   # → GitHub에서 develop으로 PR
 ## 폴더 구조
 
 ```
-app/            라우트 (57개 화면)
+app/            라우트 (66개 page.tsx)
 components/     ui(공용 킷) · layout · shared · 도메인별
-data/           샘플 데이터 160건 (jobs/profiles/products/posts/notices/members/pricing)
+data/           촬영·편집 모집/프로필, 상품, 게시글, 공지, 회원, 가격 샘플 데이터
 lib/            types · auth-context(역할 스위처) · policy(정책 상수) · filters · format
 docs/           설계 문서 (위 표 참조)
-public/images/  이미지 프리셋 (현재 플레이스홀더 SVG)
+public/images/  CLIPBee 브랜드 이미지와 이미지 프리셋
 output/         검증 스크린샷
 ```

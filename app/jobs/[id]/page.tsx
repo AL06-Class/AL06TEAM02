@@ -28,7 +28,7 @@ export function generateMetadata({ params }: JobDetailProps): Metadata {
     title: job.title,
     description: `${job.companyName} · ${job.region} · ${job.payAmount}`,
     openGraph: {
-      title: `${job.title} | 촬영몬`,
+      title: `${job.title} | CLIPBee`,
       description: job.description,
       images: [resolveImagePath(job.image)],
     },
@@ -133,7 +133,7 @@ export default function JobDetailPage({ params }: JobDetailProps) {
           </section>
 
           <div className="rounded-md border border-warning bg-warning-soft p-4 text-sm text-warning">
-            촬영몬은 공고 정보의 사실 여부와 계약 조건을 보증하지 않습니다. 계약 전 조건과 안전을 직접 확인하세요.
+            CLIPBee는 공고 정보의 사실 여부와 계약 조건을 보증하지 않습니다. 계약 전 조건과 안전을 직접 확인하세요.
           </div>
 
           <Link href="/jobs" className="inline-flex items-center gap-2 text-sm font-semibold text-muted hover:text-primary">

@@ -23,7 +23,7 @@ function contactItems(profile: NonNullable<ReturnType<typeof findEditorProfile>>
   const suffix = String(profile.id).padStart(2, "0");
   return [
     { label: "휴대폰", masked: "010-****-****", value: `010-62${suffix}-84${suffix}` },
-    { label: "이메일", masked: "****@***", value: `editor${suffix}@shootmon.example.kr` },
+    { label: "이메일", masked: "****@***", value: `editor${suffix}@clipbee.example.kr` },
     { label: "포트폴리오", masked: "https://***", value: `https://portfolio.example.kr/editor-${suffix}` },
     { label: "활동 지역", masked: "상세 위치 비공개", value: `${profile.region} · 원격 협업 ${profile.travelAvailable ? "가능" : "협의"}` },
   ];
@@ -36,7 +36,7 @@ export function generateMetadata({ params }: EditorProfileDetailProps): Metadata
     title: `${profile.title} | 편집자 프로필`,
     description: `${profile.maskedName} · ${profile.region} · ${profile.desiredPay}`,
     openGraph: {
-      title: `${profile.title} | 촬영몬`,
+      title: `${profile.title} | CLIPBee`,
       description: profile.intro,
       images: [resolveImagePath(profile.cover, "profile")],
     },

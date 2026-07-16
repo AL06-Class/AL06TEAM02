@@ -11,8 +11,8 @@ import { isActivePath, mainNavItems, utilityItems } from "./navigation";
 const roleName = {
   guest: "비회원",
   personal: "홍O민님",
-  "company-unverified": "촬영몬스튜디오님",
-  "company-verified": "촬영몬스튜디오님",
+  "company-unverified": "CLIPBee 스튜디오님",
+  "company-verified": "CLIPBee 스튜디오님",
   admin: "관리자님",
 };
 

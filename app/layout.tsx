@@ -6,15 +6,15 @@ import { AuthProvider } from "@/lib/auth-context";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://shootmon.example.kr"),
+  metadataBase: new URL("https://al06team2.web.app"),
   title: {
-    default: "촬영몬",
-    template: "%s | 촬영몬",
+    default: "CLIPBee",
+    template: "%s | CLIPBee",
   },
-  description: "촬영 의뢰자와 촬영자를 연결하는 촬영몬",
+  description: "촬영·편집 의뢰자와 촬영자·촬영팀·편집자를 연결하는 CLIPBee",
   openGraph: {
-    title: "촬영몬",
-    description: "촬영 의뢰자와 촬영자를 연결하는 촬영몬",
+    title: "CLIPBee",
+    description: "촬영·편집 의뢰자와 촬영자·촬영팀·편집자를 연결하는 CLIPBee",
     images: ["/images/presets/placeholders/shootmon-placeholder-camera-01.svg"],
   },
 };

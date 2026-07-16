@@ -39,7 +39,7 @@ const faqGroups = {
       ["스토어 상품 등록은 누가 할 수 있나요?", "개인회원과 기업회원 모두 등록할 수 있으며, 운영 검수 후 공개됩니다."],
       ["디지털 상품도 판매할 수 있나요?", "프리셋, 계약서 템플릿, 가이드 문서처럼 촬영 업무와 직접 관련된 상품만 허용합니다."],
       ["상품 신고는 어떻게 처리되나요?", "상품 상세 신고가 접수되면 허위 설명, 권리 침해, 거래 위험 여부를 운영팀이 확인합니다."],
-      ["거래는 촬영몬이 직접 중개하나요?", "1차 데모 범위에서는 상품 정보 게시와 문의 흐름 중심이며 실제 정산 기능은 포함하지 않습니다."],
+      ["거래는 CLIPBee가 직접 중개하나요?", "1차 데모 범위에서는 상품 정보 게시와 문의 흐름 중심이며 실제 정산 기능은 포함하지 않습니다."],
     ],
   },
   report: {
@@ -92,7 +92,7 @@ export function SupportClient() {
 
         <aside className="space-y-3">
           <InfoPanel icon={<Clock3 aria-hidden className="h-5 w-5" />} title="운영시간" lines={["평일 10:00~18:00", "점심 12:30~13:30", "주말·공휴일 휴무"]} />
-          <InfoPanel icon={<MessageCircle aria-hidden className="h-5 w-5" />} title="카카오 채널" lines={["카카오톡에서 촬영몬 검색", "긴급 신고는 1:1 문의와 함께 접수"]} />
+          <InfoPanel icon={<MessageCircle aria-hidden className="h-5 w-5" />} title="카카오 채널" lines={["카카오톡에서 CLIPBee 검색", "긴급 신고는 1:1 문의와 함께 접수"]} />
         </aside>
       </section>
 

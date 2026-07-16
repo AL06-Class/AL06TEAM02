@@ -417,7 +417,7 @@ export function MyPageClient({ page, searchJobId = null }: { page: MyPageKey; se
   const accountFallback = useMemo<AccountState>(() => ({ email: currentPersonal.email, phone: "010-1234-5678", nickname: currentPersonal.nickname }), []);
   const companyFallback = useMemo(createCompanyFallback, []);
   const jobsFallback = useMemo(createJobsFallback, []);
-  const bannerFallback = useMemo<BannerState>(() => ({ clickUrl: "https://shootmon.example.kr", creativeStatus: "검수중", clicks: 124 }), []);
+  const bannerFallback = useMemo<BannerState>(() => ({ clickUrl: "https://al06team2.web.app", creativeStatus: "검수중", clicks: 124 }), []);
 
   const [profileState, setProfileState] = useStoredState(MYPAGE_KEYS.profile, profileFallback);
   const [portfolioState, setPortfolioState] = useStoredState(MYPAGE_KEYS.portfolio, portfolioFallback);

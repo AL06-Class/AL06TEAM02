@@ -1,7 +1,7 @@
 export const notices = [
   {
     id: 1,
-    title: "촬영몬 정식 오픈 안내",
+    title: "CLIPBee 정식 오픈 안내",
     createdAt: "2026-05-02",
     views: 8420,
     isPinned: true

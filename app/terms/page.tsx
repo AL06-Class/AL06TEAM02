@@ -3,7 +3,7 @@ import { DocumentPage, type DocumentSection } from "@/app/_components/DocumentPa
 
 export const metadata: Metadata = {
   title: "회원약관",
-  description: "촬영몬 데모 서비스 회원약관",
+  description: "CLIPBee 데모 서비스 회원약관",
 };
 
 const sections: DocumentSection[] = [
@@ -11,7 +11,7 @@ const sections: DocumentSection[] = [
     id: "purpose",
     title: "목적",
     paragraphs: [
-      "이 약관은 촬영몬랩 주식회사(가칭)가 제공하는 촬영몬 데모 서비스의 이용 조건과 회원의 기본 권리·의무를 설명합니다.",
+      "이 약관은 CLIPBee 주식회사(가칭)가 제공하는 CLIPBee 데모 서비스의 이용 조건과 회원의 기본 권리·의무를 설명합니다.",
       "본 약관 문구는 시연용 표준 템플릿이며 실제 서비스 운영을 위한 확정 약관이 아닙니다.",
     ],
   },
@@ -28,7 +28,7 @@ const sections: DocumentSection[] = [
     title: "게시물과 거래",
     paragraphs: [
       "회원이 등록한 공고, 프로필, 상품, 게시글은 운영 기준에 따라 검수되거나 숨김 처리될 수 있습니다.",
-      "촬영몬은 데모 범위에서 거래 당사자가 아니며, 계약 조건과 결과물 범위는 회원 간 직접 확인해야 합니다.",
+      "CLIPBee는 데모 범위에서 거래 당사자가 아니며, 계약 조건과 결과물 범위는 회원 간 직접 확인해야 합니다.",
     ],
   },
   {
@@ -50,5 +50,5 @@ const sections: DocumentSection[] = [
 ];
 
 export default function TermsPage() {
-  return <DocumentPage title="회원약관" description="촬영몬 데모 서비스 이용 조건과 회원 책임을 안내합니다." sections={sections} />;
+  return <DocumentPage title="회원약관" description="CLIPBee 데모 서비스 이용 조건과 회원 책임을 안내합니다." sections={sections} />;
 }

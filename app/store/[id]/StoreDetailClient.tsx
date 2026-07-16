@@ -57,7 +57,7 @@ export function StoreDetailClient({ id }: { id: string }) {
             <p className="mt-3 text-muted">{commonRefund}</p>
           </Section>
           <div className="rounded-md border border-warning bg-warning-soft p-4 text-sm font-semibold text-warning">
-            촬영몬은 거래 당사자가 아니며, 서비스 결과물·권리 범위·계약 조건은 판매자와 직접 확인해야 합니다.
+            CLIPBee는 거래 당사자가 아니며, 서비스 결과물·권리 범위·계약 조건은 판매자와 직접 확인해야 합니다.
           </div>
           <Link href="/store" className="inline-flex items-center gap-2 text-sm font-semibold text-muted hover:text-primary">
             <ArrowLeft aria-hidden className="h-4 w-4" />

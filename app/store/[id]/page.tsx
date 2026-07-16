@@ -22,7 +22,7 @@ export function generateMetadata({ params }: StoreDetailPageProps): Metadata {
     title: `${product.name} | 스토어`,
     description: `${product.sellerName} · ${product.price.toLocaleString("ko-KR")}원 · ${product.category}`,
     openGraph: {
-      title: `${product.name} | 촬영몬 스토어`,
+      title: `${product.name} | CLIPBee 스토어`,
       description: product.serviceScope,
       images: [resolveImagePath(product.image, "store")],
     },
